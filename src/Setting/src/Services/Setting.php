@@ -33,8 +33,8 @@ class Setting
         } else {
             $value = $this->getValue($key, $default);
         }
-
-        return $value ? $value : $default;
+        
+        return isset($value) ? $value : $default;
     }
 
     private function setValue($key_item, $value)

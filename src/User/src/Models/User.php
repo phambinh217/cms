@@ -287,6 +287,6 @@ class User extends AppUser implements Query
             return $this->avatar;
         }
         
-        return setting('default-avatar', config('cms.default-avatar'));
+        return setting('default-avatar');
     }
 }
