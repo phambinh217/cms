@@ -40,7 +40,7 @@ class Module
                 $info->icon = config('cms.default-icon');
             }
 
-            $this->modules->push($info);
+            $this->modules->push(new ModuleItem($info));
         }
     }
 
@@ -55,5 +55,58 @@ class Module
         if (! method_exists($this, $method)) {
             return call_user_func_array([$this->modules, $method], $params);
         }
+    }
+}
+
+class ModuleItem
+{
+    public function __construct($data)
+    {
+        $this->repo = collect();
+        foreach ($data as $property => $value) {
+            $this->{$property} = $value;
+        }
+    }
+
+    public function checkUpdate()
+    {
+        if (! $this->isVersionControl()) {
+            return false;
+        }
+
+        $key = 'module-'. $this->alias.'-sha-comit';
+        if (! $setting = \DB::table('settings')->where('key', $key)->first()) {
+            return true;
+        } else {
+            $repo = $this->getRepoCommit(['since' => changeFormatDate($setting->updated_at, DTF_DB, 'Y-m-d\TH:i:s\Z')]);
+
+            if (! $repo->first()) {
+                return false;
+            }
+
+            $sha = $repo->first()->sha;
+
+            return $sha != $setting->value;
+        }
+    }
+
+    public function isVersionControl()
+    {
+        return isset($this->github_repo);
+    }
+
+    public function getRepoCommit($params = [])
+    {
+        if (property_exists($this, 'github_repo')) {
+            $res = \Curl::to('https://api.github.com/repos/'.$this->github_repo.'/commits')
+                ->withData($params)
+                ->withOption('USERAGENT', 'spider')
+                ->asJson()
+                ->get();
+
+            return collect($res);
+        }
+
+        return null;
     }
 }

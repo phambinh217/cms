@@ -64,6 +64,9 @@
 				                        </li>
 				                        <li>Tác giả: {{ $module_item->author or 'Trống' }}</li>
 				                        <li>Phiên bản: {{ $module_item->version or 'Trống' }}</li>
+				                        @if ($repo = $module_item->getRepoCommit(['since' => date('Y-m-d\T\00:00:00\Z')]))
+											<li>Sha: <code>{{ $repo->first()->sha }}</code></li>
+				                        @endif
 				                    </ul>
 				                </div>
 				            </div>

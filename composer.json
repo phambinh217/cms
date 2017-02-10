@@ -12,7 +12,8 @@
     ],
     "require": {
         "phambinh/laravel": "dev-master",
-        "studio-42/elfinder": "^2.1.0"
+        "studio-42/elfinder": "^2.1.0",
+        "ixudra/curl": "6.*"
     },
     "autoload": {
         "psr-4": {

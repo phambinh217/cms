@@ -31,12 +31,15 @@ class ModuleServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->singleton(\Phambinh\Cms\Core\Services\Module::class, \Phambinh\Cms\Core\Services\Module::class);
+        $this->app->register(\Ixudra\Curl\CurlServiceProvider::class);
+
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
         $loader->alias('Module', \Phambinh\Cms\Core\Support\Facades\Module::class);
         $loader->alias('HomeController', \Phambinh\Cms\Core\Http\Controllers\HomeController::class);
         $loader->alias('AppController', \Phambinh\Cms\Core\Http\Controllers\AppController::class);
         $loader->alias('ApiController', \Phambinh\Cms\Core\Http\Controllers\ApiController::class);
-        $this->app->singleton(\Phambinh\Cms\Core\Services\Module::class, \Phambinh\Cms\Core\Services\Module::class);
+        $loader->alias('Curl', \Ixudra\Curl\Facades\Curl::class);
 
         if (config('cms.providers')) {
             $this->moduleProviders = config('cms.providers');

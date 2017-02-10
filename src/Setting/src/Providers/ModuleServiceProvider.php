@@ -70,7 +70,7 @@ class ModuleServiceProvider extends ServiceProvider
                 'parent'    =>  '0',
             ]);
 
-             \AdminMenu::register('setting.appearance', [
+            \AdminMenu::register('setting.appearance', [
                 'label'     => 'Cài đặt giao diện',
                 'parent'    =>  'setting',
                 'url'       =>  route('admin.setting.appearance.menu'),
@@ -91,6 +91,12 @@ class ModuleServiceProvider extends ServiceProvider
                 'icon'      =>  'icon-settings',
             ]);
 
+            \AdminMenu::register('setting.check-version', [
+                'label'     => 'Kiểm tra phiên bản',
+                'parent'    =>  'setting',
+                'url'       =>  route('admin.setting.check-version'),
+                'icon'      =>  'icon-drop',
+            ]);
         });
     }
 }
