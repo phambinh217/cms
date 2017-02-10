@@ -1,0 +1,34 @@
+{
+    "name": "phambinh/cms",
+    "description": "Phambinhcms base content manage system for laravel",
+    "homepage": "https://github.com/phambinh217/cms",
+    "license": "MIT",
+    "version": "1.0.0",
+    "authors": [
+        {
+            "name": "phambinh217",
+            "email": "phambinh217@gmail.com"
+        }
+    ],
+    "require": {
+        "phambinh/laravel": "dev-master",
+        "studio-42/elfinder": "^2.1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Phambinh\\Cms\\Admin\\": "Admin/src/",
+            "Phambinh\\Cms\\Api\\": "Api/src/",
+            "Phambinh\\Cms\\Authenticate\\": "Authenticate/src/",
+            "Phambinh\\Cms\\Contact\\": "Contact/src/",
+            "Phambinh\\Cms\\File\\": "File/src/",
+            "Phambinh\\Cms\\HomeOnce\\": "HomeOnce/src/",
+            "Phambinh\\Cms\\Mail\\": "Mail/src/",
+            "Phambinh\\Cms\\ModuleControl\\": "ModuleControl/src/",
+            "Phambinh\\Cms\\Profile\\": "Profile/src/",
+            "Phambinh\\Cms\\Setting\\": "Setting/src/",
+            "Phambinh\\Cms\\Tool\\": "Tool/src/",
+            "Phambinh\\Cms\\User\\": "User/src/"
+        }
+    },
+    "minimum-stability": "dev"
+}

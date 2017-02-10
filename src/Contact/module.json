@@ -1,0 +1,8 @@
+{
+    "alias": "contact",
+    "name": "Liên hệ",
+    "author": "Phambinh",
+    "description": "Tạo form liên hệ đến quản trị viên. Nội dung sẽ được gửi đến mail",
+    "version": "1.0",
+    "autoload": "psr-4"
+}

@@ -1,0 +1,8 @@
+{
+    "alias": "file",
+    "name": "Quản lí tệp tin",
+    "author": "Phambinh",
+    "description": "Quản lí các tệp tin được tải lên và một số hàm cơ bản làm việc với tệp tin",
+    "version": "1.0",
+    "autoload": "psr-4"
+}

@@ -1,0 +1,8 @@
+{
+    "alias": "tool",
+    "name": "Công cụ",
+    "author": "Phambinh",
+    "description": "Các công cụ tiên ích cho website",
+    "version": "1.0",
+    "autoload": "psr-4"
+}

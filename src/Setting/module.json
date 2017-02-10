@@ -1,0 +1,8 @@
+{
+    "alias": "setting",
+    "name": "Cài đặt",
+    "author": "Phambinh",
+    "description": "Cung cấp chức năng cài đặt website",
+    "version": "1.0",
+    "autoload": "psr-4"
+}
