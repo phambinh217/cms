@@ -30,6 +30,5 @@
             "Phambinh\\Cms\\Tool\\": "src/Tool/src/",
             "Phambinh\\Cms\\User\\": "src/User/src/"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }
