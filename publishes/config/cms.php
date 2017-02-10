@@ -2,9 +2,9 @@
 
 return [
     'dashboard-view-path'    =>    'Admin::admin.dashboard',
-    'thumbnail-default' => '<yourdomain>/uploads/no-product-image.png',
+    'default-thumbnail' => '<yourdomain>/uploads/no-product-image.png',
     'default-avatar' => '<yourdomain>/uploads/avatars/no-avatar.jpg',
-    'default-icon' => '<yourdomain>/uploads/icons/no-icon.png',
+    'default-icon' => '<yourdomain>/public/uploads/icons/no-icon.png',
 
     'providers' => [
         /**

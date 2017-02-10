@@ -17,7 +17,7 @@
 			var user = new findUser({
 				el: '.find-user',
 				url: '{{ api_url('v1/user') }}',
-				defaultAvatar: '{{ setting('default-avatar') }}',
+				defaultAvatar: '{{ setting('default-avatar', config('cms.default-avatar')) }}',
 				placeholder: 'Tìm kiếm',
 			});
 		});
