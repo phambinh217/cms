@@ -21,6 +21,12 @@ class ModuleController extends AdminController
 
     public function update(Request $request, Schedule $schedule, $alias)
     {
-        $schedule->exec('composer self-update')->daily();
+        $module = \Module::where('alias', $alias)->first();
+        $module->markAsUpdated();
+
+        return response()->json([
+            'redirect' => route('admin.module-control.module.index'),
+            'message' => // exec('cd core && composer update '.$module->packagist_name),
+        ]);
     }
 }

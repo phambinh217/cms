@@ -61,12 +61,14 @@
 				                    <ul class="info unstyle-list">
 				                        <li class="name">
 				                        	<a href=""><strong>{{ title_case($module_item->name) }}</strong></a>
+				                        	@if ($module_item->checkUpdate())
+					                        	<a href="#" data-alias="{{ $module_item->alias }}" class="label label-sm label-info update-module"> Cập nhật
+					                        		<i class="fa fa-undo"></i>
+					                        	</a>
+				                        	@endif
 				                        </li>
 				                        <li>Tác giả: {{ $module_item->author or 'Trống' }}</li>
 				                        <li>Phiên bản: {{ $module_item->version or 'Trống' }}</li>
-				                        @if ($repo = $module_item->getRepoCommit(['since' => date('Y-m-d\T\00:00:00\Z')]))
-											<li>Sha: <code>{{ $repo->first()->sha }}</code></li>
-				                        @endif
 				                    </ul>
 				                </div>
 				            </div>
@@ -100,6 +102,33 @@
 	
 @endpush
 
-@push('js_footer')
 
+@push('css')
+	<link href="{{ url('assets/admin/global/plugins/bootstrap-toastr/toastr.min.css')}}" rel="stylesheet" type="text/css" />
+	<link href="{{ url('assets/admin/global/plugins/icheck/skins/all.css') }}" rel="stylesheet" type="text/css" />
+@endpush
+
+@push('js_footer')
+	<script type="text/javascript" src="{{ url('assets/admin/global/plugins/bootstrap-toastr/toastr.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url('assets/admin/global/plugins/icheck/icheck.min.js')}} "></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.update-module').click(function(e){
+				e.preventDefault();
+				var alias = $(this).attr('data-alias');
+				$.ajax({
+					url: '{{ admin_url('module-control/module') }}/' + alias,
+					type: 'post',
+					dataType: 'json',
+					data: {
+						_token: csrfToken(),
+						_method: 'PUT',
+					},
+					success: function(res) {
+						alert('Cập nhật thành công');
+					},
+				});
+			});
+		})
+	</script>
 @endpush

@@ -90,6 +90,12 @@ class ModuleItem
         }
     }
 
+    public function markAsUpdated()
+    {
+        $sha = $this->repo->first()->sha;
+        setting()->sync('module-'. $this->alias.'-sha-comit', $sha);
+    }
+
     public function isVersionControl()
     {
         return isset($this->github_repo);
@@ -104,7 +110,7 @@ class ModuleItem
                 ->asJson()
                 ->get();
 
-            return collect($res);
+            return $this->repo = collect($res);
         }
 
         return null;
