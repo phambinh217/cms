@@ -37,6 +37,11 @@ class Menu extends Model implements Query
         'orderby'      =>  'id.desc',
     ];
 
+    public function items()
+    {
+        return $this->hasMany('Phambinh\Cms\Setting\Models\MenuItem');
+    }
+
     public function scopeOfQuery($query, $args = [])
     {
         $query->baseQuery($args);

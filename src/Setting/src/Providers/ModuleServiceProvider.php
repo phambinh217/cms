@@ -91,12 +91,12 @@ class ModuleServiceProvider extends ServiceProvider
                 'icon'      =>  'icon-settings',
             ]);
 
-            \AdminMenu::register('setting.check-version', [
-                'label'     => 'Kiểm tra phiên bản',
-                'parent'    =>  'setting',
-                'url'       =>  route('admin.setting.check-version'),
-                'icon'      =>  'icon-drop',
-            ]);
+            // \AdminMenu::register('setting.check-version', [
+            //     'label'     => 'Kiểm tra phiên bản',
+            //     'parent'    =>  'setting',
+            //     'url'       =>  route('admin.setting.check-version'),
+            //     'icon'      =>  'icon-drop',
+            // ]);
         });
     }
 }

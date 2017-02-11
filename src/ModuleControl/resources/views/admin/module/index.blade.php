@@ -111,24 +111,4 @@
 @push('js_footer')
 	<script type="text/javascript" src="{{ url('assets/admin/global/plugins/bootstrap-toastr/toastr.min.js') }}"></script>
 	<script type="text/javascript" src="{{ url('assets/admin/global/plugins/icheck/icheck.min.js')}} "></script>
-	<script type="text/javascript">
-		$(function(){
-			$('.update-module').click(function(e){
-				e.preventDefault();
-				var alias = $(this).attr('data-alias');
-				$.ajax({
-					url: '{{ admin_url('module-control/module') }}/' + alias,
-					type: 'post',
-					dataType: 'json',
-					data: {
-						_token: csrfToken(),
-						_method: 'PUT',
-					},
-					success: function(res) {
-						alert('Cập nhật thành công');
-					},
-				});
-			});
-		})
-	</script>
 @endpush

@@ -83,6 +83,9 @@
 													<a href="#{{ str_slug($menu_item['name']) }}" data-toggle="tab" aria-expanded="true"> {{ $menu_item['name'] }} </a>
 												</li>
 											@endforeach
+											<li>
+												<a href="#custom-link" data-toggle="tab" aria-expanded="true">Liên kết</a>
+											</li>
 										</ul>
 									</div>
 								</div>
@@ -107,6 +110,27 @@
 								                </form>
 											</div>
 										@endforeach
+										<div class="tab-pane " id="custom-link">
+											<form class="ajax-form" method="POST" :action="'{{ admin_url('setting/appearance/menu') }}/'+menu.id+'/default'">
+												<div class="form-body" style="padding: 15px">
+													{{ csrf_field() }}
+													<input type="hidden" name="type" value="custom-link">
+													<div class="form-group">
+														<label class="control-lalel">Tên Menu</label>
+														<input name="menu_item[title]" type="text" class="form-control" />
+													</div>
+													<div class="form-group">
+														<label class="control-lalel">Url</label>
+														<input name="menu_item[url]" type="text" class="form-control" />
+													</div>
+							                    </div>
+							                    <div class="form-actions util-btn-margin-bottom-5" style="padding: 15px">
+							                    	<button class="btn btn-primary full-width-xs">
+							                    		<i class="fa fa-plus"></i> Thêm
+							                    	</button>
+							                    </div>
+							                </form>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -122,46 +146,7 @@
 								<div class="portlet-body">
 									<div class="dd" id="nestable_list_1">
 										<ol class="dd-list">
-											<li class="dd-item" data-id="1">
-												<div class="dd-handle"> Item 1 </div>
-											</li>
-											<li class="dd-item" data-id="2">
-												<div class="dd-handle"> Item 2 </div>
-												<ol class="dd-list">
-													<li class="dd-item" data-id="3">
-														<div class="dd-handle"> Item 3 </div>
-													</li>
-													<li class="dd-item" data-id="4">
-														<div class="dd-handle"> Item 4 </div>
-													</li>
-													<li class="dd-item" data-id="5">
-														<div class="dd-handle"> Item 5 </div>
-														<ol class="dd-list">
-															<li class="dd-item" data-id="6">
-																<div class="dd-handle"> Item 6 </div>
-															</li>
-															<li class="dd-item" data-id="7">
-																<div class="dd-handle"> Item 7 </div>
-															</li>
-															<li class="dd-item" data-id="8">
-																<div class="dd-handle"> Item 8 </div>
-															</li>
-														</ol>
-													</li>
-													<li class="dd-item" data-id="9">
-														<div class="dd-handle"> Item 9 </div>
-													</li>
-													<li class="dd-item" data-id="10">
-														<div class="dd-handle"> Item 10 </div>
-													</li>
-												</ol>
-											</li>
-											<li class="dd-item" data-id="11">
-												<div class="dd-handle"> Item 11 </div>
-											</li>
-											<li class="dd-item" data-id="12">
-												<div class="dd-handle"> Item 12 </div>
-											</li>
+											<li v-for="item_item in getMenuItems(menu_id)" :menu_item="item_item" :item="getMenuItems(menu_id)" v-if="item_item.parent_id == '0'" is="menuItemCpn"></li>
 										</ol>
 									</div>
 								</div>
@@ -241,13 +226,20 @@
 
 @push('html_footer')
 	<script type="text/x-template" id="menu-item-cpn">
-		
+		<li class="dd-item" :data-id="menu_item.id">
+			<div class="dd-handle"> @{{ menu_item.title }} </div>
+			<ol v-if="hasChild()" class="dd-list" >
+				<li v-for="item_item in item" :menu_item="item_item" :item="item" v-if="item_item.parent_id == menu_item.id" is="menuItemCpn"></li>
+			</ol>
+		</li>
 	</script>
 @endpush
 
 @push('js_footer')
 	<script type="text/javascript" src="{{ url('assets/admin/global/plugins/jquery-form/jquery.form.min.js') }}"></script>
     <script type="text/javascript" src="{{ url('assets/admin/global/plugins/bootstrap-toastr/toastr.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url('assets/admin/global/plugins/jquery-nestable/jquery.nestable.js') }}"></script>
+    {{-- <script type="text/javascript" src="{{ url('assets/admin/pages/scripts/ui-nestable.min.js') }}"></script> --}}
 	<script type="text/javascript" src="{{ url('assets/admin/global/plugins/vuejs/js/vue.js') }}"></script>
 	<script type="text/javascript">
 		$('#create-slug').click(function() {
@@ -266,10 +258,31 @@
 			}
 		});
 
+		Vue.component('menuItemCpn', {
+			template: '#menu-item-cpn',
+			props: ['menu_item', 'item'],
+			data: function() {
+				return {};
+			},
+			methods: {
+				hasChild: function() {
+					var has = false;
+					var item_id = this.menu_item.id;
+					this.item.forEach(function(item, index){
+						if (item.parent_id == item_id) {
+							has = true;
+						}
+					});
+					return has;
+				},
+			},
+		});
+
 		var appMenu = new Vue({
 			el: '#app-menu',
 			data: {
 				menu: {!! ! $menus->isEmpty() ? $menus->first()->toJson() : "[]" !!},
+				item: [],
 				menu_id: {!! ! $menus->isEmpty() ? $menus->first()->id : -1 !!},
 				all_menu: {!! ! $menus->isEmpty() ? $menus->toJson() : "[]" !!},
 				all_item: {!! ! $menu_items->isEmpty() ? $menu_items->toJson() : "[]" !!},
@@ -283,6 +296,16 @@
 						}
 					})[0];
 					this.menu_id = this.menu.id;
+				},
+
+				getMenuItems: function(menu_id) {
+					var item = this.all_item.filter(function(item, index){
+						if (item.menu_id == menu_id) {
+							return item;
+						}
+					});
+					this.item = item;
+					return item;
 				},
 			},
 		});

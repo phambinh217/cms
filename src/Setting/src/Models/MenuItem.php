@@ -15,7 +15,15 @@ class MenuItem extends Model implements Query
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        
+        'title',
+        'url',
+        'menu_id',
+        'parent_id',
+        'object_id',
+        'type',
+        'icon',
+        'css_class',
+        'order',
     ];
 
      /**
@@ -35,6 +43,11 @@ class MenuItem extends Model implements Query
     protected static $defaultOfQuery = [
         'orderby'      =>  'id.desc',
     ];
+
+    public function menu()
+    {
+        return $this->belongTo('Phambinh\Cms\Setting\Models\Menu');
+    }
 
     public function scopeOfQuery($query, $args = [])
     {

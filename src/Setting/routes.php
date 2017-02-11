@@ -16,6 +16,7 @@ Route::group(['module' => 'setting', 'namespace' => 'Phambinh\Cms\Setting\Http\C
     Route::get('appearance/menu', 'appearanceController@menu')->name('admin.setting.appearance.menu');
     Route::post('appearance/menu', 'appearanceController@menuStore')->name('admin.setting.appearance.menu.store');
     Route::post('appearance/menu/{id}', 'appearanceController@menuAdd')->name('admin.setting.appearance.menu.add');
+    Route::post('appearance/menu/{id}/default', 'appearanceController@menuAddByDefault')->name('admin.setting.appearance.menu.add-default');
 
     Route::get('check-version', 'SettingController@checkVersion')->name('admin.setting.check-version');
 });

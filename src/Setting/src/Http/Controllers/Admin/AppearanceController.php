@@ -74,4 +74,25 @@ class AppearanceController extends AdminController
 
         return redirect()->back();
     }
+
+    public function menuAddByDefault(Request $request, $id)
+    {
+        $this->validate($request, [
+            'menu_item.title' => 'required',
+            'menu_item.url' => '',
+        ]);
+
+        $menu = Menu::find($id);
+        $menu->items()->create($request->input('menu_item'));
+
+        if ($request->ajax()) {
+            return response()->json([
+                'title' => 'Thành công',
+                'message' => 'Đã thêm vào menu',
+                'redirect' => route('admin.setting.appearance.menu'),
+            ]);
+        }
+
+        return redirect()->back();
+    }
 }
