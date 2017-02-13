@@ -16,7 +16,7 @@
 @endsection
 @section('content')
 	<div class="table-function-container">
-		<div class="portlet box default">
+		<div class="portlet light bordered">
 		    <div class="portlet-title">
 		        <div class="caption">
 		            <i class="fa fa-filter"></i> Bộ lọc kết quả

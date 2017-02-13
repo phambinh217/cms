@@ -69,20 +69,6 @@ class ModuleServiceProvider extends ServiceProvider
                 'url'       =>  route('admin.setting.general'),
                 'parent'    =>  '0',
             ]);
-
-            \AdminMenu::register('setting.appearance', [
-                'label'     => 'Cài đặt giao diện',
-                'parent'    =>  'setting',
-                'url'       =>  route('admin.setting.appearance.menu'),
-                'icon'      =>  'icon-grid',
-            ]);
-
-            \AdminMenu::register('setting.appearance.menu', [
-                'label'     => 'Menu',
-                'parent'    =>  'setting.appearance',
-                'url'       =>  route('admin.setting.appearance.menu'),
-                'icon'      =>  'icon-list',
-            ]);
             
             \AdminMenu::register('setting.general', [
                 'label'     => 'Cài đặt chung',
@@ -90,13 +76,6 @@ class ModuleServiceProvider extends ServiceProvider
                 'url'       =>  route('admin.setting.general'),
                 'icon'      =>  'icon-settings',
             ]);
-
-            // \AdminMenu::register('setting.check-version', [
-            //     'label'     => 'Kiểm tra phiên bản',
-            //     'parent'    =>  'setting',
-            //     'url'       =>  route('admin.setting.check-version'),
-            //     'icon'      =>  'icon-drop',
-            // ]);
         });
     }
 }

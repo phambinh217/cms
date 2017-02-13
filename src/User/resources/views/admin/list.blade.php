@@ -19,7 +19,7 @@
 
 @section('content')
 	<div class="table-function-container">
-		<div class="portlet box default filter">
+		<div class="portlet light bordered filter">
 		    <div class="portlet-title">
 		        <div class="caption">
 		            <i class="fa fa-filter"></i> Bộ lọc kết quả

@@ -55,20 +55,4 @@ class SettingController extends AdminController
 
         return redirect()->back();
     }
-
-    public function checkVersion()
-    {
-        // $url = 'https://api.github.com/repos/phambinh217/cms/commits?since=2017-02-10T00:00:00Z';
-        // $response = \Curl::to($url)
-        //     ->withOption('USERAGENT', 'spider')
-        //     ->asJson()
-        //     ->get();
-
-        // $data = array_first($response);
-
-        // dd($data->sha);
-
-        \Metatag::set('title', 'Kiểm tra phiên bản');
-        return view('Setting::admin.setting.check-version', $this->data);
-    }
 }
