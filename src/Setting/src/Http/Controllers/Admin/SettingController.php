@@ -17,6 +17,8 @@ class SettingController extends AdminController
         $this->data['home_title'] = setting('home-title');
         $this->data['home_description'] = setting('home-description');
         $this->data['home_keyword'] = setting('home-keyword');
+        $this->data['default_thumbnail'] = setting('default-thumbnail');
+        $this->data['default_avatar'] = setting('default-avatar');
         $this->data['logo'] = setting('logo', url('logo.png'));
 
         \Metatag::set('title', 'Cài đặt chung');
@@ -34,6 +36,8 @@ class SettingController extends AdminController
             'home_keyword' => '',
             'home_description' => '',
             'logo' => '',
+            'default_thumbnail' => '',
+            'default_avatar' => '',
         ]);
 
         setting()->sync('company-name', $request->input('company_name'));
@@ -45,6 +49,8 @@ class SettingController extends AdminController
         setting()->sync('home-description', $request->input('home_description'));
         setting()->sync('home-keyword', $request->input('home_keyword'));
         setting()->sync('logo', $request->input('logo'));
+        setting()->sync('default-avatar', $request->input('default_avatar'));
+        setting()->sync('default-thumbnail', $request->input('default_thumbnail'));
 
         if ($request->ajax()) {
             return response()->json([

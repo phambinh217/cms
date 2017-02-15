@@ -113,7 +113,7 @@ class Mail extends Model
             return $this->avatar;
         }
         
-        return setting('default-avatar', config('cms.default-avatar'));
+        return setting('default-avatar');
     }
 
     /**

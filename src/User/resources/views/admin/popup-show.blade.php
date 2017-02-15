@@ -15,7 +15,7 @@
                         	<span class="label label-sm label-info">{{ $user->role()->select('roles.name')->first()->name }}</span>
                         </h4>
                         <ul>
-                        	<li>Ngày sinh: {{ text_time_difference($user->birth) }}</li>
+                        	<li>Ngày sinh: {{ changeFormatDate($user->birth, DTF_DB, DF_DB) }}</li>
                         	<li>SĐT: {{ $user->phone }}</li>
                         	<li>Địa chỉ: {{ $user->address }}</li>
                         </ul>

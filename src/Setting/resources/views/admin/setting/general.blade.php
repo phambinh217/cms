@@ -87,6 +87,33 @@
 					</div>
 				</div>
 			</fieldset>
+			<fieldset>
+				<legend>Hình ảnh</legend>
+				<div class="form-group media-box-group">
+					<label class="control-lalel col-sm-3 pull-left">
+						Thumbnail mặc định
+					</label>
+					<div class="col-sm-9">
+						@include('Admin::admin.components.form-chose-media', [
+                            'name'              => 'default_thumbnail',
+                            'value'             => old('default_thumbnail', $default_thumbnail),
+                            'url_image_preview' => old('default_thumbnail', $default_thumbnail),
+                        ])
+					</div>
+				</div>
+				<div class="form-group media-box-group">
+					<label class="control-lalel col-sm-3 pull-left">
+						Avatar mặc định
+					</label>
+					<div class="col-sm-9">
+						@include('Admin::admin.components.form-chose-media', [
+                            'name'              => 'default_avatar',
+                            'value'             => old('default_thumbnail', $default_avatar),
+                            'url_image_preview' => old('default_thumbnail', $default_avatar),
+                        ])
+					</div>
+				</div>
+			</fieldset>
 		</div>
 		<div class="form-actions util-btn-margin-bottom-5">
 			<button class="btn btn-primary full-width-xs">

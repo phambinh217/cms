@@ -103,7 +103,7 @@ class UserController extends AdminController
         // Không thể tự chỉnh sửa thông tin của bản thân trong phương thức này
         // Sẽ tự đi vào trang cá nhân
         if ($user->isSelf($id)) {
-            return redirect(route('admin.profile'));
+            return redirect(route('admin.profile.show'));
         }
 
         $this->data['user_id'] = $id;

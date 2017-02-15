@@ -36,10 +36,7 @@
 		                        <div class="form-group">
 		                            <label class="control-label col-md-3">Tìm kiếm</label>
 		                            <div class="col-md-9">
-		                                @include('User::admin.components.form-find-user', [
-		                                	'name' 		=> 'id',
-		                                	'selected' 	=> isset($filter['id']) ? $filter['id'] : NULL,
-		                                ])
+		                                <input type="text" class="form-control" name="_keyword" value="{{ $filter['_keyword'] or '' }}" />
 		                            </div>
 		                        </div>
 		                        <div class="form-group">
