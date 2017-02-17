@@ -54,6 +54,6 @@ class ModuleServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        \Module::registerFromJsonFile('shop', __DIR__ .'/../../theme.json');
+        \Module::registerFromJsonFile('home-once', __DIR__ .'/../../theme.json');
     }
 }

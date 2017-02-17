@@ -54,7 +54,7 @@ class ModuleServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        \Module::registerFromJsonFile('shop', __DIR__ .'/../../module.json');
+        \Module::registerFromJsonFile('setting', __DIR__ .'/../../module.json');
         
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
         $loader->alias('Setting', \Phambinh\Cms\Setting\Supports\Facades\Setting::class);

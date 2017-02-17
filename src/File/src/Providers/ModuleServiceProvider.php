@@ -47,7 +47,7 @@ class ModuleServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        \Module::registerFromJsonFile('shop', __DIR__ .'/../../module.json');
+        \Module::registerFromJsonFile('file', __DIR__ .'/../../module.json');
         
         add_action('app.init', function () {
             \AccessControl::register('file.manage', [
