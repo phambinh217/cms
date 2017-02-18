@@ -9,11 +9,13 @@
 ])
 
 @section('page_title', 'Vai trò người dùng')
-@section('tool_bar')
-	<a href="{{ route('admin.user.role.create') }}" class="btn btn-primary">
-		<i class="fa fa-plus"></i> <span class="hidden-xs">Thêm vai trò mới</span>
-	</a>
-@endsection
+@can('admin.user.role.create')
+	@section('tool_bar')
+		<a href="{{ route('admin.user.role.create') }}" class="btn btn-primary">
+			<i class="fa fa-plus"></i> <span class="hidden-xs">Thêm vai trò mới</span>
+		</a>
+	@endsection
+@endcan
 @section('content')
 	<div class="table-function-container">
 		<div class="portlet light bordered">
@@ -115,9 +117,14 @@
 							</td>
 							<td class="text-center hidden-xs"><strong>{{ $role_item->id }}</strong></td>
 		    				<td>
-		    					<a href="{{ route('admin.user.role.edit', ['id' => $role_item->id]) }}">
+		    					@can('admin.user.role.edit', $role_item)
+			    					<a href="{{ route('admin.user.role.edit', ['id' => $role_item->id]) }}">
+			    						<strong>{{ $role_item->name }}</strong>
+			    					</a>
+		    					@endcan
+		    					@cannot('admin.user.role.edit', $role_item)
 		    						<strong>{{ $role_item->name }}</strong>
-		    					</a>
+		    					@endcannot
 		    				</td>
 		    				<td class="text-center hidden-xs">
 		    					<strong>
@@ -137,9 +144,13 @@
 		                            	</span>
 		                            </a>
 		                            <ul class="dropdown-menu pull-right">
-		                                <li><a href="{{ route('admin.user.role.edit', ['id' => $role_item->id]) }}"><i class="fa fa-pencil"></i> Sửa</a></li>
-		                                <li role="presentation" class="divider"> </li>
-		                            	<li><a data-function="destroy" data-method="delete" href="{{ route('admin.user.role.destroy', ['id' => $role_item->id]) }}"><i class="fa fa-times"></i> Xóa</a></li>
+		                            	@can('admin.user.role.edit', $role_item)
+			                                <li><a href="{{ route('admin.user.role.edit', ['id' => $role_item->id]) }}"><i class="fa fa-pencil"></i> Sửa</a></li>
+			                                <li role="presentation" class="divider"> </li>
+		                                @endcan
+		                                @can('admin.user.role.destroy', $role_item)
+		                            		<li><a data-function="destroy" data-method="delete" href="{{ route('admin.user.role.destroy', ['id' => $role_item->id]) }}"><i class="fa fa-times"></i> Xóa</a></li>
+		                            	@endcan
 		                            </ul>
 		                        </div>
 							</td>

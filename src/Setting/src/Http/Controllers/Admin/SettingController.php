@@ -10,6 +10,8 @@ class SettingController extends AdminController
 {
     public function general()
     {
+        \Metatag::set('title', 'Cài đặt chung');
+
         $this->data['company_name'] = setting('company-name');
         $this->data['company_address'] = setting('company-address');
         $this->data['company_phone'] = setting('company-phone');
@@ -21,7 +23,7 @@ class SettingController extends AdminController
         $this->data['default_avatar'] = setting('default-avatar');
         $this->data['logo'] = setting('logo', url('logo.png'));
 
-        \Metatag::set('title', 'Cài đặt chung');
+        $this->authorize('admin.setting.general');
         return view('Setting::admin.setting.general', $this->data);
     }
 
@@ -59,6 +61,7 @@ class SettingController extends AdminController
             ]);
         }
 
+        $this->authorize('admin.setting.general');
         return redirect()->back();
     }
 }

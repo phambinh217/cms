@@ -45,6 +45,13 @@ class ModuleServiceProvider extends ServiceProvider
                 include __DIR__ . '/../../routes.php';
             }
         }
+
+        $this->registerPolices();
+    }
+
+    private function registerPolices()
+    {
+        \AccessControl::define('Module Control - Xem module', 'admin.module-control.index');
     }
 
     /**

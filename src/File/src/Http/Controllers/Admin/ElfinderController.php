@@ -10,16 +10,19 @@ class ElfinderController extends AdminController
 {
     public function index()
     {
+        $this->authorize('admin.file.browser');
         return view('File::admin.list', $this->data);
     }
 
     public function standAlone()
     {
+        $this->authorize('admin.file.browser');
         return view('File::admin.stand-alone', $this->data);
     }
 
     public function connector()
     {
+        $this->authorize('admin.file.browser');
         $roots = config('file.roots', []);
 
         if (empty($roots)) {

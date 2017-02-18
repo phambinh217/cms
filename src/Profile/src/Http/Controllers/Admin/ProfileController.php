@@ -18,6 +18,8 @@ class ProfileController extends AdminController
         \Metatag::set('title', 'Trang cá nhân');
 
         $this->data['user'] = Auth::user();
+
+        $this->authorize('admin');
         return view('Profile::admin.show', $this->data);
     }
 
@@ -29,6 +31,8 @@ class ProfileController extends AdminController
         \Metatag::set('title', 'Chỉnh sửa trang cá nhân');
 
         $this->data['user'] = Auth::user();
+
+        $this->authorize('admin');
         return view('Profile::admin.edit', $this->data);
     }
 
@@ -66,6 +70,7 @@ class ProfileController extends AdminController
             ], 200);
         }
 
+        $this->authorize('admin');
         return redirect()->back();
     }
 
@@ -77,6 +82,8 @@ class ProfileController extends AdminController
         \Metatag::set('title', 'Đổi mật khẩu');
 
         $this->data['user'] = Auth::user();
+
+        $this->authorize('admin');
         return view('Profile::admin.change-password', $this->data);
     }
 
@@ -107,17 +114,7 @@ class ProfileController extends AdminController
             ], 200);
         }
 
+        $this->authorize('admin');
         return redirect()->back();
-    }
-
-    /**
-     * Hiển thị trang doanh thu
-     */
-    public function sales()
-    {
-        \Metatag::set('title', 'Doanh số');
-
-        $this->data['user'] = Auth::user();
-        return view('Profile::admin.sales', $this->data);
     }
 }

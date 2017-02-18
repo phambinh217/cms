@@ -11,11 +11,13 @@
 
 @section('page_title', isset($role_id) ? 'Chỉnh sửa vai trò quản trị' : 'Thêm vai trò quản trị mới')
 @if(isset($role_id))
-	@section('tool_bar')
-		<a href="{{ route('admin.user.role.create') }}" class="btn btn-primary">
-			<i class="fa fa-plus"></i> <span class="hidden-xs">Thêm vai trò mới</span>
-		</a>
-	@endsection
+	@can('admin.user.role.create')
+		@section('tool_bar')
+			<a href="{{ route('admin.user.role.create') }}" class="btn btn-primary">
+				<i class="fa fa-plus"></i> <span class="hidden-xs">Thêm vai trò mới</span>
+			</a>
+		@endsection
+	@endcan
 @endif
 @section('content')
 	<form ajax-form-container action="{{ isset($role_id) ? admin_url('user/role/' . $role_id) : route('admin.user.role.show', ['id' => $role->id]) }}" method="post" class="form-horizontal form-bordered form-row-stripped">
@@ -27,7 +29,7 @@
 		{{ csrf_field() }}		
 		<div class="form-body">
 			<div class="form-group">
-				<label class="control-label col-sm-3 pull-left">
+				<label class="control-label col-sm-2 pull-left">
 					Tên quyền <span class="required">*</span>
 				</label>
 				<div class="col-sm-7">
@@ -36,7 +38,7 @@
 			</div>
 
 			<div class="form-group">
-				<label class="control-label col-sm-3 pull-left">
+				<label class="control-label col-sm-2 pull-left">
 					Kiểu <span class="required">*</span>
 				</label>
 				<div class="col-sm-7">
@@ -50,20 +52,20 @@
 
 			<div class="permission-list">
 				<div class="form-group">
-					<label class="control-label col-sm-3 pull-left"></label>
-					<div class="col-sm-9">
+					<label class="control-label col-sm-2 pull-left"></label>
+					<div class="col-sm-10">
 						<div class="m-heading-1 border-green m-bordered">
 							<?php  $access_controls = collect(\AccessControl::all()); ?>
 							
 							@foreach($access_controls->chunk(3) as $chunks)
 								<div class="row">
 									@foreach($chunks as $access_item)
-										<?php  $check = isset($role_id) && in_array($access_item['name'], \AccessControl::getRole($role->id)) ? 'checked' : '' ; ?>
+										<?php  $check = isset($role_id) && in_array($access_item['ability'], \AccessControl::getRole($role->id)) ? 'checked' : '' ; ?>
 										<div class="col-sm-4">
 					                        <div class="input-group">
 					                            <div class="icheck-list">
 					                                <label>
-					                                    <input {{ $check }} type="checkbox" class="icheck" name="role[permission][]" value="{{ $access_item['name'] }}" /> {{ $access_item['label'] }}
+					                                    <input {{ $check }} type="checkbox" class="icheck" name="role[permission][]" value="{{ $access_item['ability'] }}" /> {{ $access_item['name'] }}
 													</label>
 					                            </div>
 					                        </div>
@@ -78,7 +80,7 @@
 		</div>
 		<div class="form-actions util-btn-margin-bottom-5">
 			<div class="row">
-				<div class="col-md-offset-3 col-md-9">
+				<div class="col-md-offset-2 col-md-10">
 					<button type="submit" class="btn btn-primary" name="save_only">
 						<i class="fa fa-save"></i> Lưu thay đổi
 					</button>

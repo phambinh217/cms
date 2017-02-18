@@ -26,6 +26,7 @@ class RoleController extends AdminController
         $this->data['roles'] = $roles;
         $this->data['filter'] = $filter;
 
+        $this->authorize('admin.user.role.index');
         return view('User::admin.role.list', $this->data);
     }
 
@@ -36,6 +37,7 @@ class RoleController extends AdminController
         $role = new Role();
         $this->data['role'] = $role;
 
+        $this->authorize('admin.user.role.create');
         return view('User::admin.role.save', $this->data);
     }
 
@@ -47,6 +49,7 @@ class RoleController extends AdminController
         $this->data['role_id'] = $id;
         $this->data['role'] = $role;
 
+        $this->authorize('admin.user.role.edit', $role);
         return view('User::admin.role.save', $this->data);
     }
 
@@ -85,6 +88,7 @@ class RoleController extends AdminController
             return redirect(route('admin.user.role.edit', ['id' => $role->id]));
         }
 
+        $this->authorize('admin.user.role.create');
         return redirect(route('admin.user.role.create'));
     }
 
@@ -97,6 +101,9 @@ class RoleController extends AdminController
         ]);
 
         $role = Role::find($id);
+        
+        $this->authorize('admin.user.role.edit', $role);
+
         $role->fill($request->role);
         $role->save();
         
@@ -133,6 +140,7 @@ class RoleController extends AdminController
     public function destroy(Request $request, $id)
     {
         $role = Role::find($id);
+        $this->authorize('admin.user.role.delete', $role);
         if ($role->users->count()) {
             if ($request->ajax()) {
                 return response()->json([

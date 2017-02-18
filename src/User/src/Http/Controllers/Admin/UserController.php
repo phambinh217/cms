@@ -11,6 +11,8 @@ class UserController extends AdminController
 {
     public function index()
     {
+        \Metatag::set('title', 'Danh sách người dùng');
+
         $filter = User::getRequestFilter();
         $users = User::select('users.*', 'roles.name as role_name')
             ->join('roles', 'users.role_id', '=', 'roles.id')
@@ -19,17 +21,18 @@ class UserController extends AdminController
         $this->data['users']    = $users;
         $this->data['filter']   = $filter;
 
-        \Metatag::set('title', 'Danh sách người dùng');
+        $this->authorize('admin.user.index');
         return view('User::admin.list', $this->data);
     }
 
     public function show($id)
     {
+        \Metatag::set('title', 'Xem chi tiết người dùng');
         $user = User::find($id);
         $this->data['user_id'] = $id;
         $this->data['user'] = $user;
 
-        \Metatag::set('title', 'Xem chi tiết người dùng');
+        $this->authorize('admin.user.show', $user);
         return view('User::admin.show', $this->data);
     }
 
@@ -39,6 +42,7 @@ class UserController extends AdminController
         $this->data['user'] = $user;
         $this->data['user_id'] = $id;
 
+        $this->authorize('admin.user.show', $user);
         return view('User::admin.popup-show', $this->data);
     }
     
@@ -48,11 +52,15 @@ class UserController extends AdminController
 
         $user = new User();
         $this->data['user'] = $user;
+
+        $this->authorize('admin.user.create');
         return view('User::admin.save', $this->data);
     }
 
     public function store(Request $request)
     {
+        $this->authorize('admin.user.create');
+
         $this->validate($request, [
             'user.name'                    => 'required|unique:users,name',
             'user.phone'                    => 'required|unique:users,phone',
@@ -63,7 +71,7 @@ class UserController extends AdminController
             'user.password'                => 'required|confirmed',
             'user.password_confirmation'    => 'required',
             'user.role_id'                    => 'required|exists:roles,id',
-            'user.status'                    => 'required|in:0,1',
+            'user.status'                    => 'required|in:enable,disable',
             'user.about'                    =>    'max:500',
             'user.facebook'                    =>    'max:255',
             'user.website'                    =>    'max:255',
@@ -75,6 +83,17 @@ class UserController extends AdminController
         $user->fill($request->user);
         $user->birth = changeFormatDate($user->birth, 'd-m-Y', 'Y-m-d');
         $user->password = bcrypt($user->password);
+        
+        switch ($user->status) {
+            case 'disable':
+                $user->status = '0';
+                break;
+
+            case 'enable':
+                $user->status = '1';
+                break;
+        }
+
         $user->save();
 
         if ($request->ajax()) {
@@ -99,7 +118,8 @@ class UserController extends AdminController
         \Metatag::set('title', 'Chỉnh sửa người dùng');
 
         $user = User::find($id);
-        
+        $this->authorize('admin.user.edit', $user);
+
         // Không thể tự chỉnh sửa thông tin của bản thân trong phương thức này
         // Sẽ tự đi vào trang cá nhân
         if ($user->isSelf($id)) {
@@ -115,6 +135,8 @@ class UserController extends AdminController
     public function update(Request $request, $id)
     {
         $user = User::find($id);
+        $this->authorize('admin.user.edit', $user);
+
         if ($user->isSelf($id)) {
             return response()->json([], 422);
         }
@@ -126,7 +148,7 @@ class UserController extends AdminController
             'user.phone'                    => 'required|unique:users,phone,'.$id.',id',
             'user.email'                    => 'required|email|max:255|unique:users,email,'.$id.',id',
             'user.role_id'                    => 'required|exists:roles,id',
-            'user.status'                    => 'required|in:0,1',
+            'user.status'                    => 'required|in:enable,disable',
             'user.about'                    =>    'max:500',
             'user.facebook'                    =>    'max:255',
             'user.website'                    =>    'max:255',
@@ -136,6 +158,17 @@ class UserController extends AdminController
 
         $user->fill($request->user);
         $user->birth = changeFormatDate($user->birth, 'd-m-Y', 'Y-m-d');
+        
+        switch ($user->status) {
+            case 'disable':
+                $user->status = '0';
+                break;
+
+            case 'enable':
+                $user->status = '1';
+                break;
+        }
+
         $user->save();
 
         if ($request->ajax()) {
@@ -160,6 +193,7 @@ class UserController extends AdminController
     public function disable(Request $request, $id)
     {
         $user = User::find($id);
+        $this->authorize('admin.user.disable', $user);
 
         // Hành động này không thể áp dụng với bản thân người đang đăng nhập
         if ($user->isSelf($id)) {
@@ -187,6 +221,7 @@ class UserController extends AdminController
     public function enable(Request $request, $id)
     {
         $user = User::find($id);
+        $this->authorize('admin.user.enable', $user);
 
         // Hành động này không thể áp dụng với bản thân người đang đăng nhập
         if ($user->isSelf($id)) {
@@ -214,6 +249,7 @@ class UserController extends AdminController
     public function destroy(Request $request, $id)
     {
         $user = User::find($id);
+        $this->authorize('admin.user.destroy', $user);
 
         // Hành động này không thể áp dụng với bản thân người đang đăng nhập
         if ($user->isSelf($id)) {

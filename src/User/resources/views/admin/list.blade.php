@@ -12,9 +12,11 @@
 @section('page_title', 'Danh sách người dùng')
 
 @section('tool_bar')
-	<a href="{{ route('admin.user.create') }}" class="btn btn-primary">
-		<i class="fa fa-plus"></i> <span class="hidden-xs">Thêm người dùng mới</span>
-	</a>
+	@can('admin.user.create')
+		<a href="{{ route('admin.user.create') }}" class="btn btn-primary">
+			<i class="fa fa-plus"></i> <span class="hidden-xs">Thêm người dùng mới</span>
+		</a>
+	@endcan
 @endsection
 
 @section('content')
@@ -137,13 +139,20 @@
 						                <div class="media-body">
 						                    <ul class="info unstyle-list">
 						                        <li class="name">
-						                        	<a href="{{ route('admin.user.show', ['id' => $user_item->id]) }}"><strong>{{ $user_item->full_name }}</strong></a>
+						                        	@can('admin.user.show')
+						                        		<a href="{{ route('admin.user.show', ['id' => $user_item->id]) }}"><strong>{{ $user_item->full_name }}</strong></a>
+						                        	@endcan
+						                        	@cannot('admin.user.show', $user_item)
+						                        		<strong>{{ $user_item->full_name }}</strong>
+						                        	@endcannot
 						                        	<span class="label label-sm label-info">
 							                        	{{ $user_item->role_name }}
 				                                        <i class="fa fa-share"></i>
 				                                    </span>
 					                        		<span class="hover-display pl-15 hidden-xs">
-														<a href="#" remote-modal data-name="#popup-show-user" data-url="{{ route('admin.user.popup-show', ['id' => $user_item->id]) }}" class="text-sm"><i>Xem nhanh |</i></a>
+					                        			@can('admin.user.show', $user_item)
+															<a href="#" remote-modal data-name="#popup-show-user" data-url="{{ route('admin.user.popup-show', ['id' => $user_item->id]) }}" class="text-sm"><i>Xem nhanh |</i></a>
+														@endcan
 														<a href="" class="text-sm"><i>Gửi tin nhắn</i></a>
 													</span>
 						                        </li>
@@ -167,17 +176,31 @@
 			                                </span>
 			                            </a>
 			                            <ul class="dropdown-menu pull-right">
-			                                <li><a href="{{ route('admin.user.show', ['id' => $user_item->id]) }}"><i class="fa fa-eye"></i> Xem</a></li>
-			                                <li role="presentation" class="divider"> </li>
-			                                <li><a href="{{ route('admin.user.edit', ['id' => $user_item->id]) }}"><i class="fa fa-pencil"></i> Sửa</a></li>
-			                            	@if($user_item->isEnable() && ! $user_item->isSelf($user_item->id))
-			                            		<li><a data-function="disable" data-method="put" href="{{ route('admin.user.disable', ['id' => $user_item->id]) }}"><i class="fa fa-recycle"></i> Xóa tạm</a></li>
-			                            	@endif
+			                            	
+			                            	@can('admin.user.show')
+				                                <li><a href="{{ route('admin.user.show', ['id' => $user_item->id]) }}"><i class="fa fa-eye"></i> Xem</a></li>
+				                                <li role="presentation" class="divider"> </li>
+			                                @endcan
+			                                
+			                                @can('admin.user.edit', $user_item)
+			                                	<li><a href="{{ route('admin.user.edit', ['id' => $user_item->id]) }}"><i class="fa fa-pencil"></i> Sửa</a></li>
+			                                @endcan
 
+			                                @can('admin.user.disable', $user_item)
+				                            	@if($user_item->isEnable() && ! $user_item->isSelf($user_item->id))
+				                            		<li><a data-function="disable" data-method="put" href="{{ route('admin.user.disable', ['id' => $user_item->id]) }}"><i class="fa fa-recycle"></i> Xóa tạm</a></li>
+				                            	@endif
+			                            	@endcan
+						
 			                            	@if($user_item->isDisable())
-			                            		<li><a data-function="enable" data-method="put" href="{{ route('admin.user.enable', ['id' => $user_item->id]) }}"><i class="fa fa-recycle"></i> Khôi phục</a></li>
-			                            		<li role="presentation" class="divider"></li>
-			                            		<li><a data-function="destroy" data-method="delete" href="{{ route('admin.user.destroy', ['id' => $user_item->id]) }}"><i class="fa fa-times"></i> Xóa</a></li>
+			                            		@can('admin.user.enable', $user_item)
+				                            		<li><a data-function="enable" data-method="put" href="{{ route('admin.user.enable', ['id' => $user_item->id]) }}"><i class="fa fa-recycle"></i> Khôi phục</a></li>
+				                            		<li role="presentation" class="divider"></li>
+			                            		@endcan
+
+			                            		@can('admin.user.destroy')
+			                            			<li><a data-function="destroy" data-method="delete" href="{{ route('admin.user.destroy', ['id' => $user_item->id]) }}"><i class="fa fa-times"></i> Xóa</a></li>
+			                            		@endcan
 			                            	@endif
 			                            </ul>
 			                        </div>

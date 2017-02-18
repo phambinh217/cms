@@ -13,11 +13,13 @@
 
 @if(isset($user_id))
 	@section('page_sub_title', $user->full_name)
-	@section('tool_bar')
-		<a href="{{ route('admin.user.create') }}" class="btn btn-primary">
-			<i class="fa fa-plus"></i> <span class="hidden-xs">Thêm người dùng mới</span>
-		</a>
-	@endsection
+	@can('admin.user.create')
+		@section('tool_bar')
+			<a href="{{ route('admin.user.create') }}" class="btn btn-primary">
+				<i class="fa fa-plus"></i> <span class="hidden-xs">Thêm người dùng mới</span>
+			</a>
+		@endsection
+	@endcan
 @endif
 
 @section('content')

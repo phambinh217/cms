@@ -35,57 +35,22 @@ class Role extends Model implements Query
         'total_user',
     ];
 
-    /**
-     *
-     *
-     *
-     * @param
-     * @return
-     * @author BinhPham
-     */
     public function users()
     {
         return $this->hasMany('Phambinh\Cms\User\Models\User');
     }
-    // --------------------------------------------------------------------
 
-    /**
-     *
-     *
-     *
-     * @param
-     * @return
-     * @author BinhPham
-     */
     public function permissions()
     {
         return $this->hasMany('Phambinh\Cms\User\Models\Permission');
     }
-    // --------------------------------------------------------------------
     
-    /**
-     *
-     *
-     *
-     * @param
-     * @return
-     * @author BinhPham
-     */
     public function scopeOfQuery($query, $args = [])
     {
         
         $query->baseQuery($args);
     }
-    // --------------------------------------------------------------------
 
-    /**
-     *
-     *
-     *
-     * @param
-     * @return
-     * @author BinhPham
-     */
     public function getType($role_id)
     {
         if ($role_id) {
@@ -96,49 +61,21 @@ class Role extends Model implements Query
 
         return $type;
     }
-    // --------------------------------------------------------------------
 
-    /**
-     *
-     *
-     *
-     * @param
-     * @return
-     * @author BinhPham
-     */
     public function isFull($role_id = null)
     {
         return $this->getType($role_id) == '*';
     }
-    // --------------------------------------------------------------------
 
-    /**
-     *
-     *
-     *
-     * @param
-     * @return
-     * @author BinhPham
-     */
     public function isEmpty($role_id = null)
     {
         return $this->getType($role_id) == '0';
     }
-    // --------------------------------------------------------------------
 
-    /**
-     *
-     *
-     *
-     * @param
-     * @return
-     * @author BinhPham
-     */
     public function isOption($role_id = null)
     {
         return $this->getType($role_id) == 'option';
     }
-    // --------------------------------------------------------------------
 
     public function isAdmin()
     {

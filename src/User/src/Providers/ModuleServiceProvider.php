@@ -38,6 +38,23 @@ class ModuleServiceProvider extends ServiceProvider
                 include __DIR__ . '/../../routes.php';
             }
         }
+
+        $this->registerPolices();
+    }
+
+    private function registerPolices()
+    {
+        \AccessControl::define('Người dùng - Xem danh sách', 'admin.user.index');
+        \AccessControl::define('Người dùng - Xem chi tiết', 'admin.user.show');
+        \AccessControl::define('Người dùng - Thêm người mới', 'admin.user.create');
+        \AccessControl::define('Người dùng - Chỉnh sửa', 'admin.user.edit');
+        \AccessControl::define('Người dùng - Cấm', 'admin.user.disable');
+        \AccessControl::define('Người dùng - Khôi phục', 'admin.user.enable');
+        \AccessControl::define('Người dùng - Xóa', 'admin.user.destroy');
+        \AccessControl::define('Người dùng - Xem danh sách vai trò', 'admin.user.role.index');
+        \AccessControl::define('Người dùng - Thêm vài trò mới', 'admin.user.role.create');
+        \AccessControl::define('Người dùng - Chỉnh sửa vai trò', 'admin.user.role.edit');
+        \AccessControl::define('Người dùng - Xóa vai trò', 'admin.user.role.destroy');
     }
 
     /**
@@ -48,35 +65,6 @@ class ModuleServiceProvider extends ServiceProvider
     public function register()
     {
         \Module::registerFromJsonFile('user', __DIR__ .'/../../module.json');
-
-        add_action('app.init', function () {
-            \AccessControl::register('user.create', [
-                
-                'admin.user.index',
-                'admin.user.create',
-                'admin.user.edit',
-
-                'admin.user.store',
-                'admin.user.update',
-                'admin.user.disable',
-                'admin.user.enable',
-
-            ], ['extend' => 'admin.base', 'label' => 'Quản lí người dùng']);
-
-            \AccessControl::register('user.destroy', [
-                
-                'admin.user.index',
-                'admin.user.destroy',
-
-            ], ['extend' => 'admin.base', 'label' => 'Xóa người dùng']);
-
-            \AccessControl::register('user.role', [
-                
-                'admin.user.role',
-                'admin.user.role.{*}',
-
-            ], ['extend' => 'admin.base', 'label' => 'Quản lí vai trò người dùng']);
-        });
 
         add_action('admin.init', function () {
             \AdminMenu::register('user', [

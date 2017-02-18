@@ -45,6 +45,13 @@ class ModuleServiceProvider extends ServiceProvider
                 include __DIR__ . '/../../routes.php';
             }
         }
+
+        $this->registerPolices();
+    }
+
+    private function registerPolices()
+    {
+        \AccessControl::define('Cài đặt - Cài đặt chung', 'admin.setting.general');
     }
 
     /**

@@ -39,6 +39,13 @@ class ModuleServiceProvider extends ServiceProvider
                 include __DIR__ . '/../../routes.php';
             }
         }
+
+        $this->registerPolices();
+    }
+
+    private function registerPolices()
+    {
+        \AccessControl::define('Quản trị cơ bản', 'admin');
     }
 
     /**
@@ -50,12 +57,10 @@ class ModuleServiceProvider extends ServiceProvider
     {
         \Module::registerFromJsonFile('admin', __DIR__ .'/../../module.json');
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-        // $loader->alias('AdminMenu', \Phambinh\Cms\Admin\Supports\AdminMenu::class);
         $loader->alias('AdminController', \Phambinh\Cms\Admin\Http\Controllers\Admin\AdminController::class);
         $loader->alias('AdminMenu', \Phambinh\Cms\Admin\Supports\Facades\AdminMenu::class);
         $this->app->singleton('admin-menu', \Phambinh\Cms\Admin\Services\AdminMenu::class);
 
-        $this->registerPermission();
         $this->registerAdminMenu();
         $this->registerContact();
     }
@@ -76,23 +81,6 @@ class ModuleServiceProvider extends ServiceProvider
                 'message'   =>  'Nội dung của bạn đã được gửi đến chúng tôi thành công',
                 'redirect'  =>  'back',
             ]);
-        });
-    }
-
-    private function registerPermission()
-    {
-        add_action('app.init', function () {
-            \AccessControl::register('admin.base', [
-                'admin.profile.{*}',
-                'admin.mail.{*}',
-                'admin.file.stand-alone',
-                'admin.file.connector',
-                'admin.user.popup-show',
-            ], ['label' => 'Quản trị cơ bản']);
-
-            \AccessControl::register('admin.dashboard', [
-                'admin.dashboard',
-            ], ['label' => 'Bảng tin quản trị']);
         });
     }
 

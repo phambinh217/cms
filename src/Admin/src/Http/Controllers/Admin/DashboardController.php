@@ -10,6 +10,7 @@ class DashboardController extends AdminController
     {
         \Metatag::set('title', 'Bảng quản trị');
         
+     	$this->authorize('admin');
         return view(config('cms.dashboard-view-path'), $this->data);
     }
 }

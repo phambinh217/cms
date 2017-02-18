@@ -16,17 +16,7 @@ class ModuleController extends AdminController
     public function index()
     {
         $this->data['modules'] = \Module::where('type', 'module');
+        $this->authorize('admin.module-control.index');
         return view('ModuleControl::admin.module.index', $this->data);
-    }
-
-    public function update(Request $request, Schedule $schedule, $alias)
-    {
-        $module = \Module::where('alias', $alias)->first();
-        $module->markAsUpdated();
-
-        return response()->json([
-            'redirect' => route('admin.module-control.module.index'),
-            'message' => '', // exec('cd core && composer update '.$module->packagist_name),
-        ]);
     }
 }

@@ -38,6 +38,14 @@ class ModuleServiceProvider extends ServiceProvider
                 include __DIR__ . '/../../routes.php';
             }
         }
+
+        $this->registerPolices();
+    }
+
+    private function registerPolices()
+    {
+        \AccessControl::define('File - Upload file', 'admin.file.upload');
+        \AccessControl::define('File - File browser', 'admin.file.browser');
     }
 
     /**
@@ -48,12 +56,6 @@ class ModuleServiceProvider extends ServiceProvider
     public function register()
     {
         \Module::registerFromJsonFile('file', __DIR__ .'/../../module.json');
-        
-        add_action('app.init', function () {
-            \AccessControl::register('file.manage', [
-                'admin.file.{*}'
-            ], ['label' => 'Quản lí file']);
-        });
 
         add_action('admin.init', function () {
             \AdminMenu::register('file', [
