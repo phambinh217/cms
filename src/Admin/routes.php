@@ -3,7 +3,7 @@ Route::group(['module' => 'Admin', 'namespace' => 'Phambinh\Cms\Admin\Http\Contr
     Route::get('/', function () {
         return redirect(admin_url('dashboard'));
     })->name('admin');
-    Route::get('dashboard', 'DashboardController@index')->name('admin.dashboard');
+    Route::get('dashboard', 'DashboardController@index')->name('admin.dashboard')->middleware('can:admin');
 });
 
 Route::group(['module' => 'Admin', 'namespace' => 'Phambinh\Cms\Admin\Http\Controllers', 'middleware' => ['web']], function () {

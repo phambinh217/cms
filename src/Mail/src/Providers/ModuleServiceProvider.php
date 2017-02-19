@@ -39,12 +39,6 @@ class ModuleServiceProvider extends ServiceProvider
             include __DIR__ . '/../../helper/helper.php';
         }
 
-        // Load route
-        if (!$this->app->routesAreCached()) {
-            if (\File::exists(__DIR__ . '/../../routes.php')) {
-                include __DIR__ . '/../../routes.php';
-            }
-        }
     }
 
     /**
@@ -55,35 +49,43 @@ class ModuleServiceProvider extends ServiceProvider
     public function register()
     {
         \Module::registerFromJsonFile('mail', __DIR__ .'/../../module.json');
-        
+        $this->app->register(\Phambinh\Cms\Mail\Providers\RoutingServiceProvider::class);
         add_action('admin.init', function () {
-            \AdminMenu::register('mail', [
-                'order'     =>  '3',
-                'parent'    =>  '0',
-                'label'     =>  'Tin nhắn',
-                'icon'      =>  'icon-bubbles',
+            if (\Auth::user()->can('admin')) {
+                \AdminMenu::register('mail', [
+                    'order'     =>  '3',
+                    'parent'    =>  '0',
+                    'label'     =>  'Tin nhắn',
+                    'icon'      =>  'icon-bubbles',
                 ]);
+            }
 
-            \AdminMenu::register('mail.create', [
-                'parent'    =>  'mail',
-                'label'     =>  'Soạn tin mới',
-                'url'       =>  admin_url('mail/create'),
-                'icon'      =>  'icon-paper-plane',
+            if (\Auth::user()->can('admin')) {
+                \AdminMenu::register('mail.create', [
+                    'parent'    =>  'mail',
+                    'label'     =>  'Soạn tin mới',
+                    'url'       =>  admin_url('mail/create'),
+                    'icon'      =>  'icon-paper-plane',
                 ]);
+            }
+            
+            if (\Auth::user()->can('admin')) {
+                \AdminMenu::register('mail.inbox', [
+                    'parent'    =>  'mail',
+                    'label'     =>  'Hộp thư đến',
+                    'url'       =>  admin_url('mail/inbox'),
+                    'icon'      =>  'icon-envelope-letter',
+                ]);
+            }
 
-            \AdminMenu::register('mail.inbox', [
-                'parent'    =>  'mail',
-                'label'     =>  'Hộp thư đến',
-                'url'       =>  admin_url('mail/inbox'),
-                'icon'      =>  'icon-envelope-letter',
+            if (\Auth::user()->can('admin')) {
+                \AdminMenu::register('mail.outbox', [
+                    'parent'    =>  'mail',
+                    'label'     =>  'Hộp thư đi',
+                    'url'       =>  admin_url('mail/outbox'),
+                    'icon'      =>  'icon-envelope-open',
                 ]);
-
-            \AdminMenu::register('mail.outbox', [
-                'parent'    =>  'mail',
-                'label'     =>  'Hộp thư đi',
-                'url'       =>  admin_url('mail/outbox'),
-                'icon'      =>  'icon-envelope-open',
-                ]);
+            }
         });
     }
 }

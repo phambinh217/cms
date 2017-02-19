@@ -241,13 +241,13 @@ class User extends AppUser implements Query
      * @param  int  $user_id
      * @return boolean
      */
-    public function isSelf($user_id)
+    public function isSelf()
     {
         if (! \Auth::check()) {
             return false;
         }
 
-        return \Auth::user()->id == $user_id;
+        return \Auth::user()->id == $this->id;
     }
 
     /**

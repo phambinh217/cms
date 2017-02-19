@@ -19,7 +19,11 @@ class AdminController extends AppController
         
         $this->middleware('auth');
 
-        do_action('admin.init');
-        do_action('admin.destroy');
+        $this->middleware(function (Request $request, $next) {
+            do_action('admin.init');
+            do_action('admin.destroy');
+            
+            return $next($request);
+        });
     }
 }

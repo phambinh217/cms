@@ -32,13 +32,6 @@ class ModuleServiceProvider extends ServiceProvider
             include __DIR__ . '/../../helper/helper.php';
         }
 
-        // Load route
-        if (!$this->app->routesAreCached()) {
-            if (\File::exists(__DIR__ . '/../../routes.php')) {
-                include __DIR__ . '/../../routes.php';
-            }
-        }
-
         $this->registerPolices();
     }
 
@@ -56,14 +49,17 @@ class ModuleServiceProvider extends ServiceProvider
     public function register()
     {
         \Module::registerFromJsonFile('file', __DIR__ .'/../../module.json');
+        $this->app->register(\Phambinh\Cms\File\Providers\RoutingServiceProvider::class);
 
         add_action('admin.init', function () {
-            \AdminMenu::register('file', [
-                'parent'    =>  'main-manage',
-                'label'     =>  'Quản lí file',
-                'url'       =>  admin_url('file'),
-                'icon'      =>  'icon-picture',
-            ]);
+            if (\Auth::user()->can('admin')) {
+                \AdminMenu::register('file', [
+                    'parent'    =>  'main-manage',
+                    'label'     =>  'Quản lí file',
+                    'url'       =>  admin_url('file'),
+                    'icon'      =>  'icon-picture',
+                ]);
+            }
         });
     }
 }

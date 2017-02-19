@@ -31,13 +31,6 @@ class ModuleServiceProvider extends ServiceProvider
         if (\File::exists(__DIR__ . '/../../helper/helper.php')) {
             include __DIR__ . '/../../helper/helper.php';
         }
-
-        // Load route
-        if (!$this->app->routesAreCached()) {
-            if (\File::exists(__DIR__ . '/../../routes.php')) {
-                include __DIR__ . '/../../routes.php';
-            }
-        }
     }
 
     /**
@@ -48,5 +41,6 @@ class ModuleServiceProvider extends ServiceProvider
     public function register()
     {
         \Module::registerFromJsonFile('api', __DIR__ .'/../../module.json');
+        $this->app->register(\Phambinh\Cms\Api\Providers\RoutingServiceProvider::class);
     }
 }

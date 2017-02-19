@@ -26,7 +26,6 @@ class RoleController extends AdminController
         $this->data['roles'] = $roles;
         $this->data['filter'] = $filter;
 
-        $this->authorize('admin.user.role.index');
         return view('User::admin.role.list', $this->data);
     }
 
@@ -37,19 +36,16 @@ class RoleController extends AdminController
         $role = new Role();
         $this->data['role'] = $role;
 
-        $this->authorize('admin.user.role.create');
         return view('User::admin.role.save', $this->data);
     }
 
-    public function edit($id)
+    public function edit(Role $role)
     {
         \Metatag::set('title', 'Chỉnh sửa vai trò');
 
-        $role = Role::find($id);
-        $this->data['role_id'] = $id;
         $this->data['role'] = $role;
+        $this->data['role_id'] = $role->id;
 
-        $this->authorize('admin.user.role.edit', $role);
         return view('User::admin.role.save', $this->data);
     }
 
@@ -88,21 +84,16 @@ class RoleController extends AdminController
             return redirect(route('admin.user.role.edit', ['id' => $role->id]));
         }
 
-        $this->authorize('admin.user.role.create');
         return redirect(route('admin.user.role.create'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Role $role)
     {
         $this->validate($request, [
             'role.name'    =>    'required',
             'role.type'    =>    'required|in:0,*,option',
             'role.permission' => 'required_if:role.type,option',
         ]);
-
-        $role = Role::find($id);
-        
-        $this->authorize('admin.user.role.edit', $role);
 
         $role->fill($request->role);
         $role->save();
@@ -124,23 +115,21 @@ class RoleController extends AdminController
                 'message'    =>    'Thành công',
             ];
             if (isset($request->save_and_out)) {
-                $response['redirect'] = admin_url('administrator/role');
+                $response['redirect'] = route('admin.user.role.index');
             }
 
             return response()->json($response, 200);
         }
         
         if (isset($request->save_and_out)) {
-            return redirect(admin_url('administrator/role'));
+            return redirect()->route('admin.user.role.index');
         }
                 
         return redirect()->back();
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, Role $role)
     {
-        $role = Role::find($id);
-        $this->authorize('admin.user.role.delete', $role);
         if ($role->users->count()) {
             if ($request->ajax()) {
                 return response()->json([

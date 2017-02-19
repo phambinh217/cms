@@ -9,18 +9,10 @@
  * @package: PhambinhCMS
  */
 
-// Route::group(['module' => 'profile', 'namespace' => 'Phambinh\Cms\Profile\Http\Controllers', 'middleware' => ['web'], 'prefix' => 'profile'], function() {
-
-// });
-
 Route::group(['module' => 'profile', 'namespace' => 'Phambinh\Cms\Profile\Http\Controllers\Admin', 'middleware' => ['web'], 'prefix' => 'admin/profile'], function () {
-    Route::get('/', 'ProfileController@show')->name('admin.profile.show');
-    Route::get('change-password', 'ProfileController@changePassword')->name('admin.profile.change-password');
-    Route::get('sales', 'ProfileController@sales')->name('admin.profile.sales');
-    Route::put('/', 'ProfileController@update')->name('admin.profile.update');
-    Route::put('change-password', 'ProfileController@updatePassword')->name('admin.profile.update-passowrd');
+    Route::get('/', 'ProfileController@show')->name('admin.profile.show')->middleware('can:admin');
+    Route::get('change-password', 'ProfileController@changePassword')->name('admin.profile.change-password')->middleware('can:admin');
+    Route::get('sales', 'ProfileController@sales')->name('admin.profile.sales')->middleware('can:admin');
+    Route::put('/', 'ProfileController@update')->name('admin.profile.update')->middleware('can:admin');
+    Route::put('change-password', 'ProfileController@updatePassword')->name('admin.profile.update-passowrd')->middleware('can:admin');
 });
-
-// Route::group(['module' => 'profile', 'namespace' => 'Phambinh\Cms\Profile\Http\Controllers\Admin', 'middleware' => ['web'], 'prefix' => 'api/v1/profile'], function() {
-
-// });

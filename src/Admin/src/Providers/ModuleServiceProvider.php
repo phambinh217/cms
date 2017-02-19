@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Phambinh\Cms\Admin\Providers;
 
@@ -33,13 +33,6 @@ class ModuleServiceProvider extends ServiceProvider
             include __DIR__ . '/../../helper/helper.php';
         }
 
-        // Load route
-        if (!$this->app->routesAreCached()) {
-            if (\File::exists(__DIR__ . '/../../routes.php')) {
-                include __DIR__ . '/../../routes.php';
-            }
-        }
-
         $this->registerPolices();
     }
 
@@ -56,6 +49,7 @@ class ModuleServiceProvider extends ServiceProvider
     public function register()
     {
         \Module::registerFromJsonFile('admin', __DIR__ .'/../../module.json');
+        $this->app->register(\Phambinh\Cms\Admin\Providers\RoutingServiceProvider::class);
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
         $loader->alias('AdminController', \Phambinh\Cms\Admin\Http\Controllers\Admin\AdminController::class);
         $loader->alias('AdminMenu', \Phambinh\Cms\Admin\Supports\Facades\AdminMenu::class);
@@ -87,29 +81,37 @@ class ModuleServiceProvider extends ServiceProvider
     private function registerAdminMenu()
     {
         add_action('admin.init', function () {
-            \AdminMenu::register('admin-menu-top', [
-                'parent'    =>    '0',
-                'url'        =>    admin_url('profile'),
-            ], '0');
-
-            \AdminMenu::register('dashboard', [
-                'parent'    =>    'admin-menu-top',
-                'label'        =>    'Bảng quản trị',
-                'url'        =>    admin_url('dashboard'),
-                'icon'        =>    'icon-bar-chart',
-            ]);
-
-            \AdminMenu::register('overview', [
-                'parent'    =>    'dashboard',
-                'label'        =>    'Tổng quan',
-                'url'        =>    admin_url('dashboard'),
-                'icon'        =>    'icon-graph',
-            ]);
+            if (\Auth::user()->can('admin')) {
+                \AdminMenu::register('admin-menu-top', [
+                    'parent'    =>    '0',
+                    'url'        =>    admin_url('profile'),
+                ], '0');
+            }
             
-            \AdminMenu::register('main-manage', [
-                'parent'    =>    '0',
-                'label'        =>    'Quản lý chính',
-            ]);
+            if (\Auth::user()->can('admin')) {
+                \AdminMenu::register('dashboard', [
+                    'parent'    =>    'admin-menu-top',
+                    'label'        =>    'Bảng quản trị',
+                    'url'        =>    admin_url('dashboard'),
+                    'icon'        =>    'icon-bar-chart',
+                ]);
+            }
+
+            if (\Auth::user()->can('admin')) {
+                \AdminMenu::register('overview', [
+                    'parent'    =>    'dashboard',
+                    'label'        =>    'Tổng quan',
+                    'url'        =>    admin_url('dashboard'),
+                    'icon'        =>    'icon-graph',
+                ]);
+            }
+
+            if (\Auth::user()->can('admin')) {
+                \AdminMenu::register('main-manage', [
+                    'parent'    =>    '0',
+                    'label'        =>    'Quản lý chính',
+                ]);
+            }
         });
     }
 }

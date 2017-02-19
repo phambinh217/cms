@@ -15,26 +15,17 @@
 
 <div class="row">
     <div class="col-md-12">
-        <!-- BEGIN PROFILE SIDEBAR -->
         <div class="profile-sidebar">
-            <!-- PORTLET MAIN -->
             <div class="portlet light profile-sidebar-portlet bordered">
-                <!-- SIDEBAR USERPIC -->
                 <div class="profile-userpic">
                     <img src="{{ thumbnail_url($user->avatarOrDefault(), ['width' => '100', 'height' => '100']) }}" class="img-responsive" alt=""> </div>
-                <!-- END SIDEBAR USERPIC -->
-                <!-- SIDEBAR USER TITLE -->
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name"> {{ $user->full_name }} </div>
                     <div class="profile-usertitle-job"> {{ $user->role()->first()->name }} </div>
                 </div>
-                <!-- END SIDEBAR USER TITLE -->
-                <!-- SIDEBAR BUTTONS -->
                 <div class="profile-userbuttons">
                     <button onclick="event.preventDefault();document.getElementById('logout-form').submit();" type="button" class="btn btn-circle red btn-sm">Đăng xuất</button>
                 </div>
-                <!-- END SIDEBAR BUTTONS -->
-                <!-- SIDEBAR MENU -->
                 <div class="profile-usermenu">
                     <ul class="nav">
                         <li>
@@ -49,13 +40,17 @@
                         </li>
                     </ul>
                 </div>
-                <!-- END MENU -->
             </div>
-            <!-- END PORTLET MAIN -->
-            <!-- PORTLET MAIN -->
             <div class="portlet light bordered">
-                <div>
-                    <h4 class="profile-desc-title">Về {{ $user->full_name }}</h4>
+                <div class="portlet-title">
+                    <div class="caption">
+                        <span class="caption-subject bold">Về {{ $user->full_name }}</span>
+                    </div>
+                    <div class="tools">
+                        <a href="javascript:;" class="collapse"> </a>
+                    </div>
+                </div>
+                <div class="portlet-body">
                     <span class="profile-desc-text">
                         {{ $user->about }}
                     </span>
@@ -79,27 +74,22 @@
                     @endif
                 </div>
             </div>
-            <!-- END PORTLET MAIN -->
         </div>
-        <!-- END BEGIN PROFILE SIDEBAR -->
-        <!-- BEGIN PROFILE CONTENT -->
         <div class="profile-content">
             <div class="row">
                 <div class="col-md-12">
                     <div class="portlet light bordered form-fit">
-                        <div class="portlet-title tabbable-line">
-                            <div class="caption caption-md">
-                                <i class="icon-globe theme-font hide"></i>
-                                <span class="caption-subject font-blue-madison bold uppercase">Thông tin tài khoản</span>
+                        <div class="portlet-title with-tab">
+                            <div class="tab-default">
+                                <ul class="nav nav-tabs">
+                                    <li class="active">
+                                        <a href="#tab_1_1" data-toggle="tab">Thông tin cá nhân</a>
+                                    </li>
+                                    <li>
+                                        <a href="#tab_1_2" data-toggle="tab">Đổi ảnh đại diện</a>
+                                    </li>
+                                </ul>
                             </div>
-                            <ul class="nav nav-tabs">
-                                <li class="active">
-                                    <a href="#tab_1_1" data-toggle="tab">Thông tin cá nhân</a>
-                                </li>
-                                <li>
-                                    <a href="#tab_1_2" data-toggle="tab">Đổi ảnh đại diện</a>
-                                </li>
-                            </ul>
                         </div>
                         <div class="portlet-body form">
                             <form method="post" class="form-horizontal form-bordered form-row-stripped ajax-form">
@@ -107,7 +97,6 @@
                                 {{ csrf_field() }} 
                                 <div class="form-body">
                                     <div class="tab-content">
-                                        <!-- PERSONAL INFO TAB -->
                                         <div class="tab-pane active" id="tab_1_1">
                                             
                                             <div class="form-group">
@@ -177,8 +166,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- END PERSONAL INFO TAB -->
-                                        <!-- CHANGE AVATAR TAB -->
                                         <div class="tab-pane" id="tab_1_2">
                                             <div class="form-group media-box-group">
                                                 <label class="control-label col-md-3">Tải lên ảnh đại diện</label>
@@ -191,13 +178,12 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- END CHANGE AVATAR TAB -->
                                     </div>
                                 </div>
                                 <div class="form-actions util-btn-margin-bottom-5">
                                     <div class="row">
                                         <div class="col-md-offset-3 col-md-9">
-                                            <button type="submit" class="btn btn-primary">
+                                            <button type="submit" class="btn btn-primary full-width-xs">
                                                 <i class="fa fa-check"></i> Lưu thay đổi
                                             </button>
                                         </div>
@@ -209,7 +195,6 @@
                 </div>
             </div>
         </div>
-        <!-- END PROFILE CONTENT -->
     </div>
 </div>
 @endsection
@@ -222,7 +207,4 @@
 @push('js_footer')
 	<script type="text/javascript" src="{{ url('assets/admin/global/plugins/jquery-form/jquery.form.min.js') }}"></script>
     <script type="text/javascript" src="{{ url('assets/admin/global/plugins/bootstrap-toastr/toastr.min.js') }}"></script>
-    <script type="text/javascript">
-    
-    </script>
 @endpush

@@ -39,13 +39,6 @@ class ModuleServiceProvider extends ServiceProvider
             include __DIR__ . '/../../helper/helper.php';
         }
 
-        // Load route
-        if (!$this->app->routesAreCached()) {
-            if (\File::exists(__DIR__ . '/../../routes.php')) {
-                include __DIR__ . '/../../routes.php';
-            }
-        }
-
         $this->registerPolices();
     }
 
@@ -62,7 +55,8 @@ class ModuleServiceProvider extends ServiceProvider
     public function register()
     {
         \Module::registerFromJsonFile('setting', __DIR__ .'/../../module.json');
-        
+        $this->app->register(\Phambinh\Cms\Setting\Providers\RoutingServiceProvider::class);
+
         $loader = \Illuminate\Foundation\AliasLoader::getInstance();
         $loader->alias('Setting', \Phambinh\Cms\Setting\Supports\Facades\Setting::class);
         $this->app->singleton(\Phambinh\Cms\Setting\Services\Setting::class);
@@ -71,18 +65,22 @@ class ModuleServiceProvider extends ServiceProvider
         $this->app->singleton(\Phambinh\Cms\Setting\Services\Setting::class);
 
         add_action('admin.init', function () {
-            \AdminMenu::register('setting', [
-                'label'     => 'Cài đặt',
-                'url'       =>  route('admin.setting.general'),
-                'parent'    =>  '0',
-            ]);
-            
-            \AdminMenu::register('setting.general', [
-                'label'     => 'Cài đặt chung',
-                'parent'    =>  'setting',
-                'url'       =>  route('admin.setting.general'),
-                'icon'      =>  'icon-settings',
-            ]);
+            if (\Auth::user()->can('admin')) {
+                \AdminMenu::register('setting', [
+                    'label'     => 'Cài đặt',
+                    'url'       =>  route('admin.setting.general'),
+                    'parent'    =>  '0',
+                ]);
+            }
+
+            if (\Auth::user()->can('admin.setting.general')) {
+                \AdminMenu::register('setting.general', [
+                    'label'     => 'Cài đặt chung',
+                    'parent'    =>  'setting',
+                    'url'       =>  route('admin.setting.general'),
+                    'icon'      =>  'icon-settings',
+                ]);
+            }
         });
     }
 }

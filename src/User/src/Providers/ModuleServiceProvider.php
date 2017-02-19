@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Phambinh\Cms\User\Providers;
 
@@ -32,13 +32,6 @@ class ModuleServiceProvider extends ServiceProvider
             include __DIR__ . '/../../helper/helper.php';
         }
 
-        // Load route
-        if (!$this->app->routesAreCached()) {
-            if (\File::exists(__DIR__ . '/../../routes.php')) {
-                include __DIR__ . '/../../routes.php';
-            }
-        }
-
         $this->registerPolices();
     }
 
@@ -55,6 +48,7 @@ class ModuleServiceProvider extends ServiceProvider
         \AccessControl::define('Người dùng - Thêm vài trò mới', 'admin.user.role.create');
         \AccessControl::define('Người dùng - Chỉnh sửa vai trò', 'admin.user.role.edit');
         \AccessControl::define('Người dùng - Xóa vai trò', 'admin.user.role.destroy');
+        \AccessControl::define('Người dùng - Đăng nhập với tư cách', 'admin.user.login-as');
     }
 
     /**
@@ -65,35 +59,40 @@ class ModuleServiceProvider extends ServiceProvider
     public function register()
     {
         \Module::registerFromJsonFile('user', __DIR__ .'/../../module.json');
+        $this->app->register(\Phambinh\Cms\User\Providers\RoutingServiceProvider::class);
+        $this->registerAdminMenu();
+    }
 
+    private function registerAdminMenu()
+    {
         add_action('admin.init', function () {
             \AdminMenu::register('user', [
                 'parent'    =>  'main-manage',
                 'label'     =>  'Người dùng',
                 'url'       =>  admin_url('user'),
                 'icon'      =>  'icon-users',
-                ]);
+            ]);
 
             \AdminMenu::register('user.create', [
                 'parent'    =>  'user',
                 'label'     =>  'Thêm người dùng mới',
                 'url'       =>  admin_url('user/create'),
                 'icon'      =>  'icon-user-follow',
-                ]);
+            ]);
 
             \AdminMenu::register('user.all', [
                 'parent'    =>  'user',
                 'label'     =>  'Tất cả người dùng',
                 'url'       =>  admin_url('user'),
                 'icon'      =>  'icon-list',
-                ]);
+            ]);
 
             \AdminMenu::register('user.role', [
                 'parent'    =>  'user',
                 'label'     =>  'Vai trò người dùng',
                 'url'       =>  admin_url('user/role'),
                 'icon'      =>  'icon-fire',
-                ]);
+            ]);
         });
     }
 }

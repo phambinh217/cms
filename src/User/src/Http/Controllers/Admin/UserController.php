@@ -21,28 +21,27 @@ class UserController extends AdminController
         $this->data['users']    = $users;
         $this->data['filter']   = $filter;
 
-        $this->authorize('admin.user.index');
         return view('User::admin.list', $this->data);
     }
 
-    public function show($id)
+    public function show(User $user)
     {
+        if ($user->isSelf()) {
+            return redirect()->route('admin.profile.show');
+        }
+        
         \Metatag::set('title', 'Xem chi tiết người dùng');
-        $user = User::find($id);
-        $this->data['user_id'] = $id;
         $this->data['user'] = $user;
+        $this->data['user_id'] = $user->id;
 
-        $this->authorize('admin.user.show', $user);
         return view('User::admin.show', $this->data);
     }
 
-    public function popupShow($id)
+    public function popupShow(User $user)
     {
-        $user = User::find($id);
         $this->data['user'] = $user;
-        $this->data['user_id'] = $id;
+        $this->data['user_id'] = $user->id;
 
-        $this->authorize('admin.user.show', $user);
         return view('User::admin.popup-show', $this->data);
     }
     
@@ -53,14 +52,11 @@ class UserController extends AdminController
         $user = new User();
         $this->data['user'] = $user;
 
-        $this->authorize('admin.user.create');
         return view('User::admin.save', $this->data);
     }
 
     public function store(Request $request)
     {
-        $this->authorize('admin.user.create');
-
         $this->validate($request, [
             'user.name'                    => 'required|unique:users,name',
             'user.phone'                    => 'required|unique:users,phone',
@@ -113,31 +109,25 @@ class UserController extends AdminController
         return redirect(route('admin.user.create'));
     }
 
-    public function edit($id)
+    public function edit(User $user)
     {
         \Metatag::set('title', 'Chỉnh sửa người dùng');
 
-        $user = User::find($id);
-        $this->authorize('admin.user.edit', $user);
-
         // Không thể tự chỉnh sửa thông tin của bản thân trong phương thức này
         // Sẽ tự đi vào trang cá nhân
-        if ($user->isSelf($id)) {
+        if ($user->isSelf()) {
             return redirect(route('admin.profile.show'));
         }
 
-        $this->data['user_id'] = $id;
         $this->data['user'] = $user;
+        $this->data['user_id'] = $user->id;
 
         return view('User::admin.save', $this->data);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        $user = User::find($id);
-        $this->authorize('admin.user.edit', $user);
-
-        if ($user->isSelf($id)) {
+        if ($user->isSelf()) {
             return response()->json([], 422);
         }
 
@@ -145,8 +135,8 @@ class UserController extends AdminController
             'user.last_name'                => 'required|max:255',
             'user.first_name'                => 'required|max:255',
             'user.birth'                    => 'required|date_format:d-m-Y',
-            'user.phone'                    => 'required|unique:users,phone,'.$id.',id',
-            'user.email'                    => 'required|email|max:255|unique:users,email,'.$id.',id',
+            'user.phone'                    => 'required|unique:users,phone,'.$user->id.',id',
+            'user.email'                    => 'required|email|max:255|unique:users,email,'.$user->id.',id',
             'user.role_id'                    => 'required|exists:roles,id',
             'user.status'                    => 'required|in:enable,disable',
             'user.about'                    =>    'max:500',
@@ -177,26 +167,23 @@ class UserController extends AdminController
                 'message'    =>    'Thành công',
             ];
             if (isset($request->save_and_out)) {
-                $response['redirect'] = admin_url('user');
+                $response['redirect'] = route('admin.user.index');
             }
 
             return response()->json($response, 200);
         }
         
         if (isset($request->save_and_out)) {
-            return redirect(admin_url('user'));
+            return redirect()->route('admin.user.index');
         }
                 
         return redirect()->back();
     }
 
-    public function disable(Request $request, $id)
+    public function disable(Request $request, User $user)
     {
-        $user = User::find($id);
-        $this->authorize('admin.user.disable', $user);
-
         // Hành động này không thể áp dụng với bản thân người đang đăng nhập
-        if ($user->isSelf($id)) {
+        if ($user->isSelf()) {
             if ($request->ajax()) {
                 return response()->json([
 
@@ -218,13 +205,10 @@ class UserController extends AdminController
         return redirect()->back();
     }
 
-    public function enable(Request $request, $id)
+    public function enable(Request $request, User $user)
     {
-        $user = User::find($id);
-        $this->authorize('admin.user.enable', $user);
-
         // Hành động này không thể áp dụng với bản thân người đang đăng nhập
-        if ($user->isSelf($id)) {
+        if ($user->isSelf()) {
             if ($request->ajax()) {
                 return response()->json([
 
@@ -246,13 +230,10 @@ class UserController extends AdminController
         return redirect()->back();
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, User $user)
     {
-        $user = User::find($id);
-        $this->authorize('admin.user.destroy', $user);
-
         // Hành động này không thể áp dụng với bản thân người đang đăng nhập
-        if ($user->isSelf($id)) {
+        if ($user->isSelf()) {
             if ($request->ajax()) {
                 return response()->json([
 
@@ -283,5 +264,12 @@ class UserController extends AdminController
         }
         
         return redirect()->back();
+    }
+
+    public function loginAs(User $user)
+    {
+        \Auth::loginUsingId($user->id);
+
+        return redirect(url('/'));
     }
 }

@@ -182,6 +182,11 @@
 				                                <li role="presentation" class="divider"> </li>
 			                                @endcan
 			                                
+			                                @can('admin.user.login-as')
+				                                <li><a href="{{ route('admin.user.login-as', ['id' => $user_item->id]) }}"><i class="fa fa-sign-in"></i> Đăng nhập với tư cách</a></li>
+				                                <li role="presentation" class="divider"> </li>
+			                                @endcan
+
 			                                @can('admin.user.edit', $user_item)
 			                                	<li><a href="{{ route('admin.user.edit', ['id' => $user_item->id]) }}"><i class="fa fa-pencil"></i> Sửa</a></li>
 			                                @endcan

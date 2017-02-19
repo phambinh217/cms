@@ -15,7 +15,6 @@ class ThemeController extends AdminController
     public function index()
     {
         $this->data['themes'] = \Module::where('type', 'theme');
-        $this->authorize('admin.module-control.index');
         return view('ModuleControl::admin.theme.index', $this->data);
     }
 }

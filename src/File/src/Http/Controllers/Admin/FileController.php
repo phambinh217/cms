@@ -9,7 +9,6 @@ class FileController extends AdminController
 {
     public function store(Request $request)
     {
-        $this->authorize('admin.file.update');
         $this->validate($request, [
             'files' => 'required',
         ]);

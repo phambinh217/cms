@@ -22,7 +22,6 @@ class MailController extends AdminController
         $this->data['filter'] = $filter;
         $this->data['mail'] = $mail;
 
-        $this->authorize('admin');
         return view('Mail::admin.create', $this->data);
     }
 
@@ -36,8 +35,6 @@ class MailController extends AdminController
      */
     public function store(Request $request)
     {
-        $this->authorize('admin.mail.create');
-
         $this->validate($request, [
             'mail.receiver_id'    =>    'required|exists:users,id',
             'mail.subject'        =>    'required|max:255',
@@ -63,7 +60,6 @@ class MailController extends AdminController
             return redirect(route('admin.mail.outbox'));
         }
 
-        $this->authorize('admin');
         return redirect(route('admin.mail.create'));
     }
 
@@ -87,7 +83,6 @@ class MailController extends AdminController
         $this->data['filter']    = $filter;
         $this->data['mails']    = $mails;
 
-        $this->authorize('admin');
         return view('Mail::admin.inbox', $this->data);
     }
 
@@ -111,7 +106,6 @@ class MailController extends AdminController
         $this->data['filter']    = $filter;
         $this->data['mails']    = $mails;
 
-        $this->authorize('admin');
         return view('Mail::admin.outbox', $this->data);
     }
 
@@ -136,7 +130,6 @@ class MailController extends AdminController
         $this->data['mail'] = $mail;
         $this->data['mail_id'] = $id;
 
-        $this->authorize('admin');
         return view('Mail::admin.inbox-show', $this->data);
     }
 
@@ -157,7 +150,6 @@ class MailController extends AdminController
         $this->data['mail'] = $mail;
         $this->data['mail_id'] = $id;
 
-        $this->authorize('admin');
         return view('Mail::admin.outbox-show', $this->data);
     }
 
@@ -177,7 +169,6 @@ class MailController extends AdminController
         $this->data['mail'] = $mail;
         $this->data['mail_id'] = $id;
         
-        $this->authorize('admin');
         return view('Mail::admin.popup-forward', $this->data);
     }
 }

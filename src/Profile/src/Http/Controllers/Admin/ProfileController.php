@@ -19,7 +19,6 @@ class ProfileController extends AdminController
 
         $this->data['user'] = Auth::user();
 
-        $this->authorize('admin');
         return view('Profile::admin.show', $this->data);
     }
 
@@ -32,7 +31,6 @@ class ProfileController extends AdminController
 
         $this->data['user'] = Auth::user();
 
-        $this->authorize('admin');
         return view('Profile::admin.edit', $this->data);
     }
 
@@ -70,7 +68,6 @@ class ProfileController extends AdminController
             ], 200);
         }
 
-        $this->authorize('admin');
         return redirect()->back();
     }
 
@@ -83,7 +80,6 @@ class ProfileController extends AdminController
 
         $this->data['user'] = Auth::user();
 
-        $this->authorize('admin');
         return view('Profile::admin.change-password', $this->data);
     }
 
@@ -114,7 +110,6 @@ class ProfileController extends AdminController
             ], 200);
         }
 
-        $this->authorize('admin');
         return redirect()->back();
     }
 }

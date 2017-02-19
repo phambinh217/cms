@@ -23,7 +23,6 @@ class SettingController extends AdminController
         $this->data['default_avatar'] = setting('default-avatar');
         $this->data['logo'] = setting('logo', url('logo.png'));
 
-        $this->authorize('admin.setting.general');
         return view('Setting::admin.setting.general', $this->data);
     }
 
@@ -61,7 +60,6 @@ class SettingController extends AdminController
             ]);
         }
 
-        $this->authorize('admin.setting.general');
         return redirect()->back();
     }
 }

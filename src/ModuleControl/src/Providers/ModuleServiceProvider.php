@@ -39,19 +39,13 @@ class ModuleServiceProvider extends ServiceProvider
             include __DIR__ . '/../../helper/helper.php';
         }
 
-        // Load route
-        if (!$this->app->routesAreCached()) {
-            if (\File::exists(__DIR__ . '/../../routes.php')) {
-                include __DIR__ . '/../../routes.php';
-            }
-        }
-
         $this->registerPolices();
     }
 
     private function registerPolices()
     {
-        \AccessControl::define('Module Control - Xem module', 'admin.module-control.index');
+        \AccessControl::define('Module Control - Xem module', 'admin.module-control.module.index');
+        \AccessControl::define('Module Control - Xem theme', 'admin.module-control.theme.index');
     }
 
     /**
@@ -62,28 +56,35 @@ class ModuleServiceProvider extends ServiceProvider
     public function register()
     {
         \Module::registerFromJsonFile('module-control', __DIR__ .'/../../module.json');
-        
+        $this->app->register(\Phambinh\Cms\ModuleControl\Providers\RoutingServiceProvider::class);
+
         add_action('admin.init', function () {
-            \AdminMenu::register('module-control', [
-                'parent'    =>  'main-manage',
-                'icon'      =>  'icon-puzzle',
-                'url'       =>  route('admin.module-control.module.index'),
-                'label'     =>  'Quản lí module',
-            ]);
+            if (\Auth::user()->can('admin.module-control.module.index')) {
+                \AdminMenu::register('module-control', [
+                    'parent'    =>  'main-manage',
+                    'icon'      =>  'icon-puzzle',
+                    'url'       =>  route('admin.module-control.module.index'),
+                    'label'     =>  'Quản lí module',
+                ]);
+            }
 
-            \AdminMenu::register('module-control.module', [
-                'parent'    =>  'module-control',
-                'icon'      =>  'icon-puzzle',
-                'url'       =>  route('admin.module-control.module.index'),
-                'label'     =>  'Module chức năng',
-            ]);
+            if (\Auth::user()->can('admin.module-control.module.index')) {
+                \AdminMenu::register('module-control.module', [
+                    'parent'    =>  'module-control',
+                    'icon'      =>  'icon-puzzle',
+                    'url'       =>  route('admin.module-control.module.index'),
+                    'label'     =>  'Module chức năng',
+                ]);
+            }
 
-            \AdminMenu::register('module-control.theme', [
-                'parent'    =>  'module-control',
-                'icon'      =>  'icon-grid',
-                'url'       =>  route('admin.module-control.theme.index'),
-                'label'     =>  'Module chủ đề',
-            ]);
+            if (\Auth::user()->can('admin.module-control.theme.index')) {
+                \AdminMenu::register('module-control.theme', [
+                    'parent'    =>  'module-control',
+                    'icon'      =>  'icon-grid',
+                    'url'       =>  route('admin.module-control.theme.index'),
+                    'label'     =>  'Module chủ đề',
+                ]);
+            }
         });
     }
 }
