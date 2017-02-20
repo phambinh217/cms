@@ -50,7 +50,7 @@
 				</div>
 			</div>
 
-			<div class="permission-list">
+			<div class="permission-list" style="{{ isset($role_id) && $role->type == 'option' ? '' : 'display: none' }}">
 				<div class="form-group">
 					<label class="control-label col-sm-2 pull-left"></label>
 					<div class="col-sm-10">
@@ -111,12 +111,6 @@
 	<script src="{{ url('assets/admin/global/plugins/icheck/icheck.min.js') }}" type="text/javascript"></script>
 	<script type="text/javascript">
 	$(function(){
-		var handleSlectRoleType = function () {
-			return function() {
-				var roleType = $('*[name="role[type]"]:selected').val();
-				console.log(roleType);
-			}
-		}
 		$('*[name="role[type]"]').change(function(){
 			var roleType = $(this).val();
 			switch(roleType) {
