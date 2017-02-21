@@ -1,8 +1,0 @@
-{
-    "alias": "module-control",
-    "name": "Quản lí module",
-    "author": "noname",
-    "description": "Quản lí các module trên website",
-    "version": "1.0",
-    "autoload": "psr-4"
-}

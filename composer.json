@@ -16,19 +16,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Phambinh\\Cms\\Core\\": "src/Core/src/",
-            "Phambinh\\Cms\\Admin\\": "src/Admin/src/",
-            "Phambinh\\Cms\\Api\\": "src/Api/src/",
-            "Phambinh\\Cms\\Authenticate\\": "src/Authenticate/src/",
-            "Phambinh\\Cms\\Contact\\": "src/Contact/src/",
-            "Phambinh\\Cms\\File\\": "src/File/src/",
-            "Phambinh\\Cms\\HomeOnce\\": "src/HomeOnce/src/",
-            "Phambinh\\Cms\\Mail\\": "src/Mail/src/",
-            "Phambinh\\Cms\\ModuleControl\\": "src/ModuleControl/src/",
-            "Phambinh\\Cms\\Profile\\": "src/Profile/src/",
-            "Phambinh\\Cms\\Setting\\": "src/Setting/src/",
-            "Phambinh\\Cms\\Tool\\": "src/Tool/src/",
-            "Phambinh\\Cms\\User\\": "src/User/src/"
+            "Phambinh\\Cms\\": "src/"
         }
     },
     "minimum-stability": "dev"

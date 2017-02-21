@@ -1,8 +1,0 @@
-{
-    "alias": "profile",
-    "name": "Trang cá nhân",
-    "author": "Phambinh",
-    "description": "Quản lí thông tin cá nhân của người đăng nhập",
-    "version": "1.0",
-    "autoload": "psr-4"
-}

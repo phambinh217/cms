@@ -1,23 +1,23 @@
 <?php
 
 return [
-    'dashboard-view-path'    =>    'Admin::admin.dashboard',
+    'dashboard-view-path'    =>    'Cms::admin.dashboard',
     'default-thumbnail' => '<yourdomain>/uploads/no-product-image.png',
 
     'providers' => [
         /**
          * Cms modules
          */
-        \Phambinh\Cms\Admin\Providers\ModuleServiceProvider::class,
-        \Phambinh\Cms\Api\Providers\ModuleServiceProvider::class,
-        \Phambinh\Cms\Authenticate\Providers\ModuleServiceProvider::class,
-        \Phambinh\Cms\Contact\Providers\ModuleServiceProvider::class,
-        \Phambinh\Cms\File\Providers\ModuleServiceProvider::class,
-        \Phambinh\Cms\ModuleControl\Providers\ModuleServiceProvider::class,
-        \Phambinh\Cms\Profile\Providers\ModuleServiceProvider::class,
-        \Phambinh\Cms\Setting\Providers\ModuleServiceProvider::class,
-        \Phambinh\Cms\Tool\Providers\ModuleServiceProvider::class,
-        \Phambinh\Cms\User\Providers\ModuleServiceProvider::class,
+        \Packages\Cms\Providers\ModuleServiceProvider::class,
+        \Packages\Cms\Api\Providers\ModuleServiceProvider::class,
+        \Packages\Cms\Authenticate\Providers\ModuleServiceProvider::class,
+        \Packages\Cms\Contact\Providers\ModuleServiceProvider::class,
+        \Packages\Cms\Providers\ModuleServiceProvider::class,
+        \Packages\Cms\Providers\ModuleServiceProvider::class,
+        \Packages\Cms\Providers\ModuleServiceProvider::class,
+        \Packages\Cms\Providers\ModuleServiceProvider::class,
+        \Packages\Cms\Tool\Providers\ModuleServiceProvider::class,
+        \Packages\Cms\Providers\ModuleServiceProvider::class,
 
         /**
          * Others modules
