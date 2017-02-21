@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 if (! function_exists('admin_url')) {
     function admin_url($path = null, $parameters = [], $string_query = true, $secure = null)
@@ -29,13 +29,6 @@ if (! function_exists('admin_url')) {
 }
 
 if (! function_exists('api_url')) {
-    /**
-     * [api_url description]
-     * @param  [type] $path       [description]
-     * @param  array  $parameters [description]
-     * @param  [type] $secure     [description]
-     * @return [type]             [description]
-     */
     function api_url($path = null, $parameters = [], $secure = null)
     {
         return url('api/' . $path, $parameters, $secure);
@@ -44,15 +37,6 @@ if (! function_exists('api_url')) {
 
 
 if (! function_exists('thumbnail_url')) {
-    /**
- *
- * Trả về file thumbnail
- * Nếu file thumbnail chưa tồn tại thì tạo file thumbnail và trả về
- * File ảnh gốc phải nằm trên website
- *
- * @author phambinh.net
- * @return void
- */
     function thumbnail_url($image_url, $size = [])
     {
         // Nếu file không thuộc nội bộ website trả về file gốc
@@ -97,13 +81,6 @@ if (! function_exists('thumbnail_url')) {
 }
 
 if (! function_exists('image_path')) {
-    /**
- *
- * Đường dẫn tuyệt đối của file ảnh gốc
- *
- * @author phambinh.net
- * @return void
- */
     function image_path($image = null)
     {
         return public_path('uploads/' . $image);
@@ -111,13 +88,6 @@ if (! function_exists('image_path')) {
 }
 
 if (! function_exists('image_thumb_path')) {
-    /**
- *
- * Đường dẫn tuyệt đối của file ảnh thumb
- *
- * @author phambinh.net
- * @return void
- */
     function image_thumb_path($image = null)
     {
         return config('cms.thumb_path').($image ? DIRECTORY_SEPARATOR . $image : $image);
@@ -125,13 +95,6 @@ if (! function_exists('image_thumb_path')) {
 }
 
 if (! function_exists('image_thumb_url')) {
-    /**
- * Url tuyệt đối của file ảnh thumb
- *
- *
- * @author phambinh.net
- * @return void
- */
     function image_thumb_url($image = null)
     {
         return url('uploads/thumbs/' . $image);
@@ -139,13 +102,6 @@ if (! function_exists('image_thumb_url')) {
 }
 
 if (! function_exists('file_in_local')) {
-    /**
- *
- * Kiểm tra đường dẫn của file có thuộc website hay không
- *
- * @author phambinh.net
- * @return void
- */
     function file_in_local($file_url)
     {
         $base_url = url('/');
@@ -157,13 +113,6 @@ if (! function_exists('file_in_local')) {
 }
 
 if (! function_exists('image_url')) {
-    /**
- *
- *
- *
- * @author phambinh.net
- * @return void
- */
     function image_url($image = null)
     {
         return url('uploads/' . $image);
@@ -182,9 +131,9 @@ if (!function_exists('setting')) {
     function setting($key = null, $default = null)
     {
         if (is_null($key)) {
-            return app(\Packages\Cms\Services\Setting::class);
+            return app(\Phambinh\Cms\Services\Setting::class);
         }
 
-        return app(\Packages\Cms\Services\Setting::class)->get($key, $default);
+        return app(\Phambinh\Cms\Services\Setting::class)->get($key, $default);
     }
 }

@@ -1,6 +1,6 @@
 <?php 
 
-namespace Packages\Cms;
+namespace Phambinh\Cms;
 
 use Phambinh\Laravel\Database\Traits\Query;
 use Phambinh\Laravel\Database\Traits\Model as PhambinhModel;
@@ -37,12 +37,12 @@ class Role extends Model implements Query
 
     public function users()
     {
-        return $this->hasMany('Packages\Cms\User');
+        return $this->hasMany('Phambinh\Cms\User');
     }
 
     public function permissions()
     {
-        return $this->hasMany('Packages\Cms\Permission');
+        return $this->hasMany('Phambinh\Cms\Permission');
     }
     
     public function scopeOfQuery($query, $args = [])

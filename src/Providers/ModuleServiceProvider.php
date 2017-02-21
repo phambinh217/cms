@@ -1,18 +1,22 @@
-<?php 
+<?php
 /**
  * ModuleAlias: setting
  * ModuleName: setting
  * Description: This is the first file run of module. You can assign bootstrap or register module services
  * @author: noname
  * @version: 1.0
- * @package: PackagesCMS
+ * @package: PhambinhCMS
  */
-namespace Packages\Cms\Providers;
+namespace Phambinh\Cms\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
 class ModuleServiceProvider extends ServiceProvider
 {
+    protected $moduleProviders;
+
+    protected $moduleAlias;
+
     /**
      * Bootstrap the application services.
      *
@@ -81,37 +85,37 @@ class ModuleServiceProvider extends ServiceProvider
     public function register()
     {        
         $this->app->register(\Ixudra\Curl\CurlServiceProvider::class);
-        $this->app->register(\Packages\Cms\Providers\RoutingServiceProvider::class);
+        $this->app->register(\Phambinh\Cms\Providers\RoutingServiceProvider::class);
         
-        $this->app->singleton(\Packages\Cms\Services\Setting::class);
-        $this->app->singleton(\Packages\Cms\Services\AdminMenu::class);
-        $this->app->singleton(\Packages\Cms\Services\Setting::class);
-        $this->app->singleton(\Packages\Cms\Contact\Services\Contact::class);
-        $this->app->singleton(\Packages\Cms\Setting\Services\Setting::class);
-        $this->app->singleton(\Packages\Cms\Setting\Services\Setting::class);
-        $this->app->singleton(\Packages\Cms\Services\Module::class);
-
-        $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-        $loader->alias('AdminController', \Packages\Cms\Http\Controllers\Admin\AdminController::class);
-        $loader->alias('AdminMenu', \Packages\Cms\Support\Facades\AdminMenu::class);
-        $loader->alias('Setting', \Packages\Cms\Support\Facades\Setting::class);
-        $loader->alias('Setting', \Packages\Cms\Setting\Support\Facades\Setting::class);
-        $loader->alias('Contact', \Packages\Cms\Contact\Support\Facades\Contact::class);
-        $loader->alias('Menu', \Packages\Cms\Support\Facades\Menu::class);
-        $loader->alias('Module', \Packages\Cms\Support\Facades\Module::class);
-        $loader->alias('HomeController', \Packages\Cms\Http\Controllers\HomeController::class);
-        $loader->alias('AppController', \Packages\Cms\Http\Controllers\AppController::class);
-        $loader->alias('ApiController', \Packages\Cms\Http\Controllers\ApiController::class);
-        $loader->alias('Curl', \Ixudra\Curl\Facades\Curl::class);
-
-        \Module::registerFromJsonFile('cms', __DIR__ .'/../../module.json');
+        $this->app->singleton(\Phambinh\Cms\Services\Setting::class);
+        $this->app->singleton(\Phambinh\Cms\Services\AdminMenu::class);
+        $this->app->singleton(\Phambinh\Cms\Services\Setting::class);
+        $this->app->singleton(\Phambinh\Cms\Contact\Services\Contact::class);
+        $this->app->singleton(\Phambinh\Cms\Setting\Services\Setting::class);
+        $this->app->singleton(\Phambinh\Cms\Setting\Services\Setting::class);
+        $this->app->singleton(\Phambinh\Cms\Services\Module::class);
         
+        $this->app->singleton('acl', function () {
+            return new \Phambinh\Cms\Services\AccessControl(new \Phambinh\Cms\Permission());
+        });
+        
+        if (config('cms.alias')) {
+            $this->moduleAlias = config('cms.alias');
+            $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+
+            foreach ($this->moduleAlias as $alias => $class) {
+                $loader->alias($alias, $class);
+            }
+        }
+
         if (config('cms.providers')) {
             $this->moduleProviders = config('cms.providers');
             foreach ($this->moduleProviders as $provider) {
                 $this->app->register($provider);
             }
         }
+        
+        \Module::registerFromJsonFile('cms', __DIR__ .'/../../module.json');
         
         $this->registerAdminMenu();
     }

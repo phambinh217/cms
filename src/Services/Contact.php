@@ -1,6 +1,6 @@
 <?php 
 
-namespace Packages\Cms\Contact\Services;
+namespace Phambinh\Cms\Contact\Services;
 
 use Mail;
 use Validator;

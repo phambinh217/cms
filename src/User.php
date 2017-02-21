@@ -1,6 +1,6 @@
 <?php
 
-namespace Packages\Cms;
+namespace Phambinh\Cms;
 
 use App\User as AppUser;
 use Phambinh\Laravel\Database\Traits\Query;
@@ -127,7 +127,7 @@ class User extends AppUser implements Query
      */
     public function role()
     {
-        return $this->beLongsTo('Packages\Cms\Role');
+        return $this->beLongsTo('Phambinh\Cms\Role');
     }
 
     /**
@@ -136,7 +136,7 @@ class User extends AppUser implements Query
      */
     public function inbox()
     {
-        return $this->hasMany('Packages\Cms\Mail', 'receiver_id');
+        return $this->hasMany('Phambinh\Cms\Mail', 'receiver_id');
     }
 
     /**
@@ -145,7 +145,7 @@ class User extends AppUser implements Query
      */
     public function outbox()
     {
-        return $this->hasMany('Packages\Cms\Mail', 'sender_id');
+        return $this->hasMany('Phambinh\Cms\Mail', 'sender_id');
     }
 
     /**

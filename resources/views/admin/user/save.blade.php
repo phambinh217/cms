@@ -150,7 +150,7 @@
 				</label>
 				<div class="col-sm-7">
 					@include('Cms::components.form-select-role', [
-						'roles' 	=> \Packages\Cms\Role::get(),
+						'roles' 	=> \Phambinh\Cms\Role::get(),
 						'name'		=> 'user[role_id]',
 						'selected' 	=> isset($user_id) ? $user->role_id : NULL,
 						'class'		=> 'width-auto',
@@ -164,7 +164,7 @@
 				</label>
 				<div class="col-sm-7">
 					@include('Cms::components.form-select-status', [
-						'status'	=> \Packages\Cms\User::getStatusAble(),
+						'status'	=> \Phambinh\Cms\User::getStatusAble(),
 						'name' 		=> 'user[status]',
 						'class'		=> 'width-auto',
 						'selected' 	=> isset($user_id) ? ($user->status == 1 ? 'enable' : 'disable') : null,

@@ -40,7 +40,7 @@
 	                                <select name="receiver_id" id="select2-button-addons-single-input-group-sm" class="form-control find-user">
 				                        <option value="0">-- Tìm kiếm --</option>
 				                        @if(! empty($filter['receiver_id']))
-				                            <option selected="" value="{{ $filter['receiver_id'] }}">{{ Packages\Cms\User::select('first_name', 'last_name')->find($filter['receiver_id'])->full_name }}</option>
+				                            <option selected="" value="{{ $filter['receiver_id'] }}">{{ Phambinh\Cms\User::select('first_name', 'last_name')->find($filter['receiver_id'])->full_name }}</option>
 				                        @endif
 				                    </select>
 				                    <span class="help-block">

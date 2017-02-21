@@ -1,8 +1,8 @@
 <?php
 
-namespace Packages\Cms\Services;
+namespace Phambinh\Cms\Services;
 
-use Packages\Cms\Setting as DbSetting;
+use Phambinh\Cms\Setting as DbSetting;
 
 class Setting
 {
@@ -41,18 +41,18 @@ class Setting
     {
         $setting = DbSetting::firstOrCreate(['key' => $key_item]);
         $setting->fill(['value' => $value])->save();
-        \File::put(setting_path($key_item .'.json'), json_encode($value));
+        \Cache::forever(setting_path($key_item .'.json'), json_encode($value));
     }
 
     private function getValue($key_item, $default = null)
     {
         $file = setting_path($key_item .'.json');
 
-        if (\File::exists($file)) {
-            $value = json_decode(\File::get($file), true);
+        if (\Cache::has($file)) {
+            $value = json_decode(\Cache::get($file), true);
             return $value;
         } elseif ($setting = DbSetting::where(['key' => $key_item])->first()) {
-            \File::put($file, json_encode($setting->value));
+            \Cache::forever($file, json_encode($setting->value));
             return $setting->value;
         }
 

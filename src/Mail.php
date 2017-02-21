@@ -1,6 +1,6 @@
 <?php
 
-namespace Packages\Cms;
+namespace Phambinh\Cms;
 
 use Phambinh\Laravel\Database\Traits\Query;
 use Phambinh\Laravel\Database\Traits\Model as PhambinhModel;
@@ -57,12 +57,12 @@ class Mail extends Model
 
     public function sender()
     {
-        return $this->beLongsTo('Packages\Cms\User', 'sender_id');
+        return $this->beLongsTo('Phambinh\Cms\User', 'sender_id');
     }
 
     public function receiver()
     {
-        return $this->beLongsTo('Packages\Cms\User', 'receiver_id');
+        return $this->beLongsTo('Phambinh\Cms\User', 'receiver_id');
     }
 
     public function scopeOfQuery($query, $args = [])
