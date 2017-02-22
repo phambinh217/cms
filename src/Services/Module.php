@@ -30,7 +30,7 @@ class Module
         if (\File::exists($path)) {
             $info = json_decode(\File::get($path));
             $path = realpath($path);
-            $info->path = $path;
+            $info->file = $path;
             $info->type = $type;
             $parent_dirname = dirname($path);
             

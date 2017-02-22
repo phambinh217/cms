@@ -57,6 +57,8 @@ class RoleController extends AdminController
             'role.permission' => 'required_if:role.type,option',
         ]);
 
+        \AccessControl::forgetCache();
+
         $role = new Role();
         $role->fill($request->role);
         $role->save();
@@ -95,6 +97,8 @@ class RoleController extends AdminController
             'role.permission' => 'required_if:role.type,option',
         ]);
 
+        \AccessControl::forgetCache();
+        
         $role->fill($request->role);
         $role->save();
         

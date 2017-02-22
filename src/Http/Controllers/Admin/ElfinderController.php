@@ -10,6 +10,7 @@ class ElfinderController extends AdminController
 {
     public function index()
     {
+        \Metatag::set('title', 'Danh sách file');
         return view('Cms::admin.file.list', $this->data);
     }
 

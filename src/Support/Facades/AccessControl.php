@@ -8,6 +8,6 @@ class AccessControl extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'acl';
+        return \Phambinh\Cms\Services\AccessControl::class;
     }
 }

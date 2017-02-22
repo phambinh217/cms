@@ -87,17 +87,14 @@ class ModuleServiceProvider extends ServiceProvider
         $this->app->register(\Ixudra\Curl\CurlServiceProvider::class);
         $this->app->register(\Phambinh\Cms\Providers\RoutingServiceProvider::class);
         
+        $this->app->singleton(\Phambinh\Cms\Services\Module::class);
+        $this->app->singleton(\Phambinh\Cms\Services\Setting::class);
         $this->app->singleton(\Phambinh\Cms\Services\Setting::class);
         $this->app->singleton(\Phambinh\Cms\Services\AdminMenu::class);
-        $this->app->singleton(\Phambinh\Cms\Services\Setting::class);
+        $this->app->singleton(\Phambinh\Cms\Services\AccessControl::class);
         $this->app->singleton(\Phambinh\Cms\Contact\Services\Contact::class);
         $this->app->singleton(\Phambinh\Cms\Setting\Services\Setting::class);
         $this->app->singleton(\Phambinh\Cms\Setting\Services\Setting::class);
-        $this->app->singleton(\Phambinh\Cms\Services\Module::class);
-        
-        $this->app->singleton('acl', function () {
-            return new \Phambinh\Cms\Services\AccessControl(new \Phambinh\Cms\Permission());
-        });
         
         if (config('cms.alias')) {
             $this->moduleAlias = config('cms.alias');

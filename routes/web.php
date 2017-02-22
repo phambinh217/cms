@@ -2,7 +2,7 @@
 
 Route::group(['namespace' => 'Phambinh\Cms\Http\Controllers\Admin', 'middleware' => ['web'], 'prefix' => 'admin'], function () {
     Route::get('/', function () {
-        return redirect(admin_url('dashboard'));
+        return redirect()->route('admin.dashboard');
     })->name('admin');
     Route::get('dashboard', 'DashboardController@index')->name('admin.dashboard')->middleware('can:admin');
 

@@ -2,8 +2,8 @@
 
 namespace Phambinh\Cms\Services;
 
-use Phambinh\Cms\User\Models\Role;
-use Phambinh\Cms\User\Models\Permission;
+use Phambinh\Cms\Role;
+use Phambinh\Cms\Permission;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Collection;
 
@@ -21,12 +21,19 @@ class AccessControl
      */
     public $roles = [];
     
-    public function __construct($permission)
+    private $cachePrefix = 'acl.';
+
+    public function __construct(Permission $permission)
     {
         $roles = [];
-        $permission->select('role_id', 'permission')->get()->each(function ($item) use (&$roles) {
-            $roles[$item['role_id']][] = $item['permission'];
-        });
+        if (! \Cache::has($this->cachePrefix.'role')) {
+            $permission->select('role_id', 'permission')->get()->each(function ($item) use (&$roles) {
+                $roles[$item['role_id']][] = $item['permission'];
+            });
+            \Cache::forever($this->cachePrefix.'role', $roles);
+        } else {
+            $roles = \Cache::get($this->cachePrefix.'role');
+        }
 
         $this->roles = $roles;
         $this->permissions = new Collection();
@@ -59,7 +66,7 @@ class AccessControl
         return Gate::define($ability, $callback);
     }
 
-    public function baseCheck($user, $ability)
+    private function baseCheck($user, $ability)
     {
         if ($user->role->isFull()) {
             return true;
@@ -70,6 +77,11 @@ class AccessControl
         }
 
         return in_array($ability, $this->getRole($user->role_id));
+    }
+
+    public function forgetCache()
+    {
+        \Cache::forget($this->cachePrefix.'role');
     }
 
     public function __call($method, $params)
