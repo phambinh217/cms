@@ -19,8 +19,8 @@ class SettingController extends AdminController
         $this->data['home_title'] = setting('home-title');
         $this->data['home_description'] = setting('home-description');
         $this->data['home_keyword'] = setting('home-keyword');
-        $this->data['default_thumbnail'] = setting('default-thumbnail');
-        $this->data['default_avatar'] = setting('default-avatar');
+        $this->data['default_thumbnail'] = setting('default-thumbnail', upload_url('no-thumbnail.png'));
+        $this->data['default_avatar'] = setting('default-avatar', upload_url('no-avatar.png'));
         $this->data['logo'] = setting('logo', url('logo.png'));
 
         return view('Cms::admin.setting.general', $this->data);
