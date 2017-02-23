@@ -1,9 +1,9 @@
 <?php 
 
-namespace Packages\Cms\Widgets;
+namespace Phambinh\Cms\Widgets;
 
-use Packages\Cms\Support\Abstracts\Widget as AbstractWidget;
-use Packages\Cms\User;
+use Phambinh\Cms\Support\Abstracts\Widget as AbstractWidget;
+use Phambinh\Cms\User;
 
 class UserBoxData extends AbstractWidget
 {

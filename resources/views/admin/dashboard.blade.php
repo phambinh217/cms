@@ -14,7 +14,7 @@
 @section('content')
     <div class="row">
         <div class="col-sm-3">
-            @widget(\Packages\Cms\Widgets\UserBoxData::class)
+            @widget(\Phambinh\Cms\Widgets\UserBoxData::class)
         </div>
     </div>
     Chào {{ \Auth::user()->full_name }}

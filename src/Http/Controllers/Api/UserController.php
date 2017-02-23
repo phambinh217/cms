@@ -1,10 +1,10 @@
 <?php 
 
-namespace Packages\Cms\Http\Controllers\Api;
+namespace Phambinh\Cms\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use ApiController;
-use Packages\Cms\User;
+use Phambinh\Cms\User;
 
 class UserController extends ApiController
 {

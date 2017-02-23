@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['namespace' => 'Packages\Cms\Http\Controllers\Admin', 'middleware' => ['web'], 'prefix' => 'admin'], function () {
+Route::group(['namespace' => 'Phambinh\Cms\Http\Controllers\Admin', 'middleware' => ['web'], 'prefix' => 'admin'], function () {
     Route::get('/', function () {
         return redirect()->route('admin.dashboard');
     })->name('admin');
@@ -51,7 +51,7 @@ Route::group(['namespace' => 'Packages\Cms\Http\Controllers\Admin', 'middleware'
     Route::put('setting/general', 'SettingController@generalUpdate')->name('admin.setting.general.update')->middleware('can:admin.setting.general');
 });
 
-Route::group(['namespace' => 'Packages\Cms\Http\Controllers\Api', 'middleware' => ['web'], 'prefix' => 'api/v1'], function () {
+Route::group(['namespace' => 'Phambinh\Cms\Http\Controllers\Api', 'middleware' => ['web'], 'prefix' => 'api/v1'], function () {
     Route::resource('user', 'UserController');
     Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
     Route::post('authenticate', 'AuthenticateController@authenticate');

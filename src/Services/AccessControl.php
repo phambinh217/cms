@@ -1,9 +1,9 @@
 <?php
 
-namespace Packages\Cms\Services;
+namespace Phambinh\Cms\Services;
 
-use Packages\Cms\Role;
-use Packages\Cms\Permission;
+use Phambinh\Cms\Role;
+use Phambinh\Cms\Permission;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Collection;
 

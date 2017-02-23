@@ -1,10 +1,10 @@
 <?php 
 
-namespace Packages\Cms;
+namespace Phambinh\Cms;
 
-use Packages\Cms\Support\Traits\Query;
-use Packages\Cms\Support\Traits\Model as PhambinhModel;
-use Packages\Cms\Support\Traits\Metable;
+use Phambinh\Cms\Support\Traits\Query;
+use Phambinh\Cms\Support\Traits\Model as PhambinhModel;
+use Phambinh\Cms\Support\Traits\Metable;
 use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model implements Query
@@ -37,12 +37,12 @@ class Role extends Model implements Query
 
     public function users()
     {
-        return $this->hasMany('Packages\Cms\User');
+        return $this->hasMany('Phambinh\Cms\User');
     }
 
     public function permissions()
     {
-        return $this->hasMany('Packages\Cms\Permission');
+        return $this->hasMany('Phambinh\Cms\Permission');
     }
     
     public function scopeOfQuery($query, $args = [])

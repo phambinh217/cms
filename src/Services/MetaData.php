@@ -1,6 +1,6 @@
 <?php 
 
-namespace Packages\Cms\Services;
+namespace Phambinh\Cms\Services;
 
 use DateTime;
 use Illuminate\Database\Eloquent\Model as EloquentModel;

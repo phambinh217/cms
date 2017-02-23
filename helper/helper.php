@@ -148,10 +148,10 @@ if (!function_exists('setting')) {
     function setting($key = null, $default = null)
     {
         if (is_null($key)) {
-            return app(\Packages\Cms\Services\Setting::class);
+            return app(\Phambinh\Cms\Services\Setting::class);
         }
 
-        return app(\Packages\Cms\Services\Setting::class)->get($key, $default);
+        return app(\Phambinh\Cms\Services\Setting::class)->get($key, $default);
     }
 }
 

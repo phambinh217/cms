@@ -1,6 +1,6 @@
 <?php
 
-namespace Packages\Cms\Support\Abstracts;
+namespace Phambinh\Cms\Support\Abstracts;
 
 use Illuminate\Console\GeneratorCommand;
 

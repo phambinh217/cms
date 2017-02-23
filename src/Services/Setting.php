@@ -1,8 +1,8 @@
 <?php
 
-namespace Packages\Cms\Services;
+namespace Phambinh\Cms\Services;
 
-use Packages\Cms\Setting as DbSetting;
+use Phambinh\Cms\Setting as DbSetting;
 
 class Setting
 {

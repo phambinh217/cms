@@ -1,6 +1,6 @@
 <?php
 
-namespace Packages\Cms;
+namespace Phambinh\Cms;
 
 use Illuminate\Database\Eloquent\Model;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Packages\Cms\Support\Traits;
+namespace Phambinh\Cms\Support\Traits;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as BaseCollection;
@@ -174,7 +174,7 @@ trait Metable
     protected function getModelStub()
     {
         // get new meta model instance
-        $model = new \Packages\Cms\Services\MetaData();
+        $model = new \Phambinh\Cms\Services\MetaData();
         $model->setTable($this->metaTable);
 
         // model fill with attributes.

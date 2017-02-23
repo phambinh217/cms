@@ -1,6 +1,6 @@
 <?php
 
-namespace Packages\Cms\Http\Controllers\Admin;
+namespace Phambinh\Cms\Http\Controllers\Admin;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Http\Request;

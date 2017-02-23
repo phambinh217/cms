@@ -1,6 +1,6 @@
 <?php
 
-namespace Packages\Cms\Support\Facades;
+namespace Phambinh\Cms\Support\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
@@ -8,6 +8,6 @@ class Widget extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return \Packages\Cms\Services\Widget::class;
+        return \Phambinh\Cms\Services\Widget::class;
     }
 }

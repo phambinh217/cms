@@ -1,6 +1,6 @@
 <?php 
 
-namespace Packages\Cms\Services;
+namespace Phambinh\Cms\Services;
 
 class Metatag
 {

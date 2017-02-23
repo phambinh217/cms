@@ -3,8 +3,8 @@
 namespace DummyNamespace;
 
 use Illuminate\Database\Eloquent\Model;
-use Packages\Cms\Support\Traits\Model as PhambinhModel;
-use Packages\Cms\Support\Traits\Query;
+use Phambinh\Cms\Support\Traits\Model as PhambinhModel;
+use Phambinh\Cms\Support\Traits\Query;
 
 class DummyClass extends Model implements Query
 {

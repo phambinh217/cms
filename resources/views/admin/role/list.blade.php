@@ -93,16 +93,16 @@
 							</div>
 						</th>
 						<th class="text-center hidden-xs">
-							{!! \Packages\Cms\Role::linkSort('ID', 'id') !!}
+							{!! \Phambinh\Cms\Role::linkSort('ID', 'id') !!}
 						</th>
 						<th>
-							{!! \Packages\Cms\Role::linkSort('Tên vai trò', 'name') !!}
+							{!! \Phambinh\Cms\Role::linkSort('Tên vai trò', 'name') !!}
 						</th>
 						<th class="text-center hidden-xs">
-							{!! \Packages\Cms\Role::linkSort('Số tài khoản', 'total_user') !!}
+							{!! \Phambinh\Cms\Role::linkSort('Số tài khoản', 'total_user') !!}
 						</th>
 						<th class="hidden-xs">
-							{!! \Packages\Cms\Role::linkSort('Ngày tạo', 'created_at') !!}
+							{!! \Phambinh\Cms\Role::linkSort('Ngày tạo', 'created_at') !!}
 						</th>
 						<th></th>
 					</tr>
