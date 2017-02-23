@@ -20,7 +20,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Packages\\Cms\\": "src/"
+            "Phambinh\\Cms\\": "src/"
         }
     },
     "minimum-stability": "dev"
