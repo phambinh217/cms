@@ -77,14 +77,14 @@ class ModuleServiceProvider extends ServiceProvider
 
         if (config('cms.generators')) {
             foreach (config('cms.generators') as $slug => $class) {
-                $this->commands($slug);
+                $this->commands($class);
             }
         }
         
-        \Module::registerFromJsonFile('cms', __DIR__ .'/../../module.json');
+        // \Module::registerFromJsonFile('cms', __DIR__ .'/../../module.json');
         
-        $this->registerAdminMenu();
-        $this->registerWidget();
+        // $this->registerAdminMenu();
+        // $this->registerWidget();
     }
 
     private function registerBalde()

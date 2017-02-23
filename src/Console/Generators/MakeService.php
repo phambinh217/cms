@@ -4,7 +4,7 @@ namespace Phambinh\Cms\Console\Generators;
 
 use Phambinh\Cms\Support\Abstracts\Generator as AbstractGenerator;
 
-class MakeServices extends AbstractGenerator
+class MakeService extends AbstractGenerator
 {
     /**
      * The name and signature of the console command.
