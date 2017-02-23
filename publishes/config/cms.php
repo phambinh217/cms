@@ -8,16 +8,16 @@ return [
         /**
          * Cms modules
          */
-        \Phambinh\Cms\Providers\ModuleServiceProvider::class,
-        \Phambinh\Cms\Api\Providers\ModuleServiceProvider::class,
-        \Phambinh\Cms\Authenticate\Providers\ModuleServiceProvider::class,
-        \Phambinh\Cms\Contact\Providers\ModuleServiceProvider::class,
-        \Phambinh\Cms\Providers\ModuleServiceProvider::class,
-        \Phambinh\Cms\Providers\ModuleServiceProvider::class,
-        \Phambinh\Cms\Providers\ModuleServiceProvider::class,
-        \Phambinh\Cms\Providers\ModuleServiceProvider::class,
-        \Phambinh\Cms\Tool\Providers\ModuleServiceProvider::class,
-        \Phambinh\Cms\Providers\ModuleServiceProvider::class,
+        \Packages\Cms\Providers\ModuleServiceProvider::class,
+        \Packages\Cms\Api\Providers\ModuleServiceProvider::class,
+        \Packages\Cms\Authenticate\Providers\ModuleServiceProvider::class,
+        \Packages\Cms\Contact\Providers\ModuleServiceProvider::class,
+        \Packages\Cms\Providers\ModuleServiceProvider::class,
+        \Packages\Cms\Providers\ModuleServiceProvider::class,
+        \Packages\Cms\Providers\ModuleServiceProvider::class,
+        \Packages\Cms\Providers\ModuleServiceProvider::class,
+        \Packages\Cms\Tool\Providers\ModuleServiceProvider::class,
+        \Packages\Cms\Providers\ModuleServiceProvider::class,
 
         /**
          * Others modules

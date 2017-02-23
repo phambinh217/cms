@@ -1,6 +1,6 @@
 <?php
 
-namespace Phambinh\Cms;
+namespace Packages\Cms;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -15,6 +15,6 @@ class Permission extends Model
 
     public function role()
     {
-        return $this->beLongsTo('Phambinh\Cms\Role');
+        return $this->beLongsTo('Packages\Cms\Role');
     }
 }

@@ -1,11 +1,11 @@
 <?php
 
-namespace Phambinh\Cms\Http\Controllers\Admin;
+namespace Packages\Cms\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Validator;
 use AdminController;
-use Phambinh\Cms\User;
+use Packages\Cms\User;
 
 class UserController extends AdminController
 {

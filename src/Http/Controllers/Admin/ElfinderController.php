@@ -1,9 +1,9 @@
 <?php 
 
-namespace Phambinh\Cms\Http\Controllers\Admin;
+namespace Packages\Cms\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Phambinh\Cms\Support\ElfinderConnector;
+use Packages\Cms\Support\ElfinderConnector;
 use AdminController;
 
 class ElfinderController extends AdminController
@@ -38,7 +38,7 @@ class ElfinderController extends AdminController
                     'path'      =>  $path, // path to files (REQUIRED)
                     'tmpPath'   =>  $path,
                     'URL'       => url($url), // URL to files (REQUIRED)
-                    'accessControl' => 'Phambinh\Cms\Http\Controllers\ElfinderController::checkAccess', // filter callback (OPTIONAL),
+                    'accessControl' => 'Packages\Cms\Http\Controllers\ElfinderController::checkAccess', // filter callback (OPTIONAL),
                     'autoload' => true,
                     'uploadDeny' => ['text/x-php', 'application/x-shockwave-flash'],
                     'uploadAllow' => [],

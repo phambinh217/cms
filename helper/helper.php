@@ -1,5 +1,15 @@
 <?php
 
+include __DIR__ .'/constant.php';
+include __DIR__ .'/arrayHelper.php';
+include __DIR__ .'/dateHelper.php';
+include __DIR__ .'/debugHelper.php';
+include __DIR__ .'/stringHelper.php';
+include __DIR__ .'/urlHelper.php';
+include __DIR__ .'/pathHelper.php';
+include __DIR__ .'/fileHelper.php';
+include __DIR__ .'/numberHelper.php';
+
 if (! function_exists('admin_url')) {
     function admin_url($path = null, $parameters = [], $string_query = true, $secure = null)
     {
@@ -138,9 +148,91 @@ if (!function_exists('setting')) {
     function setting($key = null, $default = null)
     {
         if (is_null($key)) {
-            return app(\Phambinh\Cms\Services\Setting::class);
+            return app(\Packages\Cms\Services\Setting::class);
         }
 
-        return app(\Phambinh\Cms\Services\Setting::class)->get($key, $default);
+        return app(\Packages\Cms\Services\Setting::class)->get($key, $default);
+    }
+}
+
+
+if (!function_exists('add_action')) {
+    /**
+     * @param string $hook
+     * @param \Closure|string $callback
+     * @param int $priority
+     */
+    function add_action($hook, $callback, $priority = 20)
+    {
+        Action::addListener($hook, $callback, $priority);
+    }
+}
+
+if (!function_exists('do_action')) {
+    /**
+     * Do an action
+     * @param array ...$args
+     */
+    function do_action(...$args)
+    {
+        Action::fire(array_shift($args), $args);
+    }
+}
+
+if (!function_exists('add_filter')) {
+    /**
+     * @param string $hook
+     * @param \Closure|string $callback
+     * @param int $priority
+     */
+    function add_filter($hook, $callback, $priority = 20)
+    {
+        Filter::addListener($hook, $callback, $priority);
+    }
+}
+
+if (!function_exists('do_filter')) {
+    /**
+     * @param array ...$args
+     * @return mixed
+     */
+    function do_filter(...$args)
+    {
+        return Filter::fire(array_shift($args), $args);
+    }
+}
+
+
+if (! function_exists('module_namespace')) {
+    /**
+     * Namespace module
+     * @param  string $alias
+     * @return string
+     */
+    function module_namespace($alias = null, $append = null)
+    {
+        if ($alias) {
+            $alias = '\\'.studly_case($alias);
+        }
+
+        if ($append) {
+            $append = '\\'.$append;
+        }
+
+        return 'Packages' . $alias . $append;
+    }
+}
+
+if (!function_exists('package_path')) {
+    function package_path($path = null)
+    {
+        return base_path('packages'. ($path ? DIRECTORY_SEPARATOR . $path : $path));
+    }
+}
+
+if (! function_exists('pb_path')) {
+    function pb_path($path = null)
+    {
+        return base_path('vendor/phambinh/laravel' . ($path ? DIRECTORY_SEPARATOR . $path : $path));
     }
 }

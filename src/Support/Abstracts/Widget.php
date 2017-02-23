@@ -1,6 +1,6 @@
 <?php
 
-namespace Phambinh\Cms\Support\Abstracts;
+namespace Packages\Cms\Support\Abstracts;
 
 abstract class Widget
 {

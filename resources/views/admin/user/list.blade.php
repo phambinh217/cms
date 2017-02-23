@@ -45,7 +45,7 @@
 		                            <label class="control-label col-md-3">Quyền quản trị</label>
 		                            <div class="col-md-9">
 		                                @include('Cms::components.form-select-role', [
-		                                	'roles'		=> Phambinh\Cms\Role::get(),
+		                                	'roles'		=> Packages\Cms\Role::get(),
 		                                	'name' 		=> 'role_id',
 		                                	'selected' 	=> isset($filter['role_id']) ? $filter['role_id'] : NULL,
 		                                ])
@@ -57,7 +57,7 @@
 		                            <label class="control-label col-md-3">Trạng thái</label>
 		                            <div class="col-md-9">
 		                                @include('Cms::components.form-select-status', [
-		                                	'status'	=> \Phambinh\Cms\User::getStatusAble(),
+		                                	'status'	=> \Packages\Cms\User::getStatusAble(),
 		                                	'name' 		=> 'status',
 		                                	'selected' 	=> isset($filter['status']) ? $filter['status'] : NULL,
 		                                ])
@@ -110,13 +110,13 @@
 								</div>
 							</th>
 							<th class="text-center hidden-xs">
-								{!! \Phambinh\Cms\User::linkSort('ID', 'id') !!}
+								{!! \Packages\Cms\User::linkSort('ID', 'id') !!}
 							</th>
 							<th>
-								{!! \Phambinh\Cms\User::linkSort('Họ và tên', 'first_name') !!}
+								{!! \Packages\Cms\User::linkSort('Họ và tên', 'first_name') !!}
 							</th>
 							<th class="hidden-xs">
-								{!! \Phambinh\Cms\User::linkSort('Ngày đăng ký', 'created_at') !!}
+								{!! \Packages\Cms\User::linkSort('Ngày đăng ký', 'created_at') !!}
 							</th>
 							<th></th>
 						</tr>

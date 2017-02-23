@@ -1,6 +1,6 @@
 <?php 
 
-namespace Phambinh\Cms\Providers;
+namespace Packages\Cms\Providers;
 
 use Illuminate\Support\Facades\Route;
 use App\Providers\RouteServiceProvider as ServiceProvider;
@@ -8,7 +8,7 @@ use App\Providers\RouteServiceProvider as ServiceProvider;
 class RoutingServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap the application services.
+     * Bootstrap the application Services.
      * Include helper file in helpers folder
      * @return void
      */
@@ -16,6 +16,9 @@ class RoutingServiceProvider extends ServiceProvider
     {
         parent::boot();
 
+        Route::pattern('id', '[0-9]+');
+        Route::pattern('any', '[^/]+');
+        Route::pattern('*', '(.+)');
         Route::pattern('user', '[0-9]+');
         Route::pattern('role', '[0-9]+');
         
@@ -35,7 +38,7 @@ class RoutingServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register application services
+     * Register application Services
      * @return void
      */
     public function register()

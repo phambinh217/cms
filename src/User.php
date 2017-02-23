@@ -1,11 +1,11 @@
 <?php
 
-namespace Phambinh\Cms;
+namespace Packages\Cms;
 
 use App\User as AppUser;
-use Phambinh\Laravel\Database\Traits\Query;
-use Phambinh\Laravel\Database\Traits\Metable;
-use Phambinh\Laravel\Database\Traits\Model as PhambinhModel;
+use Packages\Cms\Support\Traits\Query;
+use Packages\Cms\Support\Traits\Metable;
+use Packages\Cms\Support\Traits\Model as PhambinhModel;
 
 class User extends AppUser implements Query
 {
@@ -127,7 +127,7 @@ class User extends AppUser implements Query
      */
     public function role()
     {
-        return $this->beLongsTo('Phambinh\Cms\Role');
+        return $this->beLongsTo('Packages\Cms\Role');
     }
 
     /**
@@ -136,7 +136,7 @@ class User extends AppUser implements Query
      */
     public function inbox()
     {
-        return $this->hasMany('Phambinh\Cms\Mail', 'receiver_id');
+        return $this->hasMany('Packages\Cms\Mail', 'receiver_id');
     }
 
     /**
@@ -145,7 +145,7 @@ class User extends AppUser implements Query
      */
     public function outbox()
     {
-        return $this->hasMany('Phambinh\Cms\Mail', 'sender_id');
+        return $this->hasMany('Packages\Cms\Mail', 'sender_id');
     }
 
     /**

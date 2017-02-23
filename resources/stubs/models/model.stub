@@ -1,0 +1,43 @@
+<?php
+
+namespace DummyNamespace;
+
+use Illuminate\Database\Eloquent\Model;
+use Packages\Cms\Support\Traits\Model as PhambinhModel;
+use Packages\Cms\Support\Traits\Query;
+
+class DummyClass extends Model implements Query
+{
+    use PhambinhModel;
+
+    protected $table = '{table}';
+
+    protected $primaryKey = 'id';
+
+    protected $fillable = [];
+
+     /**
+     * Các tham số được phép truyền vào từ URL
+     *
+     * @var array
+     */
+    protected static $requestFilter = [
+        'orderby',
+    ];
+
+    /**
+     * Giá trị mặc định của các tham số
+     *
+     * @var array
+     */
+    protected static $defaultOfQuery = [
+        'orderby'      =>  'id.desc',
+    ];
+
+    public function scopeOfQuery( $query, $args = [])
+	{
+		$args = $this->defaultOfQuery( $args );
+        
+        $query->baseQuery( $query, $args );
+	}
+}

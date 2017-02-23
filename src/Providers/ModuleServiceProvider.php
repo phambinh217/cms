@@ -2,24 +2,21 @@
 /**
  * ModuleAlias: setting
  * ModuleName: setting
- * Description: This is the first file run of module. You can assign bootstrap or register module services
+ * Description: This is the first file run of module. You can assign bootstrap or register module Services
  * @author: noname
  * @version: 1.0
  * @package: PhambinhCMS
  */
-namespace Phambinh\Cms\Providers;
+namespace Packages\Cms\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
+use Packages\Cms\Validator\HashRule;
 
 class ModuleServiceProvider extends ServiceProvider
 {
-    protected $moduleProviders;
-
-    protected $moduleAliases;
-
     /**
-     * Bootstrap the application services.
+     * Bootstrap the application Services.
      *
      * @return void
      */
@@ -52,6 +49,42 @@ class ModuleServiceProvider extends ServiceProvider
 
         $this->registerBalde();
         $this->registerPolices();
+        $this->registerRule();
+    }
+
+    /**
+     * Register the application Services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        include __DIR__.'/../../helper/helper.php';
+
+        if (config('cms.aliases')) {
+            $loader = \Illuminate\Foundation\AliasLoader::getInstance();
+
+            foreach (config('cms.aliases') as $alias => $class) {
+                $loader->alias($alias, $class);
+            }
+        }
+
+        if (config('cms.providers')) {
+            foreach (config('cms.providers') as $provider) {
+                $this->app->register($provider);
+            }
+        }
+
+        if (config('cms.generators')) {
+            foreach (config('cms.generators') as $slug => $class) {
+                $this->commands($slug);
+            }
+        }
+        
+        \Module::registerFromJsonFile('cms', __DIR__ .'/../../module.json');
+        
+        $this->registerAdminMenu();
+        $this->registerWidget();
     }
 
     private function registerBalde()
@@ -86,36 +119,11 @@ class ModuleServiceProvider extends ServiceProvider
         \AccessControl::define('Người dùng - Xóa vai trò', 'admin.role.destroy');
     }
 
-    /**
-     * Register the application services.
-     *
-     * @return void
-     */
-    public function register()
+    private function registerRule()
     {
-        $this->app->register(\Ixudra\Curl\CurlServiceProvider::class);
-        $this->app->register(\Phambinh\Cms\Providers\RoutingServiceProvider::class);
-        
-        if (config('cms.aliases')) {
-            $this->moduleAliases = config('cms.aliases');
-            $loader = \Illuminate\Foundation\AliasLoader::getInstance();
-
-            foreach ($this->moduleAliases as $alias => $class) {
-                $loader->alias($alias, $class);
-            }
-        }
-
-        if (config('cms.providers')) {
-            $this->moduleProviders = config('cms.providers');
-            foreach ($this->moduleProviders as $provider) {
-                $this->app->register($provider);
-            }
-        }
-        
-        \Module::registerFromJsonFile('cms', __DIR__ .'/../../module.json');
-        
-        $this->registerAdminMenu();
-        $this->registerWidget();
+        \Validator::resolver(function ($translator, $data, $rules, $messages) {
+            return new HashRule($translator, $data, $rules, $messages);
+        });
     }
 
     private function registerAdminMenu()

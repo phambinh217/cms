@@ -1,6 +1,6 @@
 <?php
 
-namespace Phambinh\Cms\Http\Controllers;
+namespace Packages\Cms\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 

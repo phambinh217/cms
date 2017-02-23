@@ -1,6 +1,6 @@
 <select name="{{ $name }}" id="select2-button-addons-single-input-group-sm" class="form-control find-user">
      @if(isset($selected) && $selected)
-        <option value="{{ $selected }}" selected>{{ Phambinh\Cms\User::select('id', 'first_name', 'last_name')->find($selected)->full_name }}</option>
+        <option value="{{ $selected }}" selected>{{ Packages\Cms\User::select('id', 'first_name', 'last_name')->find($selected)->full_name }}</option>
     @endif
 </select>
 
