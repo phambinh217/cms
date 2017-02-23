@@ -14,7 +14,7 @@
         "ixudra/curl": "6.*",
         "folklore/image": "0.3.*"
     },
-     "require-dev": {
+    "require-dev": {
         "barryvdh/laravel-debugbar": "^2.2",
         "xethron/migrations-generator": "^2.0"
     },
