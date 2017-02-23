@@ -37,7 +37,7 @@ class Module
             if (\File::exists($parent_dirname .'/icon.png')) {
                 $info->icon = url(str_replace([public_path(), $type.'.json', DIRECTORY_SEPARATOR], [null, null, '/'], $path) .'icon.png');
             } else {
-                $info->icon = config('cms.default-icon');
+                $info->icon = upload_url('no-icon.png');
             }
 
             $this->modules->push(new ModuleItem($info));
