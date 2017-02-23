@@ -81,10 +81,10 @@ class ModuleServiceProvider extends ServiceProvider
             }
         }
         
-        // \Module::registerFromJsonFile('cms', __DIR__ .'/../../module.json');
+        \Module::registerFromJsonFile('cms', __DIR__ .'/../../module.json');
         
-        // $this->registerAdminMenu();
-        // $this->registerWidget();
+        $this->registerAdminMenu();
+        $this->registerWidget();
     }
 
     private function registerBalde()
