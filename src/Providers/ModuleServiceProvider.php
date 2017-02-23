@@ -10,12 +10,13 @@
 namespace Phambinh\Cms\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
 
 class ModuleServiceProvider extends ServiceProvider
 {
     protected $moduleProviders;
 
-    protected $moduleAlias;
+    protected $moduleAliases;
 
     /**
      * Bootstrap the application services.
@@ -49,7 +50,15 @@ class ModuleServiceProvider extends ServiceProvider
             __DIR__.'/../../../../publishes/resources' => base_path('resources'),
         ], 'public');
 
+        $this->registerBalde();
         $this->registerPolices();
+    }
+
+    private function registerBalde()
+    {
+        Blade::directive('widget', function ($expression) {
+            return "<?php echo \Widget::run($expression) ?>";
+        });
     }
 
     private function registerPolices()
@@ -83,24 +92,15 @@ class ModuleServiceProvider extends ServiceProvider
      * @return void
      */
     public function register()
-    {        
+    {
         $this->app->register(\Ixudra\Curl\CurlServiceProvider::class);
         $this->app->register(\Phambinh\Cms\Providers\RoutingServiceProvider::class);
         
-        $this->app->singleton(\Phambinh\Cms\Services\Module::class);
-        $this->app->singleton(\Phambinh\Cms\Services\Setting::class);
-        $this->app->singleton(\Phambinh\Cms\Services\Setting::class);
-        $this->app->singleton(\Phambinh\Cms\Services\AdminMenu::class);
-        $this->app->singleton(\Phambinh\Cms\Services\AccessControl::class);
-        $this->app->singleton(\Phambinh\Cms\Contact\Services\Contact::class);
-        $this->app->singleton(\Phambinh\Cms\Setting\Services\Setting::class);
-        $this->app->singleton(\Phambinh\Cms\Setting\Services\Setting::class);
-        
-        if (config('cms.alias')) {
-            $this->moduleAlias = config('cms.alias');
+        if (config('cms.aliases')) {
+            $this->moduleAliases = config('cms.aliases');
             $loader = \Illuminate\Foundation\AliasLoader::getInstance();
 
-            foreach ($this->moduleAlias as $alias => $class) {
+            foreach ($this->moduleAliases as $alias => $class) {
                 $loader->alias($alias, $class);
             }
         }
@@ -115,6 +115,7 @@ class ModuleServiceProvider extends ServiceProvider
         \Module::registerFromJsonFile('cms', __DIR__ .'/../../module.json');
         
         $this->registerAdminMenu();
+        $this->registerWidget();
     }
 
     private function registerAdminMenu()
@@ -277,5 +278,10 @@ class ModuleServiceProvider extends ServiceProvider
                 ]);
             }
         });
+    }
+
+    private function registerWidget()
+    {
+        
     }
 }
