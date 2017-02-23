@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "phambinh/laravel": "^1.0",
+        "phambinh/laravel": "dev-master",
         "studio-42/elfinder": "^2.1.0",
         "ixudra/curl": "6.*"
     },
