@@ -287,6 +287,6 @@ class User extends AppUser implements Query
             return $this->avatar;
         }
         
-        return setting('default-avatar');
+        return setting('default-avatar', url('uploads/no-avatar.png'));
     }
 }

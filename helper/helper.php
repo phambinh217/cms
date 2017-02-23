@@ -35,6 +35,13 @@ if (! function_exists('api_url')) {
     }
 }
 
+if (! function_exists('upload_url')) {
+    function upload_url($path = null, $parameters = [], $secure = null)
+    {
+        return url('uploads/' . $path, $parameters, $secure);
+    }
+}
+
 
 if (! function_exists('thumbnail_url')) {
     function thumbnail_url($image_url, $size = [])
@@ -53,7 +60,7 @@ if (! function_exists('thumbnail_url')) {
             $size_string = implode('x', $size);
         }
 
-        $image_relative_path = urldecode(str_replace(url('uploads') .'/', '', $image_url));
+        $image_relative_path = urldecode(str_replace(upload_url() .'/', '', $image_url));
         $image_name = basename($image_relative_path);
         $thumbnail_name = $size_string . $image_name;
         $thumbnail_path = str_replace($image_name, null, $image_relative_path);
@@ -97,7 +104,7 @@ if (! function_exists('image_thumb_path')) {
 if (! function_exists('image_thumb_url')) {
     function image_thumb_url($image = null)
     {
-        return url('uploads/thumbs/' . $image);
+        return upload_url('thumbs/' . $image);
     }
 }
 
@@ -115,7 +122,7 @@ if (! function_exists('file_in_local')) {
 if (! function_exists('image_url')) {
     function image_url($image = null)
     {
-        return url('uploads/' . $image);
+        return upload_url($image);
     }
 }
 
