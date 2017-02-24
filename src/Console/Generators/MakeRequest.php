@@ -29,7 +29,7 @@ class MakeRequest extends AbstractGenerator
      */
     protected function getStub()
     {
-        return __DIR__ . '/../../../../resources/stubs/requests/request.stub';
+        return __DIR__ . '/../../../resources/stubs/requests/request.stub';
     }
 
     protected function getDefaultNamespace($rootNamespace)

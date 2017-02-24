@@ -29,7 +29,7 @@ class MakeFacade extends AbstractGenerator
      */
     protected function getStub()
     {
-        return __DIR__ . '/../../../../resources/stubs/facades/facade.stub';
+        return __DIR__ . '/../../../resources/stubs/facades/facade.stub';
     }
 
     protected function getDefaultNamespace($rootNamespace)

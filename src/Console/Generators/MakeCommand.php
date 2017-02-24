@@ -29,7 +29,7 @@ class MakeCommand extends AbstractGenerator
      */
     protected function getStub()
     {
-        return __DIR__ . '/../../../../resources/stubs/console/command.stub';
+        return __DIR__ . '/../../../resources/stubs/console/command.stub';
     }
 
     protected function getDefaultNamespace($rootNamespace)

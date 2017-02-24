@@ -30,6 +30,7 @@ return [
         'Action'            =>  \Phambinh\Cms\Support\Facades\Action::class,
         'Filter'            =>  \Phambinh\Cms\Support\Facades\Filter::class,
         'Metatag'           =>  \Phambinh\Cms\Support\Facades\Metatag::class,
+        'Image'             =>  \Folklore\Image\Facades\Image::class,
     ],
 
     'generators' => [
@@ -44,5 +45,6 @@ return [
         \Phambinh\Cms\Console\Generators\MakeSupport::class,
         \Phambinh\Cms\Console\Generators\MakeMigration::class,
         \Phambinh\Cms\Console\Generators\MakeCommand::class,
+        \Phambinh\Cms\Console\Generators\MakeWidget::class,
     ],
 ];

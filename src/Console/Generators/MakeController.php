@@ -31,10 +31,10 @@ class MakeController extends AbstractGenerator
     protected function getStub()
     {
         if ($this->option('resource')) {
-            return __DIR__ . '/../../../../resources/stubs/controllers/controller.resource.stub';
+            return __DIR__ . '/../../../resources/stubs/controllers/controller.resource.stub';
         }
 
-        return __DIR__ . '/../../../../resources/stubs/controllers/controller.stub';
+        return __DIR__ . '/../../../resources/stubs/controllers/controller.stub';
     }
 
     protected function getDefaultNamespace($rootNamespace)

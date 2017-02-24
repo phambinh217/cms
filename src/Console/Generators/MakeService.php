@@ -29,7 +29,7 @@ class MakeService extends AbstractGenerator
      */
     protected function getStub()
     {
-        return __DIR__ . '/../../../../resources/stubs/Services/Services.stub';
+        return __DIR__ . '/../../../resources/stubs/Services/Services.stub';
     }
 
     protected function getDefaultNamespace($rootNamespace)

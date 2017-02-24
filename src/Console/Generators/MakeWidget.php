@@ -4,14 +4,14 @@ namespace Phambinh\Cms\Console\Generators;
 
 use Phambinh\Cms\Support\Abstracts\Generator as AbstractGenerator;
 
-class MakeSupport extends AbstractGenerator
+class MakeWidget extends AbstractGenerator
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'module:make:support
+    protected $signature = 'module:make:widget
     	{alias : The alias of the module}
     	{name : The class name}';
 
@@ -20,7 +20,7 @@ class MakeSupport extends AbstractGenerator
      *
      * @var string
      */
-    protected $type = 'Support';
+    protected $type = 'Widget';
 
     /**
      * Get the stub file for the generator.
@@ -29,11 +29,11 @@ class MakeSupport extends AbstractGenerator
      */
     protected function getStub()
     {
-        return __DIR__ . '/../../../resources/stubs/support/support.stub';
+        return __DIR__ . '/../../../resources/stubs/widget/widget.stub';
     }
 
     protected function getDefaultNamespace($rootNamespace)
     {
-        return 'Supports\\' . $this->argument('name');
+        return 'Widget\\' . $this->argument('name');
     }
 }

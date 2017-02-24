@@ -29,7 +29,7 @@ class MakeProvider extends AbstractGenerator
      */
     protected function getStub()
     {
-        return __DIR__ . '/../../../../resources/stubs/providers/provider.stub';
+        return __DIR__ . '/../../../resources/stubs/providers/provider.stub';
     }
 
     protected function getDefaultNamespace($rootNamespace)

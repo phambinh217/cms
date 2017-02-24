@@ -29,7 +29,7 @@ class MakeMiddleware extends AbstractGenerator
      */
     protected function getStub()
     {
-        return __DIR__ . '/../../../../resources/stubs/middleware/middleware.stub';
+        return __DIR__ . '/../../../resources/stubs/middleware/middleware.stub';
     }
 
     protected function getDefaultNamespace($rootNamespace)
