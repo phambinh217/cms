@@ -186,7 +186,8 @@ class UserController extends AdminController
         if ($user->isSelf()) {
             if ($request->ajax()) {
                 return response()->json([
-
+                    'title' =>  'Lỗi',
+                    'message'   =>  'Bạn không thể thực hiện thao tác này với chính mình'
                 ], 422);
             }
 
@@ -198,7 +199,7 @@ class UserController extends AdminController
         if ($request->ajax()) {
             return response()->json([
                 'title'        =>    'Thành công',
-                'message'    =>    'Thành công',
+                'message'    =>    'Đã cấm thành viên',
             ], 200);
         }
 
@@ -211,7 +212,8 @@ class UserController extends AdminController
         if ($user->isSelf()) {
             if ($request->ajax()) {
                 return response()->json([
-
+                    'title' =>  'Lỗi',
+                    'message'   =>  'Bạn không thể thực hiện thao tác này với chính mình'
                 ], 422);
             }
 
@@ -223,7 +225,7 @@ class UserController extends AdminController
         if ($request->ajax()) {
             return response()->json([
                 'title'        =>    'Thành công',
-                'message'    =>    'Thành công',
+                'message'    =>    'Đã kích hoạt thành viên',
             ], 200);
         }
         
@@ -236,18 +238,8 @@ class UserController extends AdminController
         if ($user->isSelf()) {
             if ($request->ajax()) {
                 return response()->json([
-
-                ], 402);
-            }
-
-            return redirect()->back();
-        }
-
-        if ($user->students->count()) {
-            if ($request->ajax()) {
-                return response()->json([
-                    'title'        =>    'Lỗi',
-                    'message'    =>    'Người này có học viên trong hệ thống'
+                    'title' =>  'Lỗi',
+                    'message'   =>  'Bạn không thể thực hiện thao tác này với chính mình'
                 ], 402);
             }
 
@@ -259,7 +251,7 @@ class UserController extends AdminController
         if ($request->ajax()) {
             return response()->json([
                 'title'        =>    'Thành công',
-                'message'    =>    'Thành công',
+                'message'    =>    'Đã xóa thành viên',
             ], 200);
         }
         

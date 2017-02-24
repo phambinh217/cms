@@ -181,32 +181,35 @@
 				                                <li><a href="{{ route('admin.user.show', ['id' => $user_item->id]) }}"><i class="fa fa-eye"></i> Xem</a></li>
 				                                <li role="presentation" class="divider"> </li>
 			                                @endcan
-			                                
-			                                @can('admin.user.login-as')
-				                                <li><a href="{{ route('admin.user.login-as', ['id' => $user_item->id]) }}"><i class="fa fa-sign-in"></i> Đăng nhập với tư cách</a></li>
-				                                <li role="presentation" class="divider"> </li>
-			                                @endcan
 
-			                                @can('admin.user.edit', $user_item)
-			                                	<li><a href="{{ route('admin.user.edit', ['id' => $user_item->id]) }}"><i class="fa fa-pencil"></i> Sửa</a></li>
-			                                @endcan
+			                                @if(!$user_item->isSelf())
+				                                @can('admin.user.login-as')
+					                                <li><a href="{{ route('admin.user.login-as', ['id' => $user_item->id]) }}"><i class="fa fa-sign-in"></i> Đăng nhập với tư cách</a></li>
+					                                <li role="presentation" class="divider"> </li>
+				                                @endcan
 
-			                                @can('admin.user.disable', $user_item)
-				                            	@if($user_item->isEnable() && ! $user_item->isSelf($user_item->id))
-				                            		<li><a data-function="disable" data-method="put" href="{{ route('admin.user.disable', ['id' => $user_item->id]) }}"><i class="fa fa-recycle"></i> Xóa tạm</a></li>
+				                                @can('admin.user.edit', $user_item)
+				                                	<li><a href="{{ route('admin.user.edit', ['id' => $user_item->id]) }}"><i class="fa fa-pencil"></i> Sửa</a></li>
+				                                @endcan
+
+				                                @can('admin.user.disable', $user_item)
+					                            	@if($user_item->isEnable() && ! $user_item->isSelf($user_item->id))
+					                            		<li><a data-function="disable" data-method="put" href="{{ route('admin.user.disable', ['id' => $user_item->id]) }}"><i class="fa fa-recycle"></i> Xóa tạm</a></li>
+					                            	@endif
+				                            	@endcan
+							
+				                            	@if($user_item->isDisable())
+				                            		@can('admin.user.enable', $user_item)
+					                            		<li><a data-function="enable" data-method="put" href="{{ route('admin.user.enable', ['id' => $user_item->id]) }}"><i class="fa fa-recycle"></i> Khôi phục</a></li>
+					                            		<li role="presentation" class="divider"></li>
+				                            		@endcan
+
+				                            		@can('admin.user.destroy')
+				                            			<li><a data-function="destroy" data-method="delete" href="{{ route('admin.user.destroy', ['id' => $user_item->id]) }}"><i class="fa fa-times"></i> Xóa</a></li>
+				                            		@endcan
 				                            	@endif
-			                            	@endcan
-						
-			                            	@if($user_item->isDisable())
-			                            		@can('admin.user.enable', $user_item)
-				                            		<li><a data-function="enable" data-method="put" href="{{ route('admin.user.enable', ['id' => $user_item->id]) }}"><i class="fa fa-recycle"></i> Khôi phục</a></li>
-				                            		<li role="presentation" class="divider"></li>
-			                            		@endcan
-
-			                            		@can('admin.user.destroy')
-			                            			<li><a data-function="destroy" data-method="delete" href="{{ route('admin.user.destroy', ['id' => $user_item->id]) }}"><i class="fa fa-times"></i> Xóa</a></li>
-			                            		@endcan
 			                            	@endif
+
 			                            </ul>
 			                        </div>
 			    				</td>

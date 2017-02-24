@@ -12,8 +12,8 @@ Route::group(['namespace' => 'Phambinh\Cms\Http\Controllers\Admin', 'middleware'
     Route::get('user/{user}', 'UserController@show')->name('admin.user.show')->middleware('can:admin.user.show,user');
     Route::get('user/{user}/edit', 'UserController@edit')->name('admin.user.edit')->middleware('can:admin.user.edit,user');
     Route::put('user/{user}', 'UserController@update')->name('admin.user.update')->middleware('can:admin.user.edit,user');
-    Route::put('user/user/{user}/disable', 'UserController@enable')->name('admin.user.enable')->middleware('can:admin.user.enable,user');
-    Route::put('user/{user}/enable', 'UserController@disable')->name('admin.user.disable')->middleware('can:admin.user.disable,user');
+    Route::put('user/{user}/enable', 'UserController@enable')->name('admin.user.enable')->middleware('can:admin.user.enable,user');
+    Route::put('user/{user}/disable', 'UserController@disable')->name('admin.user.disable')->middleware('can:admin.user.disable,user');
     Route::get('user/{user}/popup-show', 'UserController@popupShow')->name('admin.user.popup-show')->middleware('can:admin.user.show,user');
     Route::delete('user/{user}', 'UserController@destroy')->name('admin.user.destroy')->middleware('can:admin.user.destroy,user');
     Route::get('user/{user}/login-as', 'UserController@loginAs')->name('admin.user.login-as')->middleware('can:admin.user.login-as');
