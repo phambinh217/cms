@@ -101,13 +101,13 @@
 
 @push('js_footer')
 	<!-- BEGIN PAGE LEVEL PLUGINS -->
-    <script src="{{ url('assets/admin/global/plugins/flot/jquery.flot.min.js') }}" type="text/javascript"></script>
-    <script src="{{ url('assets/admin/global/plugins/flot/jquery.flot.resize.min.js') }}" type="text/javascript"></script>
-    <script src="{{ url('assets/admin/global/plugins/flot/jquery.flot.categories.min.js') }}" type="text/javascript"></script>
-    <script src="{{ url('assets/admin/global/plugins/flot/jquery.flot.pie.min.js') }}" type="text/javascript"></script>
-    <script src="{{ url('assets/admin/global/plugins/flot/jquery.flot.stack.min.js') }}" type="text/javascript"></script>
-    <script src="{{ url('assets/admin/global/plugins/flot/jquery.flot.crosshair.min.js') }}" type="text/javascript"></script>
-    <script src="{{ url('assets/admin/global/plugins/flot/jquery.flot.axislabels.js') }}" type="text/javascript"></script>
+    <script src="{{ asset_url('admin', 'global/plugins/flot/jquery.flot.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset_url('admin', 'global/plugins/flot/jquery.flot.resize.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset_url('admin', 'global/plugins/flot/jquery.flot.categories.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset_url('admin', 'global/plugins/flot/jquery.flot.pie.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset_url('admin', 'global/plugins/flot/jquery.flot.stack.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset_url('admin', 'global/plugins/flot/jquery.flot.crosshair.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset_url('admin', 'global/plugins/flot/jquery.flot.axislabels.js') }}" type="text/javascript"></script>
     <!-- END PAGE LEVEL PLUGINS -->
     <script src="{{ url('assets/pages/scripts/charts-flotcharts.min.js') }}" type="text/javascript"></script>
 @endpush

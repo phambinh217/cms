@@ -5,12 +5,12 @@
 </select>
 
 @push('css')
-	<link rel="stylesheet" type="text/css" href="{{ url('assets/admin/global/plugins/select2/css/select2.min.css') }}" />
-	<link rel="stylesheet" type="text/css" href="{{ url('assets/admin/global/plugins/select2/css/select2-bootstrap.min.css') }}" />
+	<link rel="stylesheet" type="text/css" href="{{ asset_url('admin', 'global/plugins/select2/css/select2.min.css') }}" />
+	<link rel="stylesheet" type="text/css" href="{{ asset_url('admin', 'global/plugins/select2/css/select2-bootstrap.min.css') }}" />
 @endpush
 
 @push('js_footer')
-	<script type="text/javascript" src="{{ url('assets/admin/global/plugins/select2/js/select2.full.min.js') }}"></script>
+	<script type="text/javascript" src="{{ asset_url('admin', 'global/plugins/select2/js/select2.full.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset_url('user', 'js/form-find-user.js') }}"></script>
 	<script type="text/javascript">
 		$(function(){

@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <title>{{ setting('company-name') }}</title>
 
-    <link rel="stylesheet" href="{{ url('assets/admin/global/plugins/jquery-ui/jquery-ui.min.css') }}"/>
+    <link rel="stylesheet" href="{{ asset_url('admin', 'global/plugins/jquery-ui/jquery-ui.min.css') }}"/>
 
     <!-- elFinder CSS (REQUIRED) -->
-    <link rel="stylesheet" type="text/css" href="{{ url('assets/admin/global/plugins/elfinder/css/elfinder.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url('assets/admin/global/plugins/elfinder/css/theme.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset_url('admin', 'global/plugins/elfinder/css/elfinder.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset_url('admin', 'global/plugins/elfinder/css/theme.css') }}">
     <style>
         body {
             padding: 0 !important;
@@ -50,11 +50,11 @@
 </div>
 
 <!-- jQuery and jQuery UI (REQUIRED) -->
-<script src="{{ url('assets/admin/global/plugins/jquery.min.js') }}"></script>
-<script src="{{ url('assets/admin/global/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+<script src="{{ asset_url('admin', 'global/plugins/jquery.min.js') }}"></script>
+<script src="{{ asset_url('admin', 'global/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 
 <!-- elFinder JS (REQUIRED) -->
-<script src="{{ url('assets/admin/global/plugins/elfinder/js/elfinder.min.js') }}"></script>
+<script src="{{ asset_url('admin', 'global/plugins/elfinder/js/elfinder.min.js') }}"></script>
 
 <script type="text/javascript" charset="utf-8">
     $(document).ready(function () {
@@ -75,7 +75,7 @@
             customData: {
                 _token: '{{ csrf_token() }}'
             },
-            soundPath: '{{ url('assets/admin/global/plugins/elfinder/sounds') }}',
+            soundPath: '{{ asset_url('admin', 'global/plugins/elfinder/sounds') }}',
             url: '{{ admin_url('file/elfinder/connector') }}',
             resizable: false,
             getFileCallback: function(file) { // editor callback
@@ -97,8 +97,6 @@
                 }
             }
         }).elfinder('instance');
-
-
     });
 </script>
 </body>

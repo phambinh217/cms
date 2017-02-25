@@ -42,9 +42,8 @@ class ModuleServiceProvider extends ServiceProvider
         }
 
         $this->publishes([
-            __DIR__.'/../../../../publishes/assets' => public_path('assets'),
-            __DIR__.'/../../../../publishes/config' => base_path('config'),
-            __DIR__.'/../../../../publishes/resources' => base_path('resources'),
+            __DIR__.'/../../publishes/config' => base_path('config'),
+            __DIR__.'/../../publishes/resources' => base_path('resources'),
         ], 'public');
 
         $this->registerBalde();
