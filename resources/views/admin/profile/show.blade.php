@@ -201,7 +201,7 @@
 
 @push('css')
     <link href="{{ asset_url('admin', 'global/plugins/bootstrap-toastr/toastr.min.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset_url('admin', 'pages/css/profile.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset_url('admin', 'pages/css/profile.min.css')}}" rel="stylesheet" type="text/css" />
 @endpush
 
 @push('js_footer')
