@@ -22,17 +22,6 @@ class ModuleServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Load views
-        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'Cms');
-
-        // Load translations
-        $this->loadTranslationsFrom(__DIR__ . '/../../resources/lang', 'Cms');
-
-        // Load helper
-        if (\File::exists(__DIR__ . '/../../helper/helper.php')) {
-            include __DIR__ . '/../../helper/helper.php';
-        }
-
         $this->publishes([
             __DIR__.'/../../publishes/database/migrations' => database_path('migrations'),
         ], 'migration');
@@ -44,6 +33,21 @@ class ModuleServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../../publishes/resources' => resource_path(),
         ], 'resource');
+        
+        if (!config('cms.providers')) {
+            return;
+        }
+
+        // Load views
+        $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'Cms');
+
+        // Load translations
+        $this->loadTranslationsFrom(__DIR__ . '/../../resources/lang', 'Cms');
+
+        // Load helper
+        if (\File::exists(__DIR__ . '/../../helper/helper.php')) {
+            include __DIR__ . '/../../helper/helper.php';
+        }
 
         $this->registerBalde();
         $this->registerPolices();
@@ -57,6 +61,10 @@ class ModuleServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        if (!config('cms.providers')) {
+            return;
+        }
+
         include __DIR__.'/../../helper/helper.php';
 
         if (config('cms.aliases')) {

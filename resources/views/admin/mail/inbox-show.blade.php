@@ -56,7 +56,7 @@
 @endsection
 
 @push('css')
-	<link href="{{ asset_url('admin', 'css/inbox.min.css') }}" rel="stylesheet" type="text/css" />
+	<link href="{{ asset_url('admin', 'admin/app/css/inbox.min.css') }}" rel="stylesheet" type="text/css" />
 @endpush
 
 @push('js_footer')

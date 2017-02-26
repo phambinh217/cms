@@ -101,7 +101,7 @@ class MakeModule extends Command
     {
         $directory = package_path($this->moduleFolderName);
 
-        $source = __DIR__ . '/../../../../resources/stubs/_folder-structure';
+        $source = __DIR__ . '/../../../resources/stubs/_folder-structure';
 
         /**
          * Make directory
