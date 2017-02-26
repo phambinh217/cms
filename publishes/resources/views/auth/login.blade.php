@@ -1,4 +1,4 @@
-@extends('layouts.auth')
+@extends('Cms::layouts.auth')
 
 @section('content')
     <form class="login-form" action="{{ url('/login') }}" method="post" novalidate="novalidate">

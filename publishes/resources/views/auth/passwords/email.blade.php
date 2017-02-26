@@ -1,4 +1,4 @@
-@extends('layouts.auth')
+@extends('Cms::layouts.auth')
 
 <!-- Main Content -->
 @section('content')
