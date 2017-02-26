@@ -28,23 +28,22 @@ class ModuleServiceProvider extends ServiceProvider
         // Load translations
         $this->loadTranslationsFrom(__DIR__ . '/../../resources/lang', 'Cms');
 
-        // Load migrations
-        $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
-
-        // Merge configs
-        if (\File::exists(__DIR__ . '/../../config/config.php')) {
-            $this->mergeConfigFrom(__DIR__ . '/../../config/config.php', 'cms');
-        }
-
         // Load helper
         if (\File::exists(__DIR__ . '/../../helper/helper.php')) {
             include __DIR__ . '/../../helper/helper.php';
         }
 
         $this->publishes([
-            __DIR__.'/../../publishes/config' => base_path('config'),
-            __DIR__.'/../../publishes/resources' => base_path('resources'),
-        ], 'public');
+            __DIR__.'/../../publishes/database/migrations' => database_path('migrations'),
+        ], 'migration');
+
+        $this->publishes([
+            __DIR__.'/../../publishes/config' => config_path(),
+        ], 'config');
+            
+        $this->publishes([
+            __DIR__.'/../../publishes/resources' => resource_path(),
+        ], 'resource');
 
         $this->registerBalde();
         $this->registerPolices();

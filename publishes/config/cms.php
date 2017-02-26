@@ -2,8 +2,9 @@
 
 return [
     'dashboard-view-path'       => 'Cms::admin.dashboard',
-    'default-icon'              => 'http://localhost/_Packagescms/_root/uploads/icons/no-icon.png',
-    
+    'upload_path'               => public_path('uploads'),
+    'thumb_path'                => public_path('uploads/thumbs'),
+
     'providers' => [
         \Phambinh\Appearance\Providers\ModuleServiceProvider::class,
         \Phambinh\News\Providers\ModuleServiceProvider::class,
