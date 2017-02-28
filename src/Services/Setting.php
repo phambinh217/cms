@@ -39,23 +39,27 @@ class Setting
 
     private function setValue($key_item, $value)
     {
-        $setting = DbSetting::firstOrCreate(['key' => $key_item]);
-        $setting->fill(['value' => $value])->save();
-        \Cache::forever(setting_path($key_item .'.json'), json_encode($value));
+        if (env('INSTALLED')) {   
+            $setting = DbSetting::firstOrCreate(['key' => $key_item]);
+            $setting->fill(['value' => $value])->save();
+            \Cache::forever(setting_path($key_item .'.json'), json_encode($value));
+        }
     }
 
     private function getValue($key_item, $default = null)
     {
-        $file = setting_path($key_item .'.json');
+        if (env('INSTALLED')) {
+            $file = setting_path($key_item .'.json');
 
-        if (\Cache::has($file)) {
-            $value = json_decode(\Cache::get($file), true);
-            return $value;
-        } elseif ($setting = DbSetting::where(['key' => $key_item])->first()) {
-            \Cache::forever($file, json_encode($setting->value));
-            return $setting->value;
+            if (\Cache::has($file)) {
+                $value = json_decode(\Cache::get($file), true);
+                return $value;
+            } elseif ($setting = DbSetting::where(['key' => $key_item])->first()) {
+                \Cache::forever($file, json_encode($setting->value));
+                return $setting->value;
+            }
+
+            return $default;
         }
-
-        return $default;
     }
 }
