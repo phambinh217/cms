@@ -1,10 +1,9 @@
-<?php 
+<?php
 
 namespace Phambinh\Cms\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Phambinh\Cms\Support\ElfinderConnector;
-use AdminController;
 
 class ElfinderController extends AdminController
 {

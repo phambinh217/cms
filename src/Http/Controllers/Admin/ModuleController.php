@@ -4,7 +4,6 @@ namespace Phambinh\Cms\Http\Controllers\Admin;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Http\Request;
-use AdminController;
 
 class ModuleController extends AdminController
 {

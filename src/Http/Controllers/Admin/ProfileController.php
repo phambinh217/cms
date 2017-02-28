@@ -1,10 +1,8 @@
-<?php 
+<?php
 
 namespace Phambinh\Cms\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-
-use AdminController;
 use Auth;
 use Validator;
 

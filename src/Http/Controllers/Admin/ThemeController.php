@@ -1,9 +1,8 @@
-<?php 
+<?php
 
 namespace Phambinh\Cms\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use AdminController;
 
 class ThemeController extends AdminController
 {

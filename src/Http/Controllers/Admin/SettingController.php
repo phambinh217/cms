@@ -3,7 +3,6 @@
 namespace Phambinh\Cms\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use AdminController;
 use Validator;
 
 class SettingController extends AdminController

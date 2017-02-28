@@ -1,10 +1,9 @@
-<?php 
+<?php
 
 namespace Phambinh\Cms\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Phambinh\Cms\Mail;
-use AdminController;
 use Validator;
 
 class MailController extends AdminController

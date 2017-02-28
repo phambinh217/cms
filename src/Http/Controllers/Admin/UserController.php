@@ -4,7 +4,6 @@ namespace Phambinh\Cms\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Validator;
-use AdminController;
 use Phambinh\Cms\User;
 
 class UserController extends AdminController

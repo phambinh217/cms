@@ -4,7 +4,6 @@ namespace Phambinh\Cms\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Validator;
-use AdminController;
 use Phambinh\Cms\User;
 use Phambinh\Cms\Role;
 use Phambinh\Cms\Permission;
