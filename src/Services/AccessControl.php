@@ -27,10 +27,12 @@ class AccessControl
     {
         $roles = [];
         if (! \Cache::has($this->cachePrefix.'role')) {
-            $permission->select('role_id', 'permission')->get()->each(function ($item) use (&$roles) {
-                $roles[$item['role_id']][] = $item['permission'];
-            });
+            if (env('INSTALLED')) {
+                $permission->select('role_id', 'permission')->get()->each(function ($item) use (&$roles) {
+                    $roles[$item['role_id']][] = $item['permission'];
+                });
             \Cache::forever($this->cachePrefix.'role', $roles);
+            }
         } else {
             $roles = \Cache::get($this->cachePrefix.'role');
         }
