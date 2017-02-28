@@ -365,11 +365,11 @@ if (! function_exists('thumbnail_url')) {
         }
 
         // Tạo file ảnh mới
-        \Image::make(image_path($image_relative_path), [
-            'width'    => $size['width'],
-            'height'    => $size['height'],
-            'crop'        => true,
-        ])->save(image_thumb_path($thumbnail_path . $thumbnail_name));
+        \Image::make(image_path($image_relative_path))
+        ->fit($size['width'], $size['height'], function ($constraint) {
+            $constraint->upsize();
+        }, 'center')
+        ->save(image_thumb_path($thumbnail_path . $thumbnail_name));
 
         return image_thumb_url($thumbnail_path . $thumbnail_name);
     }

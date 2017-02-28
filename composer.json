@@ -12,7 +12,7 @@
     "require": {
         "studio-42/elfinder": "^2.1.0",
         "ixudra/curl": "6.*",
-        "folklore/image": "0.3.*"
+        "intervention/image": "^2.3"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^2.2",

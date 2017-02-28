@@ -6,7 +6,7 @@ return [
     'thumb_path'                => public_path('uploads/thumbs'),
 
     'providers' => [
-        \Folklore\Image\ImageServiceProvider::class,
+        \Intervention\Image\ImageServiceProvider::class,
         \Ixudra\Curl\CurlServiceProvider::class,
         \Phambinh\Appearance\Providers\ModuleServiceProvider::class,
         \Phambinh\Appearance\Providers\RoutingServiceProvider::class,
@@ -35,7 +35,7 @@ return [
         'Action'            =>  \Phambinh\Cms\Support\Facades\Action::class,
         'Filter'            =>  \Phambinh\Cms\Support\Facades\Filter::class,
         'Metatag'           =>  \Phambinh\Cms\Support\Facades\Metatag::class,
-        'Image'             =>  \Folklore\Image\Facades\Image::class,
+        'Image'             =>  \Intervention\Image\Facades\Image::class,
     ],
 
     'consoles' => [
