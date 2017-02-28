@@ -6,12 +6,15 @@ return [
     'thumb_path'                => public_path('uploads/thumbs'),
 
     'providers' => [
-        \Ixudra\Curl\CurlServiceProvider::class,
         \Folklore\Image\ImageServiceProvider::class,
+        \Ixudra\Curl\CurlServiceProvider::class,
         \Phambinh\Appearance\Providers\ModuleServiceProvider::class,
-        \Phambinh\News\Providers\ModuleServiceProvider::class,
-        \Phambinh\Page\Providers\ModuleServiceProvider::class,
+        \Phambinh\Appearance\Providers\RoutingServiceProvider::class,
         \Phambinh\Cms\Providers\RoutingServiceProvider::class,
+        \Phambinh\News\Providers\ModuleServiceProvider::class,
+        \Phambinh\News\Providers\RoutingServiceProvider::class,
+        \Phambinh\Page\Providers\ModuleServiceProvider::class,
+        \Phambinh\Page\Providers\RoutingServiceProvider::class,
         \Phambinh\CmsInstall\Providers\ModuleServiceProvider::class,
         \Phambinh\CmsInstall\Providers\RoutingServiceProvider::class,
     ],
