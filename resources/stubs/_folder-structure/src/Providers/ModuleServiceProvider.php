@@ -46,7 +46,6 @@ class ModuleServiceProvider extends ServiceProvider
     public function register()
     {
         \Module::registerFromJsonFile('DummyAlias', __DIR__ .'/../../module.json');
-        $this->app->register(\DummyNamespace\Providers\RoutingServiceProvider::class);
         $this->registerAdminMenu();
     }
 

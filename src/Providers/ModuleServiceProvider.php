@@ -81,8 +81,8 @@ class ModuleServiceProvider extends ServiceProvider
             }
         }
 
-        if (config('cms.generators')) {
-            foreach (config('cms.generators') as $slug => $class) {
+        if (config('cms.consoles')) {
+            foreach (config('cms.consoles') as $slug => $class) {
                 $this->commands($class);
             }
         }

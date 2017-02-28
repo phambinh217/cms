@@ -34,7 +34,7 @@ return [
         'Image'             =>  \Folklore\Image\Facades\Image::class,
     ],
 
-    'generators' => [
+    'consoles' => [
         \Phambinh\Cms\Console\Generators\MakeModule::class,
         \Phambinh\Cms\Console\Generators\MakeProvider::class,
         \Phambinh\Cms\Console\Generators\MakeController::class,

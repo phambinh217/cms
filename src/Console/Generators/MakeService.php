@@ -11,7 +11,7 @@ class MakeService extends AbstractGenerator
      *
      * @var string
      */
-    protected $signature = 'module:make:Services
+    protected $signature = 'module:make:services
     	{alias : The alias of the module}
     	{name : The class name}';
 
@@ -29,7 +29,7 @@ class MakeService extends AbstractGenerator
      */
     protected function getStub()
     {
-        return __DIR__ . '/../../../resources/stubs/Services/Services.stub';
+        return __DIR__ . '/../../../resources/stubs/services/service.stub';
     }
 
     protected function getDefaultNamespace($rootNamespace)
