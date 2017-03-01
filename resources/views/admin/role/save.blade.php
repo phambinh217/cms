@@ -20,7 +20,7 @@
 	@endcan
 @endif
 @section('content')
-	<form ajax-form-container action="{{ isset($role_id) ? admin_url('user/role/' . $role_id) : route('admin.role.show', ['id' => $role->id]) }}" method="post" class="form-horizontal form-bordered form-row-stripped">
+	<form ajax-form-container action="{{ isset($role_id) ? route('admin.role.update', ['id' => $role_id]) : route('admin.role.store') }}" method="post" class="form-horizontal form-bordered form-row-stripped">
 		
 		@if(isset($role_id))
 			<input type="hidden" name="_method" value="PUT" />
@@ -60,7 +60,7 @@
 							@foreach($access_controls->chunk(3) as $chunks)
 								<div class="row">
 									@foreach($chunks as $access_item)
-										<?php  $check = isset($role_id) && in_array($access_item['ability'], \AccessControl::getRole($role->id)) ? 'checked' : '' ; ?>
+										<?php $check = isset($role_id) && in_array($access_item['ability'], (array) \AccessControl::getRole($role->id)['permissions']) ? 'checked' : '' ; ?>
 										<div class="col-sm-4">
 					                        <div class="input-group">
 					                            <div class="icheck-list">

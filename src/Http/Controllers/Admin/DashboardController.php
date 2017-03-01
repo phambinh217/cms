@@ -2,8 +2,6 @@
 
 namespace Phambinh\Cms\Http\Controllers\Admin;
 
-use AppController;
-
 class DashboardController extends AdminController
 {
     public function index()

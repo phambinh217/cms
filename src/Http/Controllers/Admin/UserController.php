@@ -102,16 +102,14 @@ class UserController extends AdminController
         }
 
         if (isset($request->save_only)) {
-            return redirect(route('admin.user.edit', ['id' => $user->id]));
+            return redirect()-route('admin.user.edit', ['id' => $user->id]);
         }
 
-        return redirect(route('admin.user.create'));
+        return redirect()->route('admin.user.create');
     }
 
     public function edit(User $user)
     {
-        \Metatag::set('title', 'Chỉnh sửa người dùng');
-
         // Không thể tự chỉnh sửa thông tin của bản thân trong phương thức này
         // Sẽ tự đi vào trang cá nhân
         if ($user->isSelf()) {
@@ -121,6 +119,7 @@ class UserController extends AdminController
         $this->data['user'] = $user;
         $this->data['user_id'] = $user->id;
 
+        \Metatag::set('title', 'Chỉnh sửa người dùng');
         return view('Cms::admin.user.save', $this->data);
     }
 

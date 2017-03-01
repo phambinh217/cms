@@ -11,7 +11,7 @@
 @section('page_title', 'Vai trò người dùng')
 
 @section('content')
-	<?php dd(\AccessControl::all()) ?>
+
 @endsection
 
 @push('css')

@@ -23,8 +23,78 @@
 @endif
 
 @section('content')
-
-	<form ajax-form-container action="{{ isset($user_id) ? admin_url('user/' . $user_id)  : admin_url('user') }}" method="post" class="form-horizontal form-bordered form-row-stripped">
+	@if (isset($user_id))
+		<div class="hidden-xs">
+			<div class="portlet light bordered">
+				<div class="portlet-title">
+					<div class="caption">
+						<span class="caption-subject bold">Tóm tắt nhanh</span>
+					</div>
+					<div class="tools">
+						<a href="javascript:;" class="collapse"> </a>
+						<a href="" class="fullscreen"> </a>
+					</div>
+				</div>
+				<div class="portlet-body">
+					<div class="row">
+						<div class="col-sm-2">
+							<div>
+								<img class="img-responsive" src="{{ thumbnail_url($user->avatarOrDefault(), ['width' => '150', 'height' => '150']) }}" />
+							</div>
+							@can('admin.user.login-as')
+								<a href="{{ route('admin.user.login-as', ['id' => $user->id]) }}"></i> Đăng nhập với tư cách</a>
+							@endcan
+						</div>
+						<div class="col-sm-5">
+							<table class="table table-hover">
+								<tbody>
+									<tr>
+										<td><strong>Họ và tên</strong></td>
+										<td>{{ $user->full_name }}</td>
+									</tr>
+									<tr>
+										<td><strong>Ngày sinh</strong></td>
+										<td>{{ changeFormatDate($user->birth, 'Y-m-d', 'd-m-Y' ) }}</td>
+									</tr>
+									<tr>
+										<td><strong>Số điện thoại</strong></td>
+										<td>{{ $user->phone }}</td>
+									</tr>
+									<tr>
+										<td><strong>Email</strong></td>
+										<td>{{ $user->email }}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="col-sm-5">
+							<table class="table table-hover">
+								<tbody>
+									<tr>
+										<td><strong>ID</strong></td>
+										<td>{{ $user->id }}</td>
+									</tr>
+									<tr>
+										<td><strong>Bí danh</strong></td>
+										<td>{{ $user->name }}</td>
+									</tr>
+									<tr>
+										<td><strong>Trạng thái</strong></td>
+										<td>{{ $user->status('name') }}</td>
+									</tr>
+									<tr>
+										<td><strong>Vai trò</strong></td>
+										<td>{{ $user->role->name }}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	@endif
+	<form action="{{ isset($user_id) ? admin_url('user/' . $user_id)  : admin_url('user') }}" method="post" class="form-horizontal form-bordered form-row-stripped ajax-form">
 		@if(isset($user_id))
 			<input type="hidden" name="_method" value="PUT" />
 		@endif

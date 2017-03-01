@@ -23,31 +23,47 @@ class AccessControl
     
     private $cachePrefix = 'acl.';
 
-    public function __construct(Permission $permission)
+    public function __construct(Permission $permission, Role $role)
     {
-        $roles = [];
-        if (! \Cache::has($this->cachePrefix.'role')) {
-            if (env('INSTALLED')) {
-                $permission->select('role_id', 'permission')->get()->each(function ($item) use (&$roles) {
-                    $roles[$item['role_id']][] = $item['permission'];
-                });
-            \Cache::forever($this->cachePrefix.'role', $roles);
-            }
-        } else {
-            $roles = \Cache::get($this->cachePrefix.'role');
-        }
-
-        $this->roles = $roles;
         $this->permissions = new Collection();
+
+        if (! \Cache::has($this->cachePrefix.'role')) {
+            $this->roles = new Collection();
+            if (env('INSTALLED')) {
+                $roles = $role->with('permissions')->get();
+
+                foreach ($roles as $role_item) {
+                    if ($role_item->isFull()) {
+                        $this->roles->push([
+                            'id' => $role_item->id,
+                            'name' => $role_item->name,
+                            'permissions' => '*',
+                        ]);
+                    } elseif ($role_item->isEmpty()) {
+                        $this->roles->push([
+                            'id' => $role_item->id,
+                            'name' => $role_item->name,
+                            'permissions' => false,
+                        ]);
+                    } else {
+                        $this->roles->push([
+                            'id' => $role_item->id,
+                            'name' => $role_item->name,
+                            'permissions' => $role_item->permissions->pluck('permission')->toArray(),
+                        ]);
+                    }
+                }
+
+                \Cache::forever($this->cachePrefix.'role', $this->roles);
+            }   
+        } else {
+            $this->roles = new Collection(\Cache::get($this->cachePrefix.'role'));
+        }
     }
 
     public function getRole($role_id)
     {
-        if (isset($this->roles[$role_id])) {
-            return $this->roles[$role_id];
-        }
-
-        return [];
+        return $this->roles->where('id', $role_id)->first();
     }
 
     public function define($name, $ability, $callback = null)
@@ -70,15 +86,15 @@ class AccessControl
 
     private function baseCheck($user, $ability)
     {
-        if ($user->role->isFull()) {
+        if ($this->getRole($user->role_id)['permissions'] == '*') {
             return true;
         }
 
-        if ($user->role->isEmpty()) {
+        if ($this->getRole($user->role_id)['permissions'] == false) {
             return false;
         }
 
-        return in_array($ability, $this->getRole($user->role_id));
+        return in_array($ability, $this->getRole($user->role_id)['permissions']);
     }
 
     public function forgetCache()

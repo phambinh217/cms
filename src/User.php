@@ -236,6 +236,11 @@ class User extends AppUser implements Query
         return self::$statusAble;
     }
 
+    public function status($key)
+    {
+        return $this->statusAble[$this->status][$key];
+    }
+
     /**
      * Kiểm tra $user_id có phải là người đang đăng nhập không
      * @param  int  $user_id
