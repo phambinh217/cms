@@ -108,8 +108,8 @@ class User extends AppUser implements Query
      * @var array
      */
     protected static $statusAble = [
-        [ 'slug' => 'enable', 'name' => 'Bình thường'],
-        ['slug' => 'disable','name' => 'Cấm',],
+        ['slug' => 'disable','name' => 'Cấm'],
+        ['slug' => 'enable', 'name' => 'Bình thường'],
     ];
 
     protected static $searchFields = [

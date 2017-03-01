@@ -18,54 +18,6 @@
 @endcan
 @section('content')
 	<div class="table-function-container">
-		<div class="portlet light bordered">
-		    <div class="portlet-title">
-		        <div class="caption">
-		            <i class="fa fa-filter"></i> Bộ lọc kết quả
-		        </div>
-		        <div class="tools">
-		        	<a href="javascript:;" class="collapse" data-original-title="" title=""></a>
-		        </div>
-		        <div class="tools">
-		        	<a href="javascript:;" class="collapse" data-original-title="" title=""></a>
-		        </div>
-		    </div>
-		    <div class="portlet-body form">
-		        <form action="#" class="form-horizontal form-bordered form-row-stripped">
-		            <div class="form-body">
-		                <div class="row">
-		                    <div class="col-sm-6 md-pr-0">
-		                        <div class="form-group">
-		                            <label class="control-label col-md-3">ID</label>
-		                            <div class="col-md-9">
-		                                <input type="text" name="id" placeholder="ID" value="{{ isset($filter['id']) ? $filter['id'] : '' }}" class="form-control" />
-		                            </div>
-		                        </div>
-		                    </div>
-		                    <div class="col-sm-6 md-pl-0">
-		                    	<div class="form-group">
-		                            <label class="control-label col-md-3">Tên vai trò</label>
-		                            <div class="col-md-9">
-		                                <input type="text" name="phone" placeholder="Tên vai trò" value="{{ isset($filter['phone']) ? $filter['phone'] : '' }}" class="form-control" />
-		                            </div>
-		                        </div>
-		                    </div>
-		                </div>
-		            </div>
-		            <div class="form-actions util-btn-margin-bottom-5">
-		                <div class="row util-btn-margin-bottom-5">
-		                    <div class="col-md-12 text-right">
-		                        <button type="submit" class="btn btn-primary full-width-xs">
-		                            <i class="fa fa-filter"></i> Lọc</button>
-		                        <a href="{{ admin_url('user/role') }}" class="btn btn-gray full-width-xs">
-		                            <i class="fa fa-times"></i> Hủy
-		                        </a>
-		                    </div>
-		                </div>
-		            </div>
-		        </form>
-		    </div>
-		</div>
 		<div class="note note-success">
             <p><i class="fa fa-info"></i> Tổng số {{ $roles->total() }} kết quả</p>
         </div>
