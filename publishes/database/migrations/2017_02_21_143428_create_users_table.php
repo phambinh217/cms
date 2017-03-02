@@ -28,6 +28,11 @@ class CreateUsersTable extends Migration {
 			$table->string('phone')->nullable();
 			$table->string('avatar', 200)->nullable();
 			$table->text('address', 65535)->nullable();
+			$table->string('website', 255)->nullable();
+            $table->string('facebook', 255)->nullable();
+            $table->string('google_plus', 255)->nullable();
+            $table->string('about', 255)->nullable();
+            $table->string('job', 255)->nullable();
 		});
 	}
 
