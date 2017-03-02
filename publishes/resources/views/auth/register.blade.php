@@ -18,10 +18,10 @@
         @endif
     </div>
     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-        <label class="control-label visible-ie8 visible-ie9">Tên tài khoản</label>
+        <label class="control-label visible-ie8 visible-ie9">Mã sinh viên</label>
         <div class="input-icon">
             <i class="fa fa-user"></i>
-            <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Tên tài khoản" name="username">
+            <input class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Tên đăng nhập" name="name">
         </div>
         @if ($errors->has('name'))
             <span class="help-block">
@@ -46,7 +46,7 @@
         <div class="controls">
             <div class="input-icon">
                 <i class="fa fa-check"></i>
-                <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="Nhập lại mật khẩu" name="rpassword">
+                <input class="form-control placeholder-no-fix" type="password" autocomplete="off" placeholder="Nhập lại mật khẩu" name="password_confirmation">
             </div>
             @if ($errors->has('password_confirmation'))
                 <span class="help-block">

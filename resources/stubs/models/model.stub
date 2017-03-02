@@ -34,10 +34,8 @@ class DummyClass extends Model implements Query
         'orderby'      =>  'id.desc',
     ];
 
-    public function scopeOfQuery( $query, $args = [])
-	{
-		$args = $this->defaultOfQuery( $args );
-        
-        $query->baseQuery( $query, $args );
-	}
+    public function scopeOfQuery($query, $args = [])
+    {
+        $query->baseQuery($query, $args);
+    }
 }
