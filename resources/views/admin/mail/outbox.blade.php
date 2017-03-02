@@ -144,7 +144,7 @@
 	    				<td>
 	    					<div class="media">
 				                <div class="pull-left">
-				                    <img class="img-circle" src="{{ thumbnail_url($mail_item->avatarOrDefault(), ['width' => '50', 'height' => '50']) }}" alt="" style="max-width: 70px" />
+				                    <img class="img-circle" src="{{ thumbnail_url($mail_item->avatar, ['width' => '50', 'height' => '50']) }}" alt="" style="max-width: 70px" />
 				                </div>
 
 				                <div class="media-body">

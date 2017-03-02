@@ -272,12 +272,8 @@ class User extends AppUser implements Query
     {
         return $this->status == 0;
     }
-
-    /**
-     * Lấy tên đầy đủ dựa vào họ và tên thật
-     * @return string
-     */
-    public function getFull_name()
+    
+    public function getFullNameAttribute()
     {
         return $this->last_name .' '. $this->first_name;
     }
@@ -286,10 +282,10 @@ class User extends AppUser implements Query
      * Avatar mặc định hoặc avatar thật
      * @return string
      */
-    public function avatarOrDefault()
+    public function getAvatarAttribute($value)
     {
-        if (! empty($this->avatar)) {
-            return $this->avatar;
+        if (! empty($value)) {
+            return $value;
         }
         
         return setting('default-avatar', url('uploads/no-avatar.png'));

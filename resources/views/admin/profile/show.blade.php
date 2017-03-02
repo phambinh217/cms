@@ -18,7 +18,7 @@
         <div class="profile-sidebar">
             <div class="portlet light profile-sidebar-portlet bordered">
                 <div class="profile-userpic">
-                    <img src="{{ thumbnail_url($user->avatarOrDefault(), ['width' => '100', 'height' => '100']) }}" class="img-responsive" alt=""> </div>
+                    <img src="{{ thumbnail_url($user->avatar, ['width' => '100', 'height' => '100']) }}" class="img-responsive" alt=""> </div>
                 <div class="profile-usertitle">
                     <div class="profile-usertitle-name"> {{ $user->full_name }} </div>
                     <div class="profile-usertitle-job"> {{ $user->role()->first()->name }} </div>
@@ -172,8 +172,8 @@
                                                 <div class="col-sm-9">
                                                     @include('Cms::components.form-chose-media', [
                                                         'name'              => 'user[avatar]',
-                                                        'value'             => old('user.avatar', $user->avatarOrDefault()),
-                                                        'url_image_preview' => old('user.avatar', thumbnail_url($user->avatarOrDefault(), ['width' => '100', 'height' => '100']))
+                                                        'value'             => old('user.avatar', $user->avatar),
+                                                        'url_image_preview' => old('user.avatar', thumbnail_url($user->avatar, ['width' => '100', 'height' => '100']))
                                                     ])
                                                 </div>
                                             </div>

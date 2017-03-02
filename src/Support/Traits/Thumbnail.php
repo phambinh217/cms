@@ -4,7 +4,7 @@ namespace Phambinh\Cms\Support\Traits;
 
 trait Thumbnail
 {
-    public function thumbnailOrDefault()
+    public function getThumbnailAttribute()
     {
         if (property_exists($this, 'thumbnail')) {
             $thumbnail = $this->thumbnail();

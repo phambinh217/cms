@@ -133,7 +133,7 @@
 			    				<td>
 			    					<div class="media">
 						                <div class="pull-left">
-						                    <img class="img-circle" src="{{ thumbnail_url($user_item->avatarOrDefault(), ['width' => '70', 'height' => '70']) }}" alt="" style="max-width: 70px" />
+						                    <img class="img-circle" src="{{ thumbnail_url($user_item->avatar, ['width' => '70', 'height' => '70']) }}" alt="" style="max-width: 70px" />
 						                </div>
 
 						                <div class="media-body">

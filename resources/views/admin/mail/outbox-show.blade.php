@@ -34,7 +34,7 @@
 	        <div class="inbox-view-info">
 	            <div class="row">
 	                <div class="col-md-7">
-	                    <img src="{{ thumbnail_url($sender->avatarOrDefault() , ['width' => '45', 'height' => '45']) }}" class="inbox-author">
+	                    <img src="{{ thumbnail_url($sender->avatar , ['width' => '45', 'height' => '45']) }}" class="inbox-author">
 	                    <span class="sbold">{{ $sender->full_name }} </span>
 	                    <span>&lt;{{ $sender->email }}&gt; </span> đến
 	                    <span class="sbold"> tôi </span> vào lúc {{ text_time_difference($mail->created_at) }}

@@ -24,7 +24,7 @@
                         <li>
                             <a href="{{ route('admin.mail.inbox.show', ['id' => $inbox_item->id]) }}">
                                 <span class="photo">
-                                    <img src="{{ thumbnail_url($inbox_item->avatarOrDefault(), ['width' => '45', 'height' => '45']) }}" class="img-circle" alt="" style="max-width: 50px">
+                                    <img src="{{ thumbnail_url($inbox_item->avatar, ['width' => '45', 'height' => '45']) }}" class="img-circle" alt="" style="max-width: 50px">
                                 </span>
                                 <span class="subject">
                                     <span class="from"> {{ $inbox_item->full_name() }} </span>

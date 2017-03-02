@@ -39,7 +39,7 @@
 					<div class="row">
 						<div class="col-sm-2">
 							<div>
-								<img class="img-responsive" src="{{ thumbnail_url($user->avatarOrDefault(), ['width' => '150', 'height' => '150']) }}" />
+								<img class="img-responsive" src="{{ thumbnail_url($user->avatar, ['width' => '150', 'height' => '150']) }}" />
 							</div>
 							@can('admin.user.login-as')
 								<a href="{{ route('admin.user.login-as', ['id' => $user->id]) }}"></i> Đăng nhập với tư cách</a>
@@ -208,8 +208,8 @@
                 <div class="col-sm-7">
                     @include('Cms::components.form-chose-media', [
                         'name'              => 'user[avatar]',
-                        'value'             => old('user.avatar', $user->avatarOrDefault()),
-                        'url_image_preview' => old('user.avatar', thumbnail_url($user->avatarOrDefault(), ['width' => '100', 'height' => '100']))
+                        'value'             => old('user.avatar', $user->avatar),
+                        'url_image_preview' => old('user.avatar', thumbnail_url($user->avatar, ['width' => '100', 'height' => '100']))
                     ])
                 </div>
             </div>

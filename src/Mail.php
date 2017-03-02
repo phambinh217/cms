@@ -107,7 +107,7 @@ class Mail extends Model
      * @return
      * @author BinhPham
      */
-    public function avatarOrDefault()
+    public function avatar
     {
         if (! empty($this->avatar)) {
             return $this->avatar;

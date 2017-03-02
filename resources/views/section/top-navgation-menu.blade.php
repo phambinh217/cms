@@ -6,7 +6,7 @@
 		<li class="dropdown dropdown-user">
 			<a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 				<span class="username username-hide-on-mobile"> {{ \Auth::user()->name }} </span>
-				<img alt="" class="img-circle" src="{{ thumbnail_url(\Auth::user()->avatarOrDefault(), ['width' => '50', 'height' => '50']) }}" />
+				<img alt="" class="img-circle" src="{{ thumbnail_url(\Auth::user()->avatar, ['width' => '50', 'height' => '50']) }}" />
 			</a>
 			<ul class="dropdown-menu dropdown-menu-default">
 				<li>

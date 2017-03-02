@@ -8,7 +8,7 @@
 			<div class="modal-body">
 				<div class="media">
                     <a class="pull-left" href="javascript:;">
-                        <img class="media-object" src="{{ $user->avatarOrDefault() }}" style="width: 100px; height: 100px;"> </a>
+                        <img class="media-object" src="{{ $user->avatar }}" style="width: 100px; height: 100px;"> </a>
                     <div class="media-body">
                         <h4 class="media-heading">
                         	{{ $user->full_name }}
