@@ -6,12 +6,15 @@ use Phambinh\Cms\Setting as DbSetting;
 
 class Setting
 {
+    protected $prefix = 'setting.';
+
     public function sync($key, $value)
     {
         if (str_contains($key, '.')) {
             $keys = explode('.', $key);
             $key_item = array_shift($keys);
             $key = implode('.', $keys);
+
             if ($values = $this->getValue($key_item)) {
                 array_set($values, $key, $value);
                 $this->setValue($key_item, $values);
@@ -39,23 +42,24 @@ class Setting
 
     private function setValue($key_item, $value)
     {
-        if (env('INSTALLED')) {   
+        if (env('INSTALLED')) {
             $setting = DbSetting::firstOrCreate(['key' => $key_item]);
             $setting->fill(['value' => $value])->save();
-            \Cache::forever(setting_path($key_item .'.json'), json_encode($value));
+            
+            \Cache::forever($this->prefix.$key_item, json_encode($value));
         }
     }
 
     private function getValue($key_item, $default = null)
     {
         if (env('INSTALLED')) {
-            $file = setting_path($key_item .'.json');
+            $key_item = $key_item;
 
-            if (\Cache::has($file)) {
-                $value = json_decode(\Cache::get($file), true);
+            if (\Cache::has($this->prefix.$key_item)) {
+                $value = json_decode(\Cache::get($this->prefix.$key_item), true);
                 return $value;
             } elseif ($setting = DbSetting::where(['key' => $key_item])->first()) {
-                \Cache::forever($file, json_encode($setting->value));
+                \Cache::forever($this->prefix.$key_item, json_encode($setting->value));
                 return $setting->value;
             }
 

@@ -157,7 +157,6 @@ if (! function_exists('dateToTimesamp')) {
     }
 }
 
-
 if (! function_exists('get_total_dates')) {
     function get_total_dates($first, $last, $output_format = 'd/m/Y', $step = '+1 day')
     {
@@ -223,7 +222,6 @@ if (!function_exists('text_time_difference')) {
     }
 }
 
-
 if (! function_exists('preg_array_key_exists')) {
     function preg_array_key_exists($pattern, $array)
     {
@@ -239,7 +237,7 @@ if (! function_exists('preg_array_key_exists')) {
     
 
 if (! function_exists('array_undot')) {
-    function array_undot($path, $value, &$arr, $separator='.')
+    function array_undot($path, $value, &$arr, $separator = '.')
     {
         $keys = explode($separator, $path);
         foreach ($keys as $key) {
@@ -287,7 +285,6 @@ if (!function_exists('array_total')) {
         return $sum;
     }
 }
-
 
 if (! function_exists('admin_url')) {
     function admin_url($path = null, $parameters = [], $string_query = true, $secure = null)
@@ -375,10 +372,17 @@ if (! function_exists('thumbnail_url')) {
     }
 }
 
+if (!function_exists('upload_path')) {
+    function upload_path($path = null)
+    {
+        return config('cms.upload_path').($path ? DIRECTORY_SEPARATOR . $path : $path);
+    }
+}
+
 if (! function_exists('image_path')) {
     function image_path($image = null)
     {
-        return public_path('uploads/' . $image);
+        return upload_path($image);
     }
 }
 
@@ -414,14 +418,6 @@ if (! function_exists('image_url')) {
     }
 }
 
-
-if (!function_exists('setting_path')) {
-    function setting_path($path = null)
-    {
-        return config('setting.cache.path') . ($path ? DIRECTORY_SEPARATOR . $path : $path);
-    }
-}
-
 if (!function_exists('setting')) {
     function setting($key = null, $default = null)
     {
@@ -429,42 +425,40 @@ if (!function_exists('setting')) {
             return app(\Phambinh\Cms\Services\Setting::class);
         }
 
-        return app(\Phambinh\Cms\Services\Setting::class)->get($key, $default);
+        return \Setting::get($key, $default);
     }
 }
-
 
 if (!function_exists('add_action')) {
     function add_action($hook, $callback, $priority = 20)
     {
-        Action::addListener($hook, $callback, $priority);
+        \Action::addListener($hook, $callback, $priority);
     }
 }
 
 if (!function_exists('do_action')) {
     function do_action(...$args)
     {
-        Action::fire(array_shift($args), $args);
+        \Action::fire(array_shift($args), $args);
     }
 }
 
 if (!function_exists('add_filter')) {
     function add_filter($hook, $callback, $priority = 20)
     {
-        Filter::addListener($hook, $callback, $priority);
+        \Filter::addListener($hook, $callback, $priority);
     }
 }
 
 if (!function_exists('do_filter')) {
     function do_filter(...$args)
     {
-        return Filter::fire(array_shift($args), $args);
+        return \Filter::fire(array_shift($args), $args);
     }
 }
 
-
-if (! function_exists('module_namespace')) {
-    function module_namespace($alias = null, $append = null)
+if (! function_exists('package_namespace')) {
+    function package_namespace($alias = null, $append = null)
     {
         if ($alias) {
             $alias = '\\'.studly_case($alias);
@@ -478,16 +472,16 @@ if (! function_exists('module_namespace')) {
     }
 }
 
+if (! function_exists('module_namespace')) {
+    function module_namespace($alias = null, $append = null)
+    {
+        return package_namespace($alias, $append);
+    }
+}
+
 if (!function_exists('package_path')) {
     function package_path($path = null)
     {
         return base_path('packages'. ($path ? DIRECTORY_SEPARATOR . $path : $path));
-    }
-}
-
-if (! function_exists('pb_path')) {
-    function pb_path($path = null)
-    {
-        return base_path('vendor/phambinh/laravel' . ($path ? DIRECTORY_SEPARATOR . $path : $path));
     }
 }

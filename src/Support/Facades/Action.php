@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Phambinh\Cms\Support\Facades;
 
