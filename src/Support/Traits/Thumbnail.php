@@ -4,18 +4,12 @@ namespace Phambinh\Cms\Support\Traits;
 
 trait Thumbnail
 {
-    public function getThumbnailAttribute()
+    public function getThumbnailAttribute($value)
     {
-        if (property_exists($this, 'thumbnail')) {
-            $thumbnail = $this->thumbnail();
-        } else {
-            $thumbnail = 'thumbnail';
+        if (!empty($value)) {
+            return $value;
         }
 
-        if (empty($this->{$thumbnail})) {
-            return setting('default-thumbnail', upload_url('no-thumbnail.png'));
-        }
-
-        return $this->{$thumbnail};
+        return setting('default-thumbnail', upload_url('no-thumbnail.png'));
     }
 }
