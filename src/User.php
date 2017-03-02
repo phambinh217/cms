@@ -4,26 +4,11 @@ namespace Phambinh\Cms;
 
 use App\User as AppUser;
 use Phambinh\Cms\Support\Traits\Query;
-use Phambinh\Cms\Support\Traits\Metable;
 use Phambinh\Cms\Support\Traits\Model as PhambinhModel;
 
 class User extends AppUser implements Query
 {
-    use PhambinhModel, Metable;
-
-    /**
-     * The database table meta used by the model.
-     *
-     * @var string
-     */
-    protected $metaTable = 'user_metas';
-
-    /**
-     * The foreign key name for the meta table
-     *
-     * @var string
-     */
-    protected $metaKeyName = 'user_id';
+    use PhambinhModel;
 
     /**
      * The attributes that are mass assignable.
@@ -43,6 +28,11 @@ class User extends AppUser implements Query
         'phone',
         'avatar',
         'address',
+        'website',
+        'facebook',
+        'google_plus',
+        'about',
+        'job',
     ];
 
     /**
@@ -53,19 +43,6 @@ class User extends AppUser implements Query
         
     ];
 
-    /**
-     * The attributes table meta
-     *
-     * @var array
-     */
-    protected $fillableMeta = [
-        'website',
-        'facebook',
-        'google_plus',
-        'about',
-        'job',
-    ];
-    
     /**
      * The attributes excluded from the model's JSON form.
      *
