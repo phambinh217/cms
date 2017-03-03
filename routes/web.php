@@ -53,8 +53,5 @@ Route::group(['namespace' => 'Phambinh\Cms\Http\Controllers\Admin', 'middleware'
 
 Route::group(['namespace' => 'Phambinh\Cms\Http\Controllers\Api', 'middleware' => ['web'], 'prefix' => 'api/v1'], function () {
     Route::resource('user', 'UserController');
-    Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
-    Route::post('authenticate', 'AuthenticateController@authenticate');
-    Route::get('authenticate/user', 'AuthenticateController@getAuthenticatedUser');
-    Route::get('authenticate/check', 'AuthenticateController@check');
+    Route::get('gen-api-token', 'UserController@genApiToken')->name('api.v1.user.gen-api-token');
 });

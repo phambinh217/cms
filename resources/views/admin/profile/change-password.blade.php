@@ -15,16 +15,16 @@
     <form ajax-form-container class="form-horizontal" method="POST" action="">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <input type="hidden" name="_method" value="PUT" />
-        <p>Đổi mật khẩu đăng nhập</p>
+        <p>Đổi mật khẩu đăng nhập. Khi đổi thì sẽ đổi cả <code>token_api</code></p>
         <div class="form-group{{$errors->has('user.old_pasword') ? ' has-error' : ''}}">
             <label class="control-lalel col-sm-3 pull-left">
-                <strong>Mật khẩu cũ <i>(bắt buộc)</i></strong>
+                Mật khẩu cũ <i>(bắt buộc)</i>
             </label>
             <div class="col-sm-3">
-                <input type="password" name="user[old_pasword]" value="" class="form-control input-sm">
+                <input type="password" name="user[old_pasword]" value="" class="form-control">
                 @if($errors->has('user.old_pasword'))
                     <span class="help-block">
-                        <strong>{{$errors->first('user.old_pasword')}}</strong>
+                        {{$errors->first('user.old_pasword')}}
                     </span>
                 @endif
             </div>
@@ -32,13 +32,13 @@
 
         <div class="form-group{{$errors->has('user.password') ? ' has-error' : ''}}">
             <label class="control-lalel col-sm-3 pull-left">
-                <strong>Mật khẩu mới <i>(bắt buộc)</i></strong>
+                Mật khẩu mới <i>(bắt buộc)</i>
             </label>
             <div class="col-sm-3">
-                <input type="password" name="user[password]" value="" class="form-control input-sm">
+                <input type="password" name="user[password]" value="" class="form-control">
                 @if($errors->has('user.password'))
                     <span class="help-block">
-                        <strong>{{$errors->first('user.password')}}</strong>
+                        {{$errors->first('user.password')}}
                     </span>
                 @endif
             </div>
@@ -48,27 +48,22 @@
         </div>
         <div class="form-group{{$errors->has('user.password_confirmation') ? ' has-error' : ''}}">
             <label class="control-lalel col-sm-3 pull-left">
-                <strong>Mật khẩu mới <i>(bắt buộc)</i></strong>
+                Mật khẩu mới <i>(bắt buộc)</i>
             </label>
             <div class="col-sm-3">
-                <input type="password" name="user[password_confirmation]" value="" class="form-control input-sm">
+                <input type="password" name="user[password_confirmation]" value="" class="form-control">
+                <label class="mt-checkbox mt-checkbox-outline"> 
+                    <input type="checkbox" view-password />
+                    Hiển thị mật khẩu
+                </label>
                 @if($errors->has('user.password_confirmation'))
                     <span class="help-block">
-                        <strong>{{$errors->first('user.password_confirmation')}}</strong>
+                        {{$errors->first('user.password_confirmation')}}
                     </span>
                 @endif
             </div>
-            {{-- <div class="col-sm-2">
-                <div class="mt-checkbox-list">
-                    <label class="mt-checkbox mt-checkbox-outline"> Display password
-                        <input type="checkbox" value="admin_base_action" name="test" view-password />
-                        <span></span>
-                    </label>
-                </div>
-            </div> --}}
         </div>
-
-        <button class="btn btn-primary btn-sm">
+        <button class="btn btn-primary">
             <i class="fa fa-check"></i> Lưu thay đổi
         </button>
     </form>
@@ -81,4 +76,17 @@
 @push('js_footer')
     <script type="text/javascript" src="{{ asset_url('admin', 'global/plugins/jquery-form/jquery.form.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset_url('admin', 'global/plugins/bootstrap-toastr/toastr.min.js') }}"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('*[view-password]').change(function(){
+                if(this.checked) {
+                    $('*[name="user[password]"]').attr('type','text');
+                    $('*[name="user[password_confirmation]"]').attr('type','text');
+                } else {
+                    $('*[name="user[password]"]').attr('type','password');
+                    $('*[name="user[password_confirmation]"]').attr('type','password');
+                }
+            });
+        });
+    </script>
 @endpush

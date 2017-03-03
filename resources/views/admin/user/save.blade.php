@@ -266,16 +266,16 @@
 	<script type="text/javascript" src="{{ asset_url('admin', 'global/plugins/jquery-form/jquery.form.min.js') }}"></script>
 	<script type="text/javascript" src="{{ asset_url('admin', 'global/plugins/bootstrap-toastr/toastr.min.js') }}"></script>
 	<script type="text/javascript">
-	$(function(){
-		$('*[view-password]').change(function(){
-			if(this.checked) {
-				$('*[name="user[password]"]').attr('type','text');
-				$('*[name="user[password_confirmation]"]').attr('type','text');
-			} else {
-				$('*[name="user[password]"]').attr('type','password');
-				$('*[name="user[password_confirmation]"]').attr('type','password');
-			}
+		$(function(){
+			$('*[view-password]').change(function(){
+				if(this.checked) {
+					$('*[name="user[password]"]').attr('type','text');
+					$('*[name="user[password_confirmation]"]').attr('type','text');
+				} else {
+					$('*[name="user[password]"]').attr('type','password');
+					$('*[name="user[password_confirmation]"]').attr('type','password');
+				}
+			});
 		});
-	});
 	</script>
 @endpush

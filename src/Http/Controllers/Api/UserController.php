@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Phambinh\Cms\Http\Controllers\Api;
 
@@ -19,5 +19,12 @@ class UserController extends ApiController
             ->get();
 
         return response()->json($res, 200);
+    }
+
+    public function genApiToken()
+    {
+        return response()->json([
+            'api_token' => str_random(60),
+        ]);
     }
 }

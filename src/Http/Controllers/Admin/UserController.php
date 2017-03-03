@@ -78,6 +78,7 @@ class UserController extends AdminController
         $user->fill($request->user);
         $user->birth = changeFormatDate($user->birth, 'd-m-Y', 'Y-m-d');
         $user->password = bcrypt($user->password);
+        $user->api_token = str_random(60);
         
         switch ($user->status) {
             case 'disable':

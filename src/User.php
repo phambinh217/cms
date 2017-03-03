@@ -33,6 +33,7 @@ class User extends AppUser implements Query
         'google_plus',
         'about',
         'job',
+        'api_token',
     ];
 
     /**

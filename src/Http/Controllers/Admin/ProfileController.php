@@ -52,17 +52,18 @@ class ProfileController extends AdminController
             'user.website'        =>    'max:255',
             'user.job'            =>    'max:255',
             'user.google_plus'    =>    'max:255',
-            'user.address' => 'max:300',
+            'user.address'      => 'max:300',
+            'user.api_token'    =>  'required',
         ]);
 
-        Auth::user()->fill($request->user);
+        Auth::user()->fill($request->input('user'));
         Auth::user()->birth = changeFormatDate($request->user['birth'], 'd-m-Y', 'Y-m-d');
         Auth::user()->save();
 
         if ($request->ajax()) {
             return response()->json([
-                'title'        =>    'Updated',
-                'message'    =>    'Updated',
+                'title'        =>    'Thành công',
+                'message'    =>    'Đã cập nhật thông tin cá nhân',
             ], 200);
         }
 
@@ -92,12 +93,13 @@ class ProfileController extends AdminController
     public function updatePassword(Request $request)
     {
         $this->validate($request, [
-            'user.old_pasword'                =>    'required|hash:' . Auth::user()->password,
-            'user.password'                    =>    'required|confirmed',
-            'user.password_confirmation'    =>    'required',
+            'user.old_pasword'                  =>    'required|hash:' . Auth::user()->password,
+            'user.password'                     =>    'required|confirmed',
+            'user.password_confirmation'        =>    'required',
         ]);
 
         Auth::user()->password = bcrypt($request->user['password']);
+        Auth::user()->api_token = str_random(60);
         Auth::user()->save();
         
         if ($request->ajax()) {

@@ -29,12 +29,12 @@
                 <div class="profile-usermenu">
                     <ul class="nav">
                         <li>
-                            <a href="{{ admin_url('profile') }}">
+                            <a href="{{ route('admin.profile.show') }}">
                                 <i class="icon-info"></i> Thông tin cá nhân
                             </a>
                         </li>
                         <li>
-                            <a href="{{ admin_url('profile/change-password') }}">
+                            <a href="{{ route('admin.profile.change-password') }}">
                                 <i class="icon-key"></i> Đổi mật khẩu
                             </a>
                         </li>
@@ -88,6 +88,9 @@
                                     <li>
                                         <a href="#tab_1_2" data-toggle="tab">Đổi ảnh đại diện</a>
                                     </li>
+                                    <li>
+                                        <a href="#tab_1_3" data-toggle="tab">API Token</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -98,7 +101,6 @@
                                 <div class="form-body">
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="tab_1_1">
-                                            
                                             <div class="form-group">
                                                 <label class="control-label col-sm-3">Họ và tên đệm</label>
                                                 <div class="col-sm-9">
@@ -178,6 +180,25 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="tab-pane" id="tab_1_3">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-3">Api Token</label>
+                                                <div class="col-sm-9">
+                                                    <div class="input-group">
+                                                        <input name="user[api_token]" readonly value="{{ $user->api_token }}" type="password" placeholder="" class="form-control" />
+                                                        <span class="input-group-btn">
+                                                            <button id="gen-api-token" class="btn btn-success" type="button">
+                                                                <i class="fa fa-undo"></i> Thay đổi
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                    <label class="mt-checkbox mt-checkbox-outline"> 
+                                                        <input type="checkbox" id="view-api-token" />
+                                                        Hiển thị mã
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-actions util-btn-margin-bottom-5">
@@ -207,4 +228,30 @@
 @push('js_footer')
 	<script type="text/javascript" src="{{ asset_url('admin', 'global/plugins/jquery-form/jquery.form.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset_url('admin', 'global/plugins/bootstrap-toastr/toastr.min.js') }}"></script>
+    <script type="text/javascript">
+        $(function(){
+            $('#view-api-token').change(function(){
+                if(this.checked) {
+                    $('*[name="user[api_token]"]').attr('type','text');
+                } else {
+                    $('*[name="user[api_token]"]').attr('type','password');
+                }
+            });
+
+            $('#gen-api-token').click(function(e){
+                e.preventDefault();
+                $.ajax({
+                    url: '{{ route('api.v1.user.gen-api-token') }}',
+                    type: 'get',
+                    dataType: 'json',
+                    data: {
+                        _token: csrfToken(),
+                    },
+                    success: function (res) {
+                        $('input[name="user[api_token]"]').val(res.api_token);
+                    },
+                });
+            });
+        });
+    </script>
 @endpush
