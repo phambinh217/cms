@@ -41,14 +41,6 @@ class User extends AppUser implements Query
     ];
 
     /**
-     * Các trường được sinh thêm trong quá trình Group by
-     * Sử dụng trong sắp xếp
-     */
-    protected $fieldPlugin = [
-        
-    ];
-
-    /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
@@ -93,6 +85,8 @@ class User extends AppUser implements Query
         ['slug' => 'disable','name' => 'Cấm'],
         ['slug' => 'enable', 'name' => 'Bình thường'],
     ];
+
+    protected static $defaultStatus = 'enable';
 
     protected static $searchFields = [
         'users.id',
@@ -219,9 +213,36 @@ class User extends AppUser implements Query
         return self::$statusAble;
     }
 
-    public function status($key)
+    public static function getDefaultStatus()
     {
-        return $this->statusAble[$this->status][$key];
+        return self::$defaultStatus;
+    }
+
+    public function setStatusAttribute($value)
+    {
+        switch ($value) {
+            case 'disable':
+                $this->attributes['status'] = '0';
+                break;
+
+            case 'enable':
+                $this->attributes['status'] = '1';
+                break;
+        }
+    }
+
+    public function getStatusSlugAttribute()
+    {
+        if (! is_null($this->status)) {
+            return $this->getStatusAble()[$this->status]['slug'];
+        }
+
+        return $this->getDefaultStatus();
+    }
+
+    public function getStatusNameAttribute()
+    {
+        return $this->getStatusAble()[$this->status]['name'];
     }
 
     /**

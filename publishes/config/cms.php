@@ -15,6 +15,8 @@ return [
         \Phambinh\News\Providers\RoutingServiceProvider::class,
         \Phambinh\Page\Providers\ModuleServiceProvider::class,
         \Phambinh\Page\Providers\RoutingServiceProvider::class,
+        \Phambinh\FbComment\Providers\ModuleServiceProvider::class,
+        \Phambinh\FbComment\Providers\RoutingServiceProvider::class,
         \Phambinh\CmsInstall\Providers\ModuleServiceProvider::class,
         \Phambinh\CmsInstall\Providers\RoutingServiceProvider::class,
     ],
@@ -36,6 +38,7 @@ return [
         'Filter'            =>  \Phambinh\Cms\Support\Facades\Filter::class,
         'Metatag'           =>  \Phambinh\Cms\Support\Facades\Metatag::class,
         'Image'             =>  \Intervention\Image\Facades\Image::class,
+        'FbComment'         =>  \Phambinh\FbComment\Support\Facades\Comment::class,
     ],
 
     'consoles' => [

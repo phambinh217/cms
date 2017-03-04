@@ -79,16 +79,6 @@ class UserController extends AdminController
         $user->birth = changeFormatDate($user->birth, 'd-m-Y', 'Y-m-d');
         $user->password = bcrypt($user->password);
         $user->api_token = str_random(60);
-        
-        switch ($user->status) {
-            case 'disable':
-                $user->status = '0';
-                break;
-
-            case 'enable':
-                $user->status = '1';
-                break;
-        }
 
         $user->save();
 
@@ -147,16 +137,6 @@ class UserController extends AdminController
 
         $user->fill($request->user);
         $user->birth = changeFormatDate($user->birth, 'd-m-Y', 'Y-m-d');
-        
-        switch ($user->status) {
-            case 'disable':
-                $user->status = '0';
-                break;
-
-            case 'enable':
-                $user->status = '1';
-                break;
-        }
 
         $user->save();
 

@@ -80,7 +80,7 @@
 									</tr>
 									<tr>
 										<td><strong>Trạng thái</strong></td>
-										<td>{{ $user->status('name') }}</td>
+										<td>{{ $user->status_name }}</td>
 									</tr>
 									<tr>
 										<td><strong>Vai trò</strong></td>
