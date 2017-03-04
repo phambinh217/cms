@@ -11,7 +11,7 @@ class MakeService extends AbstractGenerator
      *
      * @var string
      */
-    protected $signature = 'module:make:services
+    protected $signature = 'module:make:service
     	{alias : The alias of the module}
     	{name : The class name}';
 
@@ -20,7 +20,7 @@ class MakeService extends AbstractGenerator
      *
      * @var string
      */
-    protected $type = 'Services';
+    protected $type = 'Service';
 
     /**
      * Get the stub file for the generator.
