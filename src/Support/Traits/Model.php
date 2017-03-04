@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Input;
 use Validator;
 
 trait Model
-{ 
+{
     public static function getRequestFilter($defaultFilter = [])
     {
         $requestFilter = array_merge(self::$defaultOfQuery, $defaultFilter, Input::all());
@@ -43,6 +43,11 @@ trait Model
         return '<a href="'. $url .'">'. $text .'</a>';
     }
 
+    public static function defaultParams($args)
+    {
+        return array_merge(self::$defaultOfQuery, $args);
+    }
+
     public function scopeBaseQuery($query, $args = [])
     {
         if (! empty($args['id'])) {
@@ -62,7 +67,7 @@ trait Model
                 $orderby[1] :
                 'desc';
 
-            $query->orderBy($field, $order);
+            $query->orderBy($this->table.'.'.$field, $order);
         }
 
         if (! empty($args['limit'])) {

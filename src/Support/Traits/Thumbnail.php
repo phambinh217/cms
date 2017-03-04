@@ -12,4 +12,9 @@ trait Thumbnail
 
         return setting('default-thumbnail', upload_url('no-thumbnail.png'));
     }
+
+    public function hasThumbnail()
+    {
+        return ! empty($this->thumbnail) && $this->thumbnail !== setting('default-thumbnail', upload_url('no-thumbnail.png'));
+    }
 }

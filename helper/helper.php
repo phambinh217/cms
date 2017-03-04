@@ -485,3 +485,12 @@ if (!function_exists('package_path')) {
         return base_path('packages'. ($path ? DIRECTORY_SEPARATOR . $path : $path));
     }
 }
+
+if (!function_exists('std_namespace')) {
+    function std_namespace($namespace)
+    {
+        return implode('\\', array_map(function ($segment) {
+            return studly_case($segment);
+        }, explode('\\', $namespace)));
+    }
+}

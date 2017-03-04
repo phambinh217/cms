@@ -34,6 +34,6 @@ class MakeWidget extends AbstractGenerator
 
     protected function getDefaultNamespace($rootNamespace)
     {
-        return 'Widget\\' . $this->argument('name');
+        return 'Widgets\\' . $this->argument('name');
     }
 }

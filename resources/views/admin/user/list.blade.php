@@ -69,11 +69,7 @@
 		            <div class="form-actions util-btn-margin-bottom-5">
 		                <div class="row">
 		                    <div class="col-md-12 text-right">
-		                        <button type="submit" class="btn btn-primary full-width-xs">
-		                            <i class="fa fa-filter"></i> Lọc</button>
-		                        <a href="{{ admin_url('user') }}" class="btn btn-gray full-width-xs">
-		                            <i class="fa fa-times"></i> Hủy
-		                        </a>
+		                        @include('Cms::components.btn-filter-cancel')
 		                    </div>
 		                </div>
 		            </div>

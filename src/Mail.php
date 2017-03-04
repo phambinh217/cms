@@ -67,6 +67,7 @@ class Mail extends Model
 
     public function scopeOfQuery($query, $args = [])
     {
+        $args = $this->defaultParams($args);
         $query->baseQuery($args);
 
         if (isset($args['check'])) {

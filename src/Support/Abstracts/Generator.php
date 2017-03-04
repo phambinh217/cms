@@ -76,6 +76,7 @@ abstract class Generator extends GeneratorCommand
             $name = str_replace('/', '\\', $name);
         }
 
+        $name = studly_case($name);
         return $this->getDefaultNamespace($name);
     }
 
@@ -87,7 +88,7 @@ abstract class Generator extends GeneratorCommand
      */
     protected function getPath($name)
     {
-        return package_path($this->getModuleInfo('alias')) . '/src/' . str_replace('\\', '/', $name) . '.php';
+        return package_path($this->getModuleInfo('alias')) . '/src/' . str_replace('\\', '/', std_namespace($name)) . '.php';
     }
 
     /**

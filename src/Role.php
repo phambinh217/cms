@@ -47,7 +47,7 @@ class Role extends Model implements Query
     
     public function scopeOfQuery($query, $args = [])
     {
-        
+        $args = $this->defaultParams($args);
         $query->baseQuery($args);
     }
 
