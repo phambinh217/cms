@@ -10,6 +10,8 @@ class User extends AppUser implements Query
 {
     use PhambinhModel;
 
+    protected $table = 'users';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -34,6 +36,8 @@ class User extends AppUser implements Query
         'about',
         'job',
         'api_token',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -78,7 +82,7 @@ class User extends AppUser implements Query
      */
     protected static $defaultOfQuery = [
         'status'        => 'enable',
-        'orderby'       =>  'first_name.asc',
+        'orderby'       =>  'updated_at.desc',
     ];
 
     /**

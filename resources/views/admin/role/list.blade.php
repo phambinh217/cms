@@ -54,7 +54,7 @@
 							{!! \Phambinh\Cms\Role::linkSort('Số tài khoản', 'total_user') !!}
 						</th>
 						<th class="hidden-xs">
-							{!! \Phambinh\Cms\Role::linkSort('Ngày tạo', 'created_at') !!}
+							{!! \Phambinh\Cms\Role::linkSort('Ngày cập nhật', 'updated_at') !!}
 						</th>
 						<th></th>
 					</tr>
@@ -83,7 +83,7 @@
 		    						{{ $role_item->total_user }}
 		    					</strong>
 		    				</td>
-		    				<td class="hidden-xs" style="min-width: 200px">{{ text_time_difference($role_item->created_at) }}</td>
+		    				<td class="hidden-xs" style="min-width: 200px">{{ text_time_difference($role_item->updated_at) }}</td>
 		    				<td table-action>
 								<div class="btn-group" table-function>
 		                            <a href="" class="btn btn-circle btn-xs grey-salsa btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">

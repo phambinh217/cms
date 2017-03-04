@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Mail extends Model
 {
     use PhambinhModel;
-
+    
     protected $table = 'messages';
 
     protected $fillable = [

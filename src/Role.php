@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Phambinh\Cms;
 
@@ -11,10 +11,14 @@ class Role extends Model implements Query
 {
     use PhambinhModel;
 
+    protected $table = 'roles';
+
     protected $fillable = [
         'id',
         'name',
         'type',
+        'created_at',
+        'updated_at',
     ];
 
     protected static $requestFilter = [
@@ -24,7 +28,7 @@ class Role extends Model implements Query
     ];
 
     protected static $defaultOfQuery = [
-        'orderby'    => 'name.desc',
+        'orderby'    => 'updated_at.desc',
     ];
 
     /**
