@@ -56,6 +56,7 @@ class ModuleServiceProvider extends ServiceProvider
 
     private function registerAdminMenu()
     {
-        //
+        add_action('admin.init', function () {
+        });
     }
 }
