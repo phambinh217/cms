@@ -74,7 +74,7 @@
 	    </div>
 	</div>
 	
-		<div table-function-container>
+		<div class="table-function-container">
 		<div class="note note-success">
             <p><i class="fa fa-info"></i> Tổng số {{ $mails->total() }} kết quả</p>
         </div>

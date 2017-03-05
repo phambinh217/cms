@@ -12,7 +12,7 @@
 @section('page_title', 'Đổi mật khẩu')
 
 @section('content')
-    <form ajax-form-container class="form-horizontal" method="POST" action="">
+    <form class="form-horizontal ajax-form" method="POST" action="">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <input type="hidden" name="_method" value="PUT" />
         <p>Đổi mật khẩu đăng nhập. Khi đổi thì sẽ đổi cả <code>token_api</code></p>

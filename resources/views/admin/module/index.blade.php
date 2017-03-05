@@ -11,7 +11,7 @@
 @section('page_title', 'Module chức năng')
 
 @section('content')
-	<div table-function-container>
+	<div class="table-function-container">
 		<div class="row">
 		    <div class="col-sm-6">
 		    	<div class="form-inline mb-10">

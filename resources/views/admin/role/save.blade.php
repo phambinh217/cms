@@ -20,7 +20,7 @@
 	@endcan
 @endif
 @section('content')
-	<form ajax-form-container action="{{ isset($role_id) ? route('admin.role.update', ['id' => $role_id]) : route('admin.role.store') }}" method="post" class="form-horizontal form-bordered form-row-stripped">
+	<form action="{{ isset($role_id) ? route('admin.role.update', ['id' => $role_id]) : route('admin.role.store') }}" method="post" class="form-horizontal form-bordered form-row-stripped ajax-form">
 		
 		@if(isset($role_id))
 			<input type="hidden" name="_method" value="PUT" />

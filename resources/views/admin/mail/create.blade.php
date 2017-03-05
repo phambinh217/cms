@@ -11,7 +11,7 @@
 @section('page_title', 'Soạn thư mới')
 
 @section('content')
-	<form ajax-form-container method="post" action="{{ admin_url('mail') }}" class="form-horizontal form-bordered form-row-stripped">
+	<form method="post" action="{{ admin_url('mail') }}" class="form-horizontal form-bordered form-row-stripped ajax-form">
         {{ csrf_field() }}
         <div class="form-body">
             <div class="form-group">

@@ -161,7 +161,7 @@
 			    				</td>
 			    				<td style="min-width: 200px" class="hidden-xs">{{ text_time_difference($user_item->updated_at) }}</td>
 			    				<td>
-			    					<div class="btn-group pull-right" table-function>
+			    					<div class="btn-group pull-right">
 			                            <a href="" class="btn btn-circle btn-xs grey-salsa btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 											<span class="hidden-xs">
 				                            	Chức năng

@@ -6,7 +6,7 @@
 				<h4 class="modal-title">Chuyển tiếp thư</h4>
 			</div>
 			<div class="modal-body">
-				<form ajax-form-container method="post" action="{{ admin_url('mail') }}" class="form-horizontal form-bordered form-row-stripped">
+				<form method="post" action="{{ admin_url('mail') }}" class="form-horizontal form-bordered form-row-stripped ajax-form">
 			        {{ csrf_field() }}
 			        <div class="form-body">
 			            <div class="form-group">

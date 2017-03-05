@@ -33,6 +33,7 @@ class CreateUsersTable extends Migration {
             $table->string('google_plus', 255)->nullable();
             $table->string('about', 255)->nullable();
             $table->string('job', 255)->nullable();
+            $table->string('api_token', 255)->nullable();
 		});
 	}
 
