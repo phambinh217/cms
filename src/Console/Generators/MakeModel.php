@@ -35,7 +35,7 @@ class MakeModel extends AbstractGenerator
         $name = $this->parseName($nameInput);
 
         $path = $this->getPath($name);
-        dd($path);
+
         if ($this->alreadyExists($nameInput)) {
             $this->error($this->type . ' already exists!');
 
