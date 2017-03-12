@@ -1,36 +1,30 @@
 @extends('Cms::layouts.default',[
 	'active_admin_menu' 	=> ['user', 'user.role'],
 	'breadcrumbs' 			=> [
-		'title'	=> ['Người dùng', 'Vai trò', isset($role_id) ?  'Chỉnh sửa' : 'Thêm mới'],
+		'title'	=> [trans('user.user'), trans('user.role'), isset($role_id) ?  trans('cms.edit') : trans('cms.add-new')],
 		'url'	=> [
-			admin_url('user'),
-			admin_url('role'),
+			route('admin.user.index'),
+			route('admin.role.index'),
 		],
 	],
 ])
 
-@section('page_title', isset($role_id) ? 'Chỉnh sửa vai trò quản trị' : 'Thêm vai trò quản trị mới')
+@section('page_title', isset($role_id) ? trans('role.edit-role') : trans('role.add-new-role'))
 @if(isset($role_id))
 	@can('admin.role.create')
 		@section('tool_bar')
 			<a href="{{ route('admin.role.create') }}" class="btn btn-primary">
-				<i class="fa fa-plus"></i> <span class="hidden-xs">Thêm vai trò mới</span>
+				<i class="fa fa-plus"></i> <span class="hidden-xs">@lang('role.add-new-role')</span>
 			</a>
 		@endsection
 	@endcan
 @endif
 @section('content')
-	<form action="{{ isset($role_id) ? route('admin.role.update', ['id' => $role_id]) : route('admin.role.store') }}" method="post" class="form-horizontal form-bordered form-row-stripped ajax-form">
-		
-		@if(isset($role_id))
-			<input type="hidden" name="_method" value="PUT" />
-		@endif
-
-		{{ csrf_field() }}		
+	{!! Form::ajax(['url' => isset($role_id) ? route('admin.role.update', ['id' => $role_id]) : route('admin.role.store'), 'method' => isset($role_id) ? 'PUT' : 'POST', 'class' => 'form-horizontal form-bordered form-row-stripped']) !!}
 		<div class="form-body">
 			<div class="form-group">
 				<label class="control-label col-sm-2 pull-left">
-					Tên quyền <span class="required">*</span>
+					@lang('role.name') <span class="required">*</span>
 				</label>
 				<div class="col-sm-7">
 					<input value="{{ $role->name or '' }}" name="role[name]" type="text" placeholder="" class="form-control">
@@ -39,14 +33,12 @@
 
 			<div class="form-group">
 				<label class="control-label col-sm-2 pull-left">
-					Kiểu <span class="required">*</span>
+					@lang('role.type')<span class="required">*</span>
 				</label>
 				<div class="col-sm-7">
-					<select name="role[type]" class="form-control width-auto">
-						<option {{ isset($role_id) && $role->type == '*' ? 'selected' : '' }} value="*">Có mọi quyền</option>
-						<option {{ isset($role_id) && $role->type == 'option' ? 'selected' : '' }} value="option">Tùy chọn</option>
-						<option {{ isset($role_id) && $role->type == '0' ? 'selected' : '' }} value="0">Cấm tất cả</option>
-					</select>
+					{!! Form::select('role[type]', $role->typeable()->mapWithKeys(function ($item) {
+						return [$item['id'] => $item['name']];
+					})->all(), isset($role_id) ? $role->type : '*', ['class' => 'form-control width-auto']) !!}
 				</div>
 			</div>
 
@@ -55,8 +47,7 @@
 					<label class="control-label col-sm-2 pull-left"></label>
 					<div class="col-sm-10">
 						<div class="m-heading-1 border-green m-bordered">
-							<?php  $access_controls = collect(\AccessControl::all()); ?>
-							
+							<?php $access_controls = collect(\AccessControl::all()); ?>
 							@foreach($access_controls->chunk(3) as $chunks)
 								<div class="row">
 									@foreach($chunks as $access_item)
@@ -81,33 +72,22 @@
 		<div class="form-actions util-btn-margin-bottom-5">
 			<div class="row">
 				<div class="col-md-offset-2 col-md-10">
-					<button type="submit" class="btn btn-primary" name="save_only">
-						<i class="fa fa-save"></i> Lưu thay đổi
-					</button>
-
 					@if(! isset($role_id))
-						<button type="submit" class="btn btn-primary" name="save_and_new">
-							<i class="fa fa-save"></i> Lưu và tiếp tục thêm
-						</button>
+						{!! Form::btnSaveNew() !!}
 					@else
-						<button type="submit" class="btn btn-primary" name="save_and_out">
-							<i class="fa fa-save"></i> Lưu và thoát
-						</button>
+						{!! Form::btnSaveOut() !!}
 					@endif
 				</div>
 			</div>
 		</div>
-	</form>
+	{!! Form::close() !!}
 @endsection
 
 @push('css')
-	<link href="{{ asset_url('admin', 'global/plugins/bootstrap-toastr/toastr.min.css')}}" rel="stylesheet" type="text/css" />
 	<link href="{{ asset_url('admin', 'global/plugins/icheck/skins/all.css') }}" rel="stylesheet" type="text/css" />
 @endpush
 
 @push('js_footer')
-	<script type="text/javascript" src="{{ asset_url('admin', 'global/plugins/jquery-form/jquery.form.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset_url('admin', 'global/plugins/bootstrap-toastr/toastr.min.js') }}"></script>
 	<script src="{{ asset_url('admin', 'global/plugins/icheck/icheck.min.js') }}" type="text/javascript"></script>
 	<script type="text/javascript">
 	$(function(){

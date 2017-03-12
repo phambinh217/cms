@@ -1,6 +1,6 @@
 <?php 
 
-namespace Phambinh\Cms\Http\Controllers\Api;
+namespace Packages\Cms\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;

@@ -1,21 +1,19 @@
 <?php
 
-namespace Phambinh\Cms\Http\Controllers\Admin;
+namespace Packages\Cms\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Validator;
-use Phambinh\Cms\User;
-use Phambinh\Cms\Role;
-use Phambinh\Cms\Permission;
+use Packages\Cms\User;
+use Packages\Cms\Role;
+use Packages\Cms\Permission;
 
 class RoleController extends AdminController
 {
     public function index()
     {
-        \Metatag::set('title', 'Danh sách vai trò');
-
         $filter = Role::getRequestFilter();
-        $roles = Role::ofQuery($filter)
+        $roles = Role::applyFilter($filter)
             ->select('roles.*')
             ->addSelect(\DB::raw('count(users.id) as total_user'))
             ->leftjoin('users', 'users.role_id', '=', 'roles.id')
@@ -25,26 +23,25 @@ class RoleController extends AdminController
         $this->data['roles'] = $roles;
         $this->data['filter'] = $filter;
 
+        \Metatag::set('title', trans('role.list-role'));
         return view('Cms::admin.role.list', $this->data);
     }
 
     public function create()
     {
-        \Metatag::set('title', 'Thêm vai trò mới');
-
         $role = new Role();
         $this->data['role'] = $role;
 
+        \Metatag::set('title', trans('role.add-new-role'));
         return view('Cms::admin.role.save', $this->data);
     }
 
     public function edit(Role $role)
     {
-        \Metatag::set('title', 'Chỉnh sửa vai trò');
-
         $this->data['role'] = $role;
         $this->data['role_id'] = $role->id;
 
+        \Metatag::set('title', trans('role.edit-role'));
         return view('Cms::admin.role.save', $this->data);
     }
 
@@ -59,33 +56,33 @@ class RoleController extends AdminController
         \AccessControl::forgetCache();
 
         $role = new Role();
-        $role->fill($request->role);
-        $role->save();
+        $role->fill($request->role)->save();
 
         if ($role->isOption()) {
-            if (isset($request->role['permission']) && count($request->role['permission'])) {
-                foreach ($request->role['permission'] as $perm) {
-                    $permission = new Permission(['permission' => $perm ]);
-                    $role->permissions()->save($permission);
+            $permissions = [];
+            if ($request->has('role.permission')) {
+                foreach ($request->input('role.permission') as $perm) {
+                    $permissions[] = new Permission(['permission' => $perm]);
                 }
             }
+            $role->permissions()->saveMany($permissions);
         }
 
         if ($request->ajax()) {
             return response()->json([
-                'title'        =>    'Thành công',
-                'message'    =>    'Thành công',
-                'redirect'    =>    isset($request->save_only) ?
+                'title'        =>    trans('cms.success'),
+                'message'    =>    trans('role.create-role-success'),
+                'redirect'    =>    $request->exists('save_only') ?
                     route('admin.role.edit', ['id' => $role->id]) :
                     route('admin.role.create'),
             ], 200);
         }
 
-        if (isset($request->save_only)) {
-            return redirect(route('admin.role.edit', ['id' => $role->id]));
+        if ($request->exists('save_only')) {
+            return redirect()->route('admin.role.edit', ['id' => $role->id]);
         }
 
-        return redirect(route('admin.role.create'));
+        return redirect()->route('admin.role.create');
     }
 
     public function update(Request $request, Role $role)
@@ -98,33 +95,33 @@ class RoleController extends AdminController
 
         \AccessControl::forgetCache();
         
-        $role->fill($request->role);
-        $role->save();
+        $role->fill($request->role)->save();
         
         $role->permissions()->delete();
 
         if ($role->isOption()) {
-            if (isset($request->role['permission']) && count($request->role['permission'])) {
-                foreach ($request->role['permission'] as $perm) {
-                    $permission = new Permission(['permission' => $perm ]);
-                    $role->permissions()->save($permission);
+            $permissions = [];
+            if ($request->has('role.permission')) {
+                foreach ($request->input('role.permission') as $perm) {
+                    $permissions[] = new Permission(['permission' => $perm]);
                 }
             }
+            $role->permissions()->saveMany($permissions);
         }
 
         if ($request->ajax()) {
             $response = [
-                'title'        =>    'Thành công',
-                'message'    =>    'Thành công',
+                'title'        =>    trans('cms.success'),
+                'message'    =>    trans('role.update-role-success'),
             ];
-            if (isset($request->save_and_out)) {
+            if ($request->exists('save_and_out')) {
                 $response['redirect'] = route('admin.role.index');
             }
 
             return response()->json($response, 200);
         }
         
-        if (isset($request->save_and_out)) {
+        if ($request->exists('save_and_out')) {
             return redirect()->route('admin.role.index');
         }
                 
@@ -136,8 +133,8 @@ class RoleController extends AdminController
         if ($role->users->count()) {
             if ($request->ajax()) {
                 return response()->json([
-                    'title'        =>    'Lỗi',
-                    'message'    =>    'Vai trò này đã có thành viên'
+                    'title'        =>    trans('cms.error'),
+                    'message'    =>    trans('role.role-has-user')
                 ], 402);
             }
 
@@ -148,8 +145,8 @@ class RoleController extends AdminController
 
         if ($request->ajax()) {
             return response()->json([
-                'title'        =>    'Thành công',
-                'message'    =>    'Thành công',
+                'title'        =>    trans('cms.success'),
+                'message'    =>    trans('role.destroy-role-success'),
             ], 200);
         }
         

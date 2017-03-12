@@ -1,10 +1,10 @@
 <?php
 
-namespace Phambinh\Cms\Http\Controllers\Api;
+namespace Packages\Cms\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use ApiController;
-use Phambinh\Cms\User;
+use Packages\Cms\User;
 
 class UserController extends ApiController
 {
@@ -14,7 +14,7 @@ class UserController extends ApiController
         $filter = $User->getRequestFilter();
         $res = $User
             ->distinct()
-            ->ofQuery($filter)
+            ->applyFilter($filter)
             ->select('users.*')
             ->get();
 

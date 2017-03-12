@@ -1,15 +1,15 @@
 <?php
 
-namespace Phambinh\Cms\Http\Controllers\Admin;
+namespace Packages\Cms\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Phambinh\Cms\Support\ElfinderConnector;
+use Packages\Cms\Support\ElfinderConnector;
 
 class ElfinderController extends AdminController
 {
     public function index()
     {
-        \Metatag::set('title', 'Danh sách file');
+        \Metatag::set('title', trans('file.list-file'));
         return view('Cms::admin.file.list', $this->data);
     }
 
@@ -37,7 +37,7 @@ class ElfinderController extends AdminController
                     'path'      =>  $path, // path to files (REQUIRED)
                     'tmpPath'   =>  $path,
                     'URL'       => url($url), // URL to files (REQUIRED)
-                    'accessControl' => 'Phambinh\Cms\Http\Controllers\ElfinderController::checkAccess', // filter callback (OPTIONAL),
+                    'accessControl' => 'Packages\Cms\Http\Controllers\ElfinderController::checkAccess', // filter callback (OPTIONAL),
                     'autoload' => true,
                     'uploadDeny' => ['text/x-php', 'application/x-shockwave-flash'],
                     'uploadAllow' => [],

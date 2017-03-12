@@ -1,9 +1,9 @@
 <?php
 
-namespace Phambinh\Cms\Http\Controllers\Admin;
+namespace Packages\Cms\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Phambinh\Cms\Mail;
+use Packages\Cms\Mail;
 use Validator;
 
 class MailController extends AdminController
@@ -47,15 +47,15 @@ class MailController extends AdminController
 
         if ($request->ajax()) {
             return response()->json([
-                'title'        =>    'Thành công',
-                'message'    =>    'Thành công',
-                'redirect'    =>    isset($request->save_only) ?
+                'title'        =>    trans('cms.success'),
+                'message'    =>    trans('cms.success'),
+                'redirect'    =>    $request->exists('save_only') ?
                     route('admin.mail.outbox') :
                     route('admin.mail.create'),
             ], 200);
         }
 
-        if (isset($request->save_only)) {
+        if ($request->exists('save_only')) {
             return redirect(route('admin.mail.outbox'));
         }
 
@@ -72,7 +72,7 @@ class MailController extends AdminController
 
         $mail    = new Mail();
         $filter = $mail->getRequestFilter();
-        $mails    = $mail->ofQuery($filter)
+        $mails    = $mail->applyFilter($filter)
             ->select('messages.*')
             ->addSelect('users.first_name', 'users.last_name', 'users.email', 'users.avatar')
             ->join('users', 'users.id', '=', 'messages.sender_id')
@@ -95,7 +95,7 @@ class MailController extends AdminController
 
         $mail    = new Mail();
         $filter = $mail->getRequestFilter();
-        $mails    = $mail->ofQuery($filter)
+        $mails    = $mail->applyFilter($filter)
             ->select('messages.*')
             ->addSelect('users.first_name', 'users.last_name', 'users.email', 'users.avatar')
             ->join('users', 'users.id', '=', 'messages.receiver_id')

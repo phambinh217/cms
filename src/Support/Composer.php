@@ -1,6 +1,6 @@
 <?php
 
-namespace Phambinh\Cms\Support;
+namespace Packages\Cms\Support;
 
 use Illuminate\Support\Composer as LaravelComposer;
 

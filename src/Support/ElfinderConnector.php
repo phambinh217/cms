@@ -1,6 +1,6 @@
 <?php 
 
-namespace Phambinh\Cms\Support;
+namespace Packages\Cms\Support;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;

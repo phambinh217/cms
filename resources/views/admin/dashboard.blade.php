@@ -1,15 +1,15 @@
 @extends('Cms::layouts.default',[
     'active_admin_menu' => ['dashboard', 'overview'],
     'breadcrumbs'       =>  [
-        'title' => ['Tổng quan'],
+        'title' => [trans('cms.overview')],
         'url'   => [
             route('admin.dashboard'),
         ],
     ],
 ])
 
-@section('page_title', 'Bảng quản trị')
-@section('page_sub_title', 'Tổng quan và thống kê')
+@section('page_title', trans('cms.dashboard'))
+@section('page_sub_title', trans('cms.overview-and-statistic'))
 
 @section('content')
 @endsection

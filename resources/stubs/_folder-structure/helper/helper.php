@@ -5,5 +5,5 @@
  * Description: Helper functions of module DummyAlias
  * @author: DummyAuthor
  * @version: DummyVersion
- * @package: PhambinhCMS
+ * @package: PackagesCMS
  */

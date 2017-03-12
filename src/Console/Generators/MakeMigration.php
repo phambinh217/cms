@@ -1,6 +1,6 @@
 <?php
 
-namespace Phambinh\Cms\Console\Generators;
+namespace Packages\Cms\Console\Generators;
 
 use Illuminate\Console\Command;
 use Illuminate\Database\Migrations\MigrationCreator;

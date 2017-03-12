@@ -1,4 +1,4 @@
-<?php  $inbox = \Auth::user()->inbox()->ofQuery(['check' => 'not-check'])
+<?php  $inbox = \Auth::user()->inbox()->applyFilter(['check' => 'not-check'])
     ->select('messages.*')
     ->addSelect('users.first_name', 'users.last_name', 'users.avatar')
     ->join('users', 'users.id', '=', 'messages.sender_id')
@@ -28,7 +28,7 @@
                                 </span>
                                 <span class="subject">
                                     <span class="from"> {{ $inbox_item->full_name() }} </span>
-                                    <span class="time">{{ text_time_difference($inbox_item->created_at) }} </span>
+                                    <span class="time">{{ $inbox_item->created_at->diffForHumans() }} </span>
                                 </span>
                                 <span class="message"> {{ str_limit($inbox_item->content, 100) }} </span>
                             </a>

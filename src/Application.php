@@ -1,6 +1,6 @@
 <?php
 
-namespace Phambinh\Cms;
+namespace Packages\Cms;
 
 use Illuminate\Foundation\Application as LaravelApplication;
 

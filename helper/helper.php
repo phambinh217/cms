@@ -422,7 +422,7 @@ if (!function_exists('setting')) {
     function setting($key = null, $default = null)
     {
         if (is_null($key)) {
-            return app(\Phambinh\Cms\Services\Setting::class);
+            return app(\Packages\Cms\Services\Setting::class);
         }
 
         return \Setting::get($key, $default);
@@ -492,5 +492,19 @@ if (!function_exists('std_namespace')) {
         return implode('\\', array_map(function ($segment) {
             return studly_case($segment);
         }, explode('\\', $namespace)));
+    }
+}
+
+if (!function_exists('addCss')) {
+    function addCss($location, $src)
+    {
+        \Asset::where($location)->addCss($src);
+    }
+}
+
+if (!function_exists('addJs')) {
+    function addJs($location, $src)
+    {
+        \Asset::where($location)->addJs($src);
     }
 }

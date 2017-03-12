@@ -40,7 +40,7 @@
 	                                <select name="receiver_id" id="select2-button-addons-single-input-group-sm" class="form-control find-user">
 				                        <option value="0">-- Tìm kiếm --</option>
 				                        @if(! empty($filter['receiver_id']))
-				                            <option selected="" value="{{ $filter['receiver_id'] }}">{{ Phambinh\Cms\User::select('first_name', 'last_name')->find($filter['receiver_id'])->full_name }}</option>
+				                            <option selected="" value="{{ $filter['receiver_id'] }}">{{ Packages\Cms\User::select('first_name', 'last_name')->find($filter['receiver_id'])->full_name }}</option>
 				                        @endif
 				                    </select>
 				                    <span class="help-block">
@@ -160,7 +160,7 @@
 	    					<div class="btn-group pull-right" table-function>
 	                            <a href="" class="btn btn-circle btn-xs grey-salsa btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
 											<span class="hidden-xs">
-				                            	Chức năng
+				                            	@lang('cms.action')
 				                                <span class="fa fa-angle-down"> </span>
 			                                </span>
 			                                <span class="visible-xs">

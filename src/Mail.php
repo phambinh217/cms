@@ -1,19 +1,17 @@
 <?php
 
-namespace Phambinh\Cms;
+namespace Packages\Cms;
 
-use Phambinh\Cms\Support\Traits\Query;
-use Phambinh\Cms\Support\Traits\Model as PhambinhModel;
 use Illuminate\Database\Eloquent\Model;
+use Packages\Cms\Support\Traits\Filter;
 
 class Mail extends Model
 {
-    use PhambinhModel;
+    use Filter;
     
     protected $table = 'messages';
 
     protected $fillable = [
-        'id',
         'sender_id',
         'receiver_id',
         'subject',
@@ -27,7 +25,7 @@ class Mail extends Model
      *
      * @var array
      */
-    protected static $requestFilter = [
+    protected static $filterable = [
         'id' => 'integer',
         'sender_id',
         'receiver_id',
@@ -35,7 +33,6 @@ class Mail extends Model
         'content',
         'status',
         'check',
-        'orderby',
     ];
 
     /**
@@ -51,24 +48,24 @@ class Mail extends Model
      *
      * @var array
      */
-    protected static $defaultOfQuery = [
+    protected static $defaultFilter = [
         'orderby'        =>    'created_at.desc',
     ];
 
     public function sender()
     {
-        return $this->beLongsTo('Phambinh\Cms\User', 'sender_id');
+        return $this->beLongsTo('Packages\Cms\User', 'sender_id');
     }
 
     public function receiver()
     {
-        return $this->beLongsTo('Phambinh\Cms\User', 'receiver_id');
+        return $this->beLongsTo('Packages\Cms\User', 'receiver_id');
     }
 
-    public function scopeOfQuery($query, $args = [])
+    public function scopeApplyFilter($query, $args = [])
     {
-        $args = $this->defaultParams($args);
-        $query->baseQuery($args);
+        $args = array_merge(self::$defaultFilter, $args);
+        $query->baseFilter($args);
 
         if (isset($args['check'])) {
             switch ($args['check']) {

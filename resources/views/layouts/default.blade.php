@@ -1,6 +1,7 @@
 @extends('Cms::layouts.blank')
 
 @push('blank.css')
+    <?php \Asset::where('css')->onlyCss()->render(); ?>
     @stack('css')
 @endpush
 
@@ -54,7 +55,6 @@
                 @yield('content')
             </div>
         </div>
-        {{-- @include('Cms::section.qick-sidebar') --}}
     </div>
     <div class="page-footer">
     <div class="page-footer-inner"> 2016 - {{ date('Y') }} &copy; {{ setting('company-name') }}
@@ -71,5 +71,6 @@
 @endpush
 
 @push('blank.js_footer')
+    <?php \Asset::where('js_footer')->onlyJs()->render(); ?>
     @stack('js_footer')
 @endpush

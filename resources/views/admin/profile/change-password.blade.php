@@ -1,24 +1,22 @@
 @extends('Cms::layouts.default', [
     'active_admin_menu' => ['profile', 'profile.change-password'],
     'breadcrumbs'   =>  [
-        'title' =>  ['Cá nhân', 'Đổi mật khẩu'],
+        'title' =>  [trans('user.profile'), trans('user.change-password')],
         'url'   =>  [
-            admin_url('profile'),
-            admin_url('profile/change-password'),
+            route('admin.profile.show'),
+            route('admin.profile.change-password'),
         ],
     ],
 ])
 
-@section('page_title', 'Đổi mật khẩu')
+@section('page_title', trans('user.change-password'))
 
 @section('content')
-    <form class="form-horizontal ajax-form" method="POST" action="">
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-        <input type="hidden" name="_method" value="PUT" />
-        <p>Đổi mật khẩu đăng nhập. Khi đổi thì sẽ đổi cả <code>token_api</code></p>
+    {!! Form::ajax(['method' => 'PUT', 'class' => 'form-horizontal']) !!}
+        <p>@lang('user.change-password-login-change-api-token')</p>
         <div class="form-group{{$errors->has('user.old_pasword') ? ' has-error' : ''}}">
             <label class="control-lalel col-sm-3 pull-left">
-                Mật khẩu cũ <i>(bắt buộc)</i>
+                @lang('user.old-password')
             </label>
             <div class="col-sm-3">
                 <input type="password" name="user[old_pasword]" value="" class="form-control">
@@ -32,7 +30,7 @@
 
         <div class="form-group{{$errors->has('user.password') ? ' has-error' : ''}}">
             <label class="control-lalel col-sm-3 pull-left">
-                Mật khẩu mới <i>(bắt buộc)</i>
+                @lang('user.old-password')
             </label>
             <div class="col-sm-3">
                 <input type="password" name="user[password]" value="" class="form-control">
@@ -42,19 +40,17 @@
                     </span>
                 @endif
             </div>
-            {{-- <div class="col-sm-2">
-                <button class="btn btn-default btn-sm" auto-password>Auto password</button>
-            </div> --}}
         </div>
+
         <div class="form-group{{$errors->has('user.password_confirmation') ? ' has-error' : ''}}">
             <label class="control-lalel col-sm-3 pull-left">
-                Mật khẩu mới <i>(bắt buộc)</i>
+                @lang('user.confirm-password')
             </label>
             <div class="col-sm-3">
                 <input type="password" name="user[password_confirmation]" value="" class="form-control">
                 <label class="mt-checkbox mt-checkbox-outline"> 
                     <input type="checkbox" view-password />
-                    Hiển thị mật khẩu
+                    @lang('cms.display')
                 </label>
                 @if($errors->has('user.password_confirmation'))
                     <span class="help-block">
@@ -63,19 +59,11 @@
                 @endif
             </div>
         </div>
-        <button class="btn btn-primary">
-            <i class="fa fa-check"></i> Lưu thay đổi
-        </button>
-    </form>
+        {!! Form::btnSaveCancel() !!}
+    {!! Form::close() !!}
 @endsection
 
-@push('css')
-    <link href="{{ asset_url('admin', 'global/plugins/bootstrap-toastr/toastr.min.css')}}" rel="stylesheet" type="text/css" />
-@endpush
-
 @push('js_footer')
-    <script type="text/javascript" src="{{ asset_url('admin', 'global/plugins/jquery-form/jquery.form.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset_url('admin', 'global/plugins/bootstrap-toastr/toastr.min.js') }}"></script>
     <script type="text/javascript">
         $(function(){
             $('*[view-password]').change(function(){

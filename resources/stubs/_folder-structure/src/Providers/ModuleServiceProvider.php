@@ -5,7 +5,7 @@
  * Description: This is the first file run of module. You can assign bootstrap or register module Services
  * @author: DummyAuthor
  * @version: DummyVersion
- * @package: PhambinhCMS
+ * @package: PackagesCMS
  */
 namespace DummyNamespace\Providers;
 

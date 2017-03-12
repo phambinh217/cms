@@ -5,13 +5,13 @@
  * Description: This is the first file run of module. You can assign bootstrap or register module Services
  * @author: noname
  * @version: 1.0
- * @package: PhambinhCMS
+ * @package: PackagesCMS
  */
-namespace Phambinh\Cms\Providers;
+namespace Packages\Cms\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
-use Phambinh\Cms\Validator\HashRule;
+use Packages\Cms\Validator\HashRule;
 
 class ModuleServiceProvider extends ServiceProvider
 {
@@ -41,9 +41,6 @@ class ModuleServiceProvider extends ServiceProvider
         // Load views
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'Cms');
 
-        // Load translations
-        $this->loadTranslationsFrom(__DIR__ . '/../../resources/lang', 'Cms');
-
         // Load helper
         if (\File::exists(__DIR__ . '/../../helper/helper.php')) {
             include __DIR__ . '/../../helper/helper.php';
@@ -52,6 +49,7 @@ class ModuleServiceProvider extends ServiceProvider
         $this->registerBalde();
         $this->registerPolices();
         $this->registerRule();
+        $this->registerFormComponents();
     }
 
     /**
@@ -98,6 +96,26 @@ class ModuleServiceProvider extends ServiceProvider
         Blade::directive('widget', function ($expression) {
             return "<?php echo \Widget::run($expression) ?>";
         });
+
+        Blade::directive('addCss', function ($expression) {
+            return "<?php addCss($expression) ?>";
+        });
+
+        Blade::directive('addJs', function ($expression) {
+            return "<?php addJs($expression) ?>";
+        });
+    }
+
+    private function registerFormComponents()
+    {
+        \Form::component('ajax', 'Cms::components.ajax-form', ['params']);
+        \Form::component('icheck', 'Cms::components.icheck', ['name', 'value', 'params']);
+        \Form::component('tinymce', 'Cms::components.tinymce', ['name', 'content', 'params']);
+        \Form::component('btnSaveCancel', 'Cms::components.btn-save-cancel', []);
+        \Form::component('btnMediaBox', 'Cms::components.form-chose-media', ['name', 'value', 'url_image_preview']);
+        \Form::component('btnSaveNew', 'Cms::components.btn-save-new', []);
+        \Form::component('btnSaveOut', 'Cms::components.btn-save-out', []);
+        \Form::component('findUser', 'Cms::components.form-find-user', ['name', 'selected']);
     }
 
     private function registerPolices()
@@ -146,7 +164,7 @@ class ModuleServiceProvider extends ServiceProvider
             if (\Auth::user()->can('admin')) {
                 \AdminMenu::register('dashboard', [
                     'parent'    =>    'admin-menu-top',
-                    'label'        =>    'Bảng quản trị',
+                    'label'        =>    trans('cms.dashboard'),
                     'url'        =>    route('admin.dashboard'),
                     'icon'        =>    'icon-bar-chart',
                 ]);
@@ -155,7 +173,7 @@ class ModuleServiceProvider extends ServiceProvider
             if (\Auth::user()->can('admin')) {
                 \AdminMenu::register('overview', [
                     'parent'    =>    'dashboard',
-                    'label'        =>    'Tổng quan',
+                    'label'        =>    trans('cms.overview'),
                     'url'        =>    route('admin.dashboard'),
                     'icon'        =>    'icon-graph',
                 ]);
@@ -164,14 +182,14 @@ class ModuleServiceProvider extends ServiceProvider
             if (\Auth::user()->can('admin')) {
                 \AdminMenu::register('main-manage', [
                     'parent'    =>    '0',
-                    'label'        =>    'Quản lý chính',
+                    'label'        =>    trans('cms.main-manage'),
                 ]);
             }
 
             if (\Auth::user()->can('admin.user.index')) {
                 \AdminMenu::register('user', [
                     'parent'    =>  'main-manage',
-                    'label'     =>  'Người dùng',
+                    'label'     =>  trans('user.user'),
                     'url'       =>  route('admin.user.index'),
                     'icon'      =>  'icon-users',
                 ]);
@@ -180,7 +198,7 @@ class ModuleServiceProvider extends ServiceProvider
             if (\Auth::user()->can('admin.user.create')) {
                 \AdminMenu::register('user.create', [
                     'parent'    =>  'user',
-                    'label'     =>  'Thêm người dùng mới',
+                    'label'     =>  trans('user.add-new-user'),
                     'url'       =>  route('admin.user.create'),
                     'icon'      =>  'icon-user-follow',
                 ]);
@@ -188,7 +206,7 @@ class ModuleServiceProvider extends ServiceProvider
             if (\Auth::user()->can('admin.user.index')) {
                 \AdminMenu::register('user.all', [
                     'parent'    =>  'user',
-                    'label'     =>  'Tất cả người dùng',
+                    'label'     =>  trans('user.all-user'),
                     'url'       =>  route('admin.user.index'),
                     'icon'      =>  'icon-list',
                 ]);
@@ -197,7 +215,7 @@ class ModuleServiceProvider extends ServiceProvider
             if (\Auth::user()->can('admin.role.index')) {
                 \AdminMenu::register('user.role', [
                     'parent'    =>  'user',
-                    'label'     =>  'Vai trò người dùng',
+                    'label'     =>  trans('user.role'),
                     'url'       =>  route('admin.role.index'),
                     'icon'      =>  'icon-fire',
                 ]);
@@ -206,7 +224,7 @@ class ModuleServiceProvider extends ServiceProvider
             if (\Auth::user()->can('admin')) {
                 \AdminMenu::register('file', [
                     'parent'    =>  'main-manage',
-                    'label'     =>  'Quản lí file',
+                    'label'     =>  trans('file.manage-file'),
                     'url'       =>  route('admin.file.index'),
                     'icon'      =>  'icon-picture',
                 ]);
@@ -217,7 +235,7 @@ class ModuleServiceProvider extends ServiceProvider
                     'parent'    =>  'main-manage',
                     'icon'      =>  'icon-puzzle',
                     'url'       =>  route('admin.module-control.module.index'),
-                    'label'     =>  'Quản lí module',
+                    'label'     =>  trans('module.manage-module'),
                 ]);
             }
 
@@ -226,7 +244,7 @@ class ModuleServiceProvider extends ServiceProvider
                     'parent'    =>  'module-control',
                     'icon'      =>  'icon-puzzle',
                     'url'       =>  route('admin.module-control.module.index'),
-                    'label'     =>  'Module chức năng',
+                    'label'     =>  trans('module.module-function'),
                 ]);
             }
 
@@ -235,14 +253,14 @@ class ModuleServiceProvider extends ServiceProvider
                     'parent'    =>  'module-control',
                     'icon'      =>  'icon-grid',
                     'url'       =>  route('admin.module-control.theme.index'),
-                    'label'     =>  'Module chủ đề',
+                    'label'     =>  trans('module.module-theme'),
                 ]);
             }
 
             if (\Auth::user()->can('admin')) {
                 \AdminMenu::register('profile', [
                     'parent'    =>  'admin-menu-top',
-                    'label'     =>  'Cá nhân',
+                    'label'     =>  trans('user.profile'),
                     'url'       =>  route('admin.profile.show'),
                     'icon'      =>  'icon-user',
                 ]);
@@ -251,7 +269,7 @@ class ModuleServiceProvider extends ServiceProvider
             if (\Auth::user()->can('admin')) {
                 \AdminMenu::register('profile.info', [
                     'parent'    =>  'profile',
-                    'label'     =>  'Thông tin cá nhân',
+                    'label'     =>  trans('user.profile-info'),
                     'url'       =>  route('admin.profile.show'),
                     'icon'      =>  'icon-info',
                 ]);
@@ -260,7 +278,7 @@ class ModuleServiceProvider extends ServiceProvider
             if (\Auth::user()->can('admin')) {
                 \AdminMenu::register('profile.change-password', [
                     'parent'    =>  'profile',
-                    'label'     =>  'Đổi mật khẩu',
+                    'label'     =>  trans('user.change-password'),
                     'url'       =>  route('admin.profile.change-password'),
                     'icon'      =>  'icon-key',
                 ]);
@@ -268,7 +286,7 @@ class ModuleServiceProvider extends ServiceProvider
             if (\Auth::user()->can('admin')) {
                 \AdminMenu::register('profile.logout', [
                     'parent'    =>  'admin-menu-top',
-                    'label'     =>  '<span class="text-danger">Đăng xuất</span>',
+                    'label'     =>  '<span class="text-danger">'.trans('user.logout').'</span>',
                     'url'       =>  url('logout'),
                     'attributes' => "onclick=\"event.preventDefault(); document.getElementById('logout-form').submit();\"",
                     'icon'      =>  'icon-logout',
@@ -277,7 +295,7 @@ class ModuleServiceProvider extends ServiceProvider
 
             if (\Auth::user()->can('admin')) {
                 \AdminMenu::register('setting', [
-                    'label'     => 'Cài đặt',
+                    'label'     => trans('setting.setting'),
                     'url'       =>  route('admin.setting.general'),
                     'parent'    =>  '0',
                 ]);
@@ -285,7 +303,7 @@ class ModuleServiceProvider extends ServiceProvider
 
             if (\Auth::user()->can('admin.setting.general')) {
                 \AdminMenu::register('setting.general', [
-                    'label'     => 'Cài đặt chung',
+                    'label'     => trans('setting.general-setting'),
                     'parent'    =>  'setting',
                     'url'       =>  route('admin.setting.general'),
                     'icon'      =>  'icon-settings',

@@ -15,15 +15,15 @@
                         	<span class="label label-sm label-info">{{ $user->role()->select('roles.name')->first()->name }}</span>
                         </h4>
                         <ul>
-                        	<li>Ngày sinh: {{ changeFormatDate($user->birth, DTF_DB, DF_DB) }}</li>
-                        	<li>SĐT: {{ $user->phone }}</li>
-                        	<li>Địa chỉ: {{ $user->address }}</li>
+                        	<li>@lang('user.birth') }}: {{ $user->birth->format('d-m-Y')</li>
+                        	<li>@lang('user.phone-number') }}: {{ $user->phone</li>
+                        	<li>@lang('user.address') }}: {{ $user->address</li>
                         </ul>
                     </div>
                 </div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">@lang('cms.close')</button>
 			</div>
 		</div>
 	</div>

@@ -1,22 +1,21 @@
 @extends('Cms::layouts.default',[
 	'active_admin_menu' 	=> ['user', isset($user_id) ? 'user.all' : 'user.create'],
 	'breadcrumbs' 			=> [
-		'title'	=> ['Người dùng', isset($user_id) ? 'Chỉnh sửa' : 'Thêm mới'],
+		'title'	=> [trans('user.user'), isset($user_id) ? trans('cms.edit') : trans('cms.add-new')],
 		'url'	=> [
-			admin_url('user'),
-			admin_url('user'),
+			route('admin.user.index'),
 		],
 	],
 ])
 
-@section('page_title', isset($user_id) ? 'Chỉnh sửa người dùng' : 'Thêm người dùng mới')
+@section('page_title', isset($user_id) ? trans('user.edit-user') : trans('user.add-new-user'))
 
 @if(isset($user_id))
 	@section('page_sub_title', $user->full_name)
 	@can('admin.user.create')
 		@section('tool_bar')
 			<a href="{{ route('admin.user.create') }}" class="btn btn-primary">
-				<i class="fa fa-plus"></i> <span class="hidden-xs">Thêm người dùng mới</span>
+				<i class="fa fa-plus"></i> <span class="hidden-xs">@lang('user.add-new-user')</span>
 			</a>
 		@endsection
 	@endcan
@@ -28,7 +27,7 @@
 			<div class="portlet light bordered">
 				<div class="portlet-title">
 					<div class="caption">
-						<span class="caption-subject bold">Tóm tắt nhanh</span>
+						<span class="caption-subject bold">@lang('user.summary')</span>
 					</div>
 					<div class="tools">
 						<a href="javascript:;" class="collapse"> </a>
@@ -42,26 +41,26 @@
 								<img class="img-responsive" src="{{ thumbnail_url($user->avatar, ['width' => '150', 'height' => '150']) }}" />
 							</div>
 							@can('admin.user.login-as')
-								<a href="{{ route('admin.user.login-as', ['id' => $user->id]) }}"></i> Đăng nhập với tư cách</a>
+								<a href="{{ route('admin.user.login-as', ['id' => $user->id]) }}"></i> @lang('user.login-as')</a>
 							@endcan
 						</div>
 						<div class="col-sm-5">
 							<table class="table table-hover">
 								<tbody>
 									<tr>
-										<td><strong>Họ và tên</strong></td>
+										<td><strong>@lang('user.fullname')</strong></td>
 										<td>{{ $user->full_name }}</td>
 									</tr>
 									<tr>
-										<td><strong>Ngày sinh</strong></td>
-										<td>{{ changeFormatDate($user->birth, 'Y-m-d', 'd-m-Y' ) }}</td>
+										<td><strong>@lang('user.birth')</strong></td>
+										<td>{{ $user->birth }}</td>
 									</tr>
 									<tr>
-										<td><strong>Số điện thoại</strong></td>
+										<td><strong>@lang('user.phone-number')</strong></td>
 										<td>{{ $user->phone }}</td>
 									</tr>
 									<tr>
-										<td><strong>Email</strong></td>
+										<td><strong>@lang('user.email')</strong></td>
 										<td>{{ $user->email }}</td>
 									</tr>
 								</tbody>
@@ -71,19 +70,19 @@
 							<table class="table table-hover">
 								<tbody>
 									<tr>
-										<td><strong>ID</strong></td>
+										<td><strong>@lang('user.id')</strong></td>
 										<td>{{ $user->id }}</td>
 									</tr>
 									<tr>
-										<td><strong>Bí danh</strong></td>
+										<td><strong>@lang('user.nick')</strong></td>
 										<td>{{ $user->name }}</td>
 									</tr>
 									<tr>
-										<td><strong>Trạng thái</strong></td>
+										<td><strong>@lang('user.status')</strong></td>
 										<td>{{ $user->status_name }}</td>
 									</tr>
 									<tr>
-										<td><strong>Vai trò</strong></td>
+										<td><strong>@lang('user.role')</strong></td>
 										<td>{{ $user->role->name }}</td>
 									</tr>
 								</tbody>
@@ -94,15 +93,11 @@
 			</div>
 		</div>
 	@endif
-	<form action="{{ isset($user_id) ? admin_url('user/' . $user_id)  : admin_url('user') }}" method="post" class="form-horizontal form-bordered form-row-stripped ajax-form">
-		@if(isset($user_id))
-			<input type="hidden" name="_method" value="PUT" />
-		@endif
-		{{ csrf_field() }}
+	{!! Form::ajax(['method' => isset($user_id) ? 'PUT' : 'POST', 'url' => isset($user_id) ? route('admin.user.update', ['id' => $user_id]) : route('admin.user.store'), 'class' => 'form-horizontal']) !!}
 		<div class="form-body">
 			<div class="form-group">
 				<label class="control-label col-sm-3 pull-left">
-					Họ và tên đệm <span class="required">*</span>
+					@lang('user.lastname') <span class="required">*</span>
 				</label>
 				<div class="col-sm-7">
 					<input value="{{ $user->last_name or '' }}" name="user[last_name]" type="text" placeholder="" class="form-control">
@@ -110,7 +105,7 @@
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-3 pull-left">
-					Tên thật <span class="required">*</span>
+					@lang('user.firstname') <span class="required">*</span>
 				</label>
 				<div class="col-sm-7">
 					<input value="{{ $user->first_name or '' }}" name="user[first_name]" type="text" placeholder="" class="form-control">
@@ -118,57 +113,57 @@
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-3 pull-left">
-					Bí danh <span class="required">*</span>
+					@lang('user.nick') <span class="required">*</span>
 				</label>
 				<div class="col-sm-7">
 					<input value="{{ $user->name or '' }}"  name="user[name]" type="text" placeholder="" class="form-control" />
-					<span class="help-block"> Một tên ngắn gọn, không bao gồm dấu cách và các ký tự đặc biệt </span>
+					<span class="help-block"> @lang('user.short-name-spaces-and-special-characters') </span>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-3 pull-left">
-					Số điện thoại <span class="required">*</span>
+					@lang('user.phone-number') <span class="required">*</span>
 				</label>
 				<div class="col-sm-7">
 					<input value="{{ $user->phone or '' }}" name="user[phone]" type="text" placeholder="" class="form-control">
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="control-label col-sm-3 pull-left">Ngày sinh</label>
+				<label class="control-label col-sm-3 pull-left">@lang('user.birth')</label>
 				<div class="col-sm-7">
 					<input value="{{ isset($user_id) ? changeFormatDate($user->birth, 'Y-m-d', 'd-m-Y') : '' }}" name="user[birth]" type="text" class="form-control" placeholder="Ví dụ: 21-07-1996">
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="control-label col-sm-3 pull-left">
-					Địa chỉ email <span class="required">*</span>
+					@lang('user.email') <span class="required">*</span>
 				</label>
 				<div class="col-sm-7">
 					<input value="{{ $user->email or '' }}" name="user[email]" type="text" placeholder="" class="form-control">
-					<span class="help-block"> Địa chỉ email sẽ dùng để đăng nhập tài khoản </span>
+					<span class="help-block"> @lang('user.the-email-address-will-be-used-to-login-to-the-account') </span>
 				</div>
 			</div>
 			
 			<div class="form-group">
-                <label class="control-label col-sm-3">Giới thiệu</label>
+                <label class="control-label col-sm-3">@lang('user.about')</label>
                 <div class="col-sm-7">
                     <textarea name="user[about]" class="form-control" rows="3" placeholder="">{{ $user->about }}</textarea>
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-3">Facebook</label>
+                <label class="control-label col-sm-3">@lang('user.facebook')</label>
                 <div class="col-sm-7">
                     <input name="user[facebook]" value="{{ $user->facebook }}" type="text" placeholder="fb.com/xxx" class="form-control">
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-3">Google plus</label>
+                <label class="control-label col-sm-3">@lang('user.google-plus')</label>
                 <div class="col-sm-7">
                     <input name="user[google_plus]" value="{{ $user->google_plus }}" type="text" placeholder="" class="form-control">
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label col-sm-3">Website Url</label>
+                <label class="control-label col-sm-3">@lang('user.website')</label>
                 <div class="col-sm-7">
                     <input name="user[website]" value="{{ $user->website }}" type="text" placeholder="google.com" class="form-control">
                 </div>
@@ -177,24 +172,23 @@
 			@if(! isset($user_id))
 				<div class="form-group">
 					<label class="control-label col-sm-3 pull-left">
-						Mật khẩu <span class="required">*</span>
+						@lang('user.password') <span class="required">*</span>
 					</label>
 					<div class="col-sm-7">
 						<input name="user[password]" type="password" placeholder="" class="form-control">
-						<span class="help-block"> Mật khẩu này sử dụng để đăng nhập tài khoản </span>
+						<span class="help-block"> @lang('user.this-password-is-used-to-login-to-the-account') </span>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="control-label col-sm-3 pull-left">
-						Xác nhận mật khẩu <span class="required">*</span>
+						@lang('user.confirm-password') <span class="required">*</span>
 					</label>
 					<div class="col-sm-7">
 						<input name="user[password_confirmation]" type="password" placeholder="" class="form-control">
-						<span class="help-block"> Xác nhận lại mật khẩu </span>
 					</div>
 					<div class="col-sm-2">
 						<div class="mt-checkbox-list">
-							<label class="mt-checkbox mt-checkbox-outline"> Hiển thị mật khẩu
+							<label class="mt-checkbox mt-checkbox-outline"> @lang('cms.display')
 								<input type="checkbox" name="test" view-password />
 								<span></span>
 							</label>
@@ -204,41 +198,31 @@
 			@endif
 			
 			<div class="form-group media-box-group">
-                <label class="control-label col-md-3">Tải lên ảnh đại diện</label>
+                <label class="control-label col-md-3">@lang('user.upload-avatar')</label>
                 <div class="col-sm-7">
-                    @include('Cms::components.form-chose-media', [
-                        'name'              => 'user[avatar]',
-                        'value'             => old('user.avatar', $user->avatar),
-                        'url_image_preview' => old('user.avatar', thumbnail_url($user->avatar, ['width' => '100', 'height' => '100']))
-                    ])
+                	{!! Form::btnMediaBox('user[avatar]', $user->avatar, thumbnail_url($user->avatar, ['width' => '100', 'height' => '100'])) !!}
                 </div>
             </div>
 
 			<div class="form-group last">
 				<label class="control-label col-sm-3 pull-left">
-					Quyền quản trị <span class="required">*</span>
+					@lang('user.role') <span class="required">*</span>
 				</label>
 				<div class="col-sm-7">
-					@include('Cms::components.form-select-role', [
-						'roles' 	=> \Phambinh\Cms\Role::get(),
-						'name'		=> 'user[role_id]',
-						'selected' 	=> isset($user_id) ? $user->role_id : NULL,
-						'class'		=> 'width-auto',
-					])
+					{!! Form::select('user[role_id]', Packages\Cms\Role::get()->mapWithKeys(function ($item) {
+						return [$item->id => $item->name];
+					}), isset($user_id) ? $user->role_id : NULL, ['class' => 'form-control width-auto', 'placeholder' => '']) !!}
 				</div>
 			</div>
 
 			<div class="form-group last">
 				<label class="control-label col-sm-3 pull-left">
-					Trạng thái <span class="required">*</span>
+					@lang('user.status') <span class="required">*</span>
 				</label>
 				<div class="col-sm-7">
-					@include('Cms::components.form-select-status', [
-						'status'	=> \Phambinh\Cms\User::getStatusAble(),
-						'name' 		=> 'user[status]',
-						'class'		=> 'width-auto',
-						'selected' 	=> isset($user_id) ? ($user->status == 1 ? 'enable' : 'disable') : null,
-					])
+					{!! Form::select('user[status]', \Packages\Cms\User::statusable()->mapWithKeys(function ($item) {
+						return [$item['slug'] => $item['name']];
+					})->all(), $user->status_slug, ['class' => 'form-control width-auto', 'placeholder' => '']) !!}
 				</div>
 			</div>
 
@@ -247,24 +231,18 @@
 			<div class="row">
 				<div class="col-md-offset-3 col-md-9">
 					@if(! isset($user_id))
-						@include('Cms::components.btn-save-new')
+						{!! Form::btnSaveNew() !!}
 					@else
-						@include('Cms::components.btn-save-out')
+						{!! Form::btnSaveOut() !!}
 					@endif
 				</div>
 			</div>
 		</div>
-	</form>
+	{!! Form::close() !!}
 
 @endsection
 
-@push('css')
-	<link href="{{ asset_url('admin', 'global/plugins/bootstrap-toastr/toastr.min.css')}}" rel="stylesheet" type="text/css" />
-@endpush
-
 @push('js_footer')
-	<script type="text/javascript" src="{{ asset_url('admin', 'global/plugins/jquery-form/jquery.form.min.js') }}"></script>
-	<script type="text/javascript" src="{{ asset_url('admin', 'global/plugins/bootstrap-toastr/toastr.min.js') }}"></script>
 	<script type="text/javascript">
 		$(function(){
 			$('*[view-password]').change(function(){

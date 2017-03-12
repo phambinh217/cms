@@ -1,6 +1,6 @@
 <?php
 
-namespace Phambinh\Cms\Support\Traits;
+namespace Packages\Cms\Support\Traits;
 
 trait Thumbnail
 {

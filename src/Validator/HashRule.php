@@ -1,6 +1,6 @@
 <?php
 
-namespace Phambinh\Cms\Validator;
+namespace Packages\Cms\Validator;
 
 use \Illuminate\Validation\Validator;
 use Hash;

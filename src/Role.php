@@ -1,84 +1,70 @@
 <?php
 
-namespace Phambinh\Cms;
+namespace Packages\Cms;
 
-use Phambinh\Cms\Support\Traits\Query;
-use Phambinh\Cms\Support\Traits\Model as PhambinhModel;
-use Phambinh\Cms\Support\Traits\Metable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+use Packages\Cms\Support\Traits\Filter;
 
-class Role extends Model implements Query
+class Role extends Model
 {
-    use PhambinhModel;
+    use Filter;
 
     protected $table = 'roles';
 
+    protected $primaryKey = 'id';
+
     protected $fillable = [
-        'id',
         'name',
         'type',
-        'created_at',
-        'updated_at',
     ];
 
-    protected static $requestFilter = [
-        'id' => 'integer',
-        'name' => 'max:255',
-        'orderby' => 'max:255',
+    protected static $filterable = [
+        'id'            => 'integer',
+        'name'          => 'max:255',
+        '_orderby'      => 'in:id,name,created_at,updated_at',
+        '_sort'         => 'in:asc,desc',
+        '_keyword'      => 'max:255',
+        '_limit'        => 'integer',
+        '_offset'       => 'integer',
     ];
 
-    protected static $defaultOfQuery = [
-        'orderby'    => 'updated_at.desc',
+    protected static $defaultFilter = [
+        '_orderby'      => 'updated_at',
+        '_sort'         => 'desc',
     ];
 
-    /**
-     * Các trường được sinh thêm trong quá trình Group by
-     * Sử dụng trong sắp xếp
-     */
-    protected $fieldPlugin = [
-        'total_user',
-    ];
+    protected $searchable = ['id', 'name'];
 
     public function users()
     {
-        return $this->hasMany('Phambinh\Cms\User');
+        return $this->hasMany('Packages\Cms\User');
     }
 
     public function permissions()
     {
-        return $this->hasMany('Phambinh\Cms\Permission');
+        return $this->hasMany('Packages\Cms\Permission');
     }
     
-    public function scopeOfQuery($query, $args = [])
+    public function scopeApplyFilter($query, $args = [])
     {
-        $args = $this->defaultParams($args);
-        $query->baseQuery($args);
+        $args = array_merge(self::$defaultFilter, $args);
+        $query->baseFilter($args);
     }
 
-    public function getType($role_id)
+    public function isFull()
     {
-        if ($role_id) {
-            $type = $this->find($role_id)->value('type');
-        } else {
-            $type = $this->type;
-        }
-
-        return $type;
+        return $this->type == '*';
     }
 
-    public function isFull($role_id = null)
+    public function isEmpty()
     {
-        return $this->getType($role_id) == '*';
+        return $this->type == '0';
     }
 
-    public function isEmpty($role_id = null)
+    public function isOption()
     {
-        return $this->getType($role_id) == '0';
-    }
-
-    public function isOption($role_id = null)
-    {
-        return $this->getType($role_id) == 'option';
+        return $this->type == 'option';
     }
 
     public function isAdmin()
@@ -88,5 +74,14 @@ class Role extends Model implements Query
         }
         
         return true;
+    }
+
+    public static function typeable()
+    {
+        return new Collection([
+            ['id' => '*', 'name' => 'Có mọi quyền'],
+            ['id' => 'option', 'name' => 'Tùy chọn'],
+            ['id' => '0', 'name' => 'Cấm tất cả'],
+        ]);
     }
 }

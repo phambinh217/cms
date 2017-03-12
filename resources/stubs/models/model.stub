@@ -3,12 +3,11 @@
 namespace DummyNamespace;
 
 use Illuminate\Database\Eloquent\Model;
-use Phambinh\Cms\Support\Traits\Model as PhambinhModel;
-use Phambinh\Cms\Support\Traits\Query;
+use Packages\Cms\Support\Traits\Filter;
 
-class DummyClass extends Model implements Query
+class DummyClass extends Model
 {
-    use PhambinhModel;
+    use Filter;
 
     protected $table = '{table}';
 
@@ -21,7 +20,7 @@ class DummyClass extends Model implements Query
      *
      * @var array
      */
-    protected static $requestFilter = [
+    protected static $filterable = [
         'orderby',
     ];
 
@@ -30,11 +29,11 @@ class DummyClass extends Model implements Query
      *
      * @var array
      */
-    protected static $defaultOfQuery = [
+    protected static $defaultFilter = [
         'orderby'      =>  'id.desc',
     ];
 
-    public function scopeOfQuery($query, $args = [])
+    public function scopeApplyFilter($query, $args = [])
     {
         $args = $this->defaultParams($arrgs);
         $query->baseQuery($query, $args);

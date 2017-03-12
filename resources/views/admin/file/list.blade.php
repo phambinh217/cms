@@ -1,25 +1,15 @@
 @extends('Cms::layouts.default',[
 	'active_admin_menu' 	=> ['file'],
 	'breadcrumbs' 			=> [
-		'title'	=> [
-			'Quản lí file',
-		],
+		'title'	=> [trans('file.manage-file')],
 		'url'	=> [],
 	],
 ])
 
-@section('page_title', 'Quản lí file')
+@section('page_title', trans('file.manage-file'))
 
 @section('content')
 	<div class="embed-responsive embed-responsive-16by9">
-		<iframe class="embed-responsive-item" src="{{ admin_url('file/elfinder/stand-alone') }}"></iframe>
+		<iframe class="embed-responsive-item" src="{{ route('admin.file.stand-alone') }}"></iframe>
 	</div>
 @endsection
-
-@push('css')
-
-@endpush
-
-@push('js_footer')
-
-@endpush

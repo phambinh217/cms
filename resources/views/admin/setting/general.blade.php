@@ -1,23 +1,31 @@
 @extends('Cms::layouts.default',[
 	'active_admin_menu' 	=> ['setting', 'setting.general'],
 	'breadcrumbs' 			=> [
-		'title'	=> ['Cài đặt', 'Chung'],
+		'title'	=> [trans('setting.setting'), trans('setting.general')],
 		'url'	=> [route('admin.setting.general')],
 	],
 ])
 
-@section('page_title', 'Cài đặt chung')
+@section('page_title', trans('setting.general-setting'))
 
 @section('content')
-	<form class="form-horizontal ajax-form" method="POST" action="{{ route('admin.setting.general.update') }}">
-		{{ csrf_field() }}
-		{{ method_field('PUT') }}
+	{!! Form::ajax(['method' => 'PUT', 'url' => route('admin.setting.general.update'), 'class' => 'form-horizontal']) !!}
 		<div class="form-body">
 			<fieldset>
-				<legend>Thông tin công ty</legend>
+				<legend>@lang('setting.common-info')</legend>
 				<div class="form-group">
 					<label class="control-lalel col-sm-3 pull-left">
-						Tên công ty
+						@lang('setting.language.language')
+					</label>
+					<div class="col-sm-3">
+						{!! Form::select('language', \Language::mapWithKeys(function ($item) {
+							return [$item => $item];
+						})->all(), $language, ['class' => 'form-control width-auto', 'placeholder' => ''] )!!}
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-lalel col-sm-3 pull-left">
+						@lang('setting.company.name')
 					</label>
 					<div class="col-sm-3">
 						<input type="text" name="company_name" class="form-control" value="{{ $company_name }}" />
@@ -25,7 +33,7 @@
 				</div>
 				<div class="form-group">
 					<label class="control-lalel col-sm-3 pull-left">
-						Số điện thoại công ty
+						@lang('setting.company.phone-number')
 					</label>
 					<div class="col-sm-3">
 						<input type="text" name="company_phone" class="form-control" value="{{ $company_phone }}" />
@@ -33,7 +41,7 @@
 				</div>
 				<div class="form-group">
 					<label class="control-lalel col-sm-3 pull-left">
-						Email công ty
+						@lang('setting.company.email')
 					</label>
 					<div class="col-sm-3">
 						<input type="text" name="company_email" class="form-control" value="{{ $company_email }}" />
@@ -41,7 +49,7 @@
 				</div>
 				<div class="form-group">
 					<label class="control-lalel col-sm-3 pull-left">
-						Địa chỉ công ty
+						@lang('setting.company.address')
 					</label>
 					<div class="col-sm-3">
 						<textarea name="company_address" class="form-control" >{{ $company_address }}</textarea>
@@ -49,22 +57,18 @@
 				</div>
 				<div class="form-group media-box-group">
 					<label class="control-lalel col-sm-3 pull-left">
-						Logo công ty
+						@lang('setting.company.logo')
 					</label>
 					<div class="col-sm-9">
-						@include('Cms::components.form-chose-media', [
-                            'name'              => 'logo',
-                            'value'             => old('logo', $logo),
-                            'url_image_preview' => old('logo', $logo),
-                        ])
+						{!! Form::btnMediaBox('logo', $logo, $logo) !!}
 					</div>
 				</div>
 			</fieldset>
 			<fieldset>
-				<legend>Tối ưu máy tìm kiếm</legend>
+				<legend>@lang('setting.seo-setting')</legend>
 				<div class="form-group">
 					<label class="control-lalel col-sm-3 pull-left">
-						Meta title trang chủ
+						@lang('setting.seo.home-title')
 					</label>
 					<div class="col-sm-3">
 						<input type="text" name="home_title" class="form-control" value="{{ $home_title }}" />
@@ -72,7 +76,7 @@
 				</div>
 				<div class="form-group">
 					<label class="control-lalel col-sm-3 pull-left">
-						Meta keyword
+						@lang('setting.seo.home-keyword')
 					</label>
 					<div class="col-sm-3">
 						<input type="text" name="home_keyword" class="form-control" value="{{ $home_keyword }}" />
@@ -80,7 +84,7 @@
 				</div>
 				<div class="form-group">
 					<label class="control-lalel col-sm-3 pull-left">
-						Meta description trang chủ
+						@lang('setting.seo.home-description')
 					</label>
 					<div class="col-sm-3">
 						<textarea name="home_description" class="form-control">{{ $home_description }}</textarea>
@@ -88,48 +92,32 @@
 				</div>
 			</fieldset>
 			<fieldset>
-				<legend>Hình ảnh</legend>
+				<legend>@lang('setting.image-setting')</legend>
 				<div class="form-group media-box-group">
 					<label class="control-lalel col-sm-3 pull-left">
-						Thumbnail mặc định
+						@lang('setting.image.default-thumnail')
 					</label>
 					<div class="col-sm-9">
-						@include('Cms::components.form-chose-media', [
-                            'name'              => 'default_thumbnail',
-                            'value'             => old('default_thumbnail', $default_thumbnail),
-                            'url_image_preview' => old('default_thumbnail', $default_thumbnail),
-                        ])
+						{!! Form::btnMediaBox('default_thumbnail', $default_thumbnail, $default_thumbnail) !!}
 					</div>
 				</div>
 				<div class="form-group media-box-group">
 					<label class="control-lalel col-sm-3 pull-left">
-						Avatar mặc định
+						@lang('setting.image.default-avatar')
 					</label>
 					<div class="col-sm-9">
-						@include('Cms::components.form-chose-media', [
-                            'name'              => 'default_avatar',
-                            'value'             => old('default_thumbnail', $default_avatar),
-                            'url_image_preview' => old('default_thumbnail', $default_avatar),
-                        ])
+						{!! Form::btnMediaBox('default_avatar', $default_avatar, $default_avatar) !!}
 					</div>
 				</div>
 			</fieldset>
 		</div>
 		<div class="form-actions util-btn-margin-bottom-5">
-			<button class="btn btn-primary full-width-xs">
-				<i class="fa fa-save"></i> Lưu cài đặt
-			</button>
+			{!! Form::btnSaveCancel() !!}
 		</div>
-	</form>
+	{!! Form::close() !!}
 @endsection
 
-@push('css')
-	<link href="{{ asset_url('admin', 'global/plugins/bootstrap-toastr/toastr.min.css')}}" rel="stylesheet" type="text/css" />
-@endpush
-
 @push('js_footer')
-	<script type="text/javascript" src="{{ asset_url('admin', 'global/plugins/jquery-form/jquery.form.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset_url('admin', 'global/plugins/bootstrap-toastr/toastr.min.js') }}"></script>
 	<script type="text/javascript">
 		$(function(){
 			$('#confirm-order').change(function(){

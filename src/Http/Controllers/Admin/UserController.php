@@ -1,25 +1,24 @@
 <?php
 
-namespace Phambinh\Cms\Http\Controllers\Admin;
+namespace Packages\Cms\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Validator;
-use Phambinh\Cms\User;
+use Packages\Cms\User;
 
 class UserController extends AdminController
 {
     public function index()
     {
-        \Metatag::set('title', 'Danh sách người dùng');
-
         $filter = User::getRequestFilter();
         $users = User::select('users.*', 'roles.name as role_name')
             ->join('roles', 'users.role_id', '=', 'roles.id')
-            ->ofQuery($filter)->paginate($this->paginate);
+            ->applyFilter($filter)->paginate($this->paginate);
         
         $this->data['users']    = $users;
         $this->data['filter']   = $filter;
 
+        \Metatag::set('title', trans('user.list-user'));
         return view('Cms::admin.user.list', $this->data);
     }
 
@@ -29,10 +28,10 @@ class UserController extends AdminController
             return redirect()->route('admin.profile.show');
         }
         
-        \Metatag::set('title', 'Xem chi tiết người dùng');
         $this->data['user'] = $user;
         $this->data['user_id'] = $user->id;
 
+        \Metatag::set('title', trans('user.view-detail'));
         return view('Cms::admin.user.show', $this->data);
     }
 
@@ -46,11 +45,10 @@ class UserController extends AdminController
     
     public function create()
     {
-        \Metatag::set('title', 'Thêm người dùng');
-
         $user = new User();
         $this->data['user'] = $user;
 
+        \Metatag::set('title', trans('user.add-new-user'));
         return view('Cms::admin.user.save', $this->data);
     }
 
@@ -75,8 +73,7 @@ class UserController extends AdminController
         ]);
 
         $user = new User();
-        $user->fill($request->user);
-        $user->birth = changeFormatDate($user->birth, 'd-m-Y', 'Y-m-d');
+        $user->fill($request->input('user'));
         $user->password = bcrypt($user->password);
         $user->api_token = str_random(60);
 
@@ -84,15 +81,15 @@ class UserController extends AdminController
 
         if ($request->ajax()) {
             return response()->json([
-                'title'        =>    'Thành công',
-                'message'    =>    'Thành công',
-                'redirect'    =>    isset($request->save_only) ?
+                'title'        =>    trans('cms.success'),
+                'message'    =>    trans('user.create-user-success'),
+                'redirect'    =>    $request->exists('save_only') ?
                     route('admin.user.edit', ['id' => $user->id]) :
                     route('admin.user.create'),
             ], 200);
         }
 
-        if (isset($request->save_only)) {
+        if ($request->exists('save_only')) {
             return redirect()-route('admin.user.edit', ['id' => $user->id]);
         }
 
@@ -101,8 +98,6 @@ class UserController extends AdminController
 
     public function edit(User $user)
     {
-        // Không thể tự chỉnh sửa thông tin của bản thân trong phương thức này
-        // Sẽ tự đi vào trang cá nhân
         if ($user->isSelf()) {
             return redirect(route('admin.profile.show'));
         }
@@ -110,14 +105,17 @@ class UserController extends AdminController
         $this->data['user'] = $user;
         $this->data['user_id'] = $user->id;
 
-        \Metatag::set('title', 'Chỉnh sửa người dùng');
+        \Metatag::set('title', trans('user.edit-user'));
         return view('Cms::admin.user.save', $this->data);
     }
 
     public function update(Request $request, User $user)
     {
         if ($user->isSelf()) {
-            return response()->json([], 422);
+            return response()->json([
+                'title' =>  trans('cms.error'),
+                'message'   =>  trans('can-not-apply-yourself'),
+            ], 422);
         }
 
         $this->validate($request, [
@@ -135,24 +133,22 @@ class UserController extends AdminController
             'user.google_plus'                =>    'max:255',
         ]);
 
-        $user->fill($request->user);
-        $user->birth = changeFormatDate($user->birth, 'd-m-Y', 'Y-m-d');
-
-        $user->save();
+        $user->fill($request->input('user'))->save();
 
         if ($request->ajax()) {
             $response = [
-                'title'        =>    'Thành công',
-                'message'    =>    'Thành công',
+                'title'        =>    trans('cms.success'),
+                'message'    =>    trans('user.update-user-success'),
             ];
-            if (isset($request->save_and_out)) {
+
+            if ($request->exists('save_and_out')) {
                 $response['redirect'] = route('admin.user.index');
             }
 
             return response()->json($response, 200);
         }
         
-        if (isset($request->save_and_out)) {
+        if ($request->exists('save_and_out')) {
             return redirect()->route('admin.user.index');
         }
                 
@@ -161,12 +157,11 @@ class UserController extends AdminController
 
     public function disable(Request $request, User $user)
     {
-        // Hành động này không thể áp dụng với bản thân người đang đăng nhập
         if ($user->isSelf()) {
             if ($request->ajax()) {
                 return response()->json([
-                    'title' =>  'Lỗi',
-                    'message'   =>  'Bạn không thể thực hiện thao tác này với chính mình'
+                    'title' =>  trans('cms.error'),
+                    'message'   =>  trans('can-not-apply-yourself'),
                 ], 422);
             }
 
@@ -177,8 +172,8 @@ class UserController extends AdminController
 
         if ($request->ajax()) {
             return response()->json([
-                'title'        =>    'Thành công',
-                'message'    =>    'Đã cấm thành viên',
+                'title'        =>    trans('cms.success'),
+                'message'    =>    trans('user.disable-user-success'),
             ], 200);
         }
 
@@ -187,12 +182,11 @@ class UserController extends AdminController
 
     public function enable(Request $request, User $user)
     {
-        // Hành động này không thể áp dụng với bản thân người đang đăng nhập
         if ($user->isSelf()) {
             if ($request->ajax()) {
                 return response()->json([
-                    'title' =>  'Lỗi',
-                    'message'   =>  'Bạn không thể thực hiện thao tác này với chính mình'
+                    'title' =>  trans('cms.error'),
+                    'message'   =>  trans('can-not-apply-yourself'),
                 ], 422);
             }
 
@@ -203,8 +197,8 @@ class UserController extends AdminController
 
         if ($request->ajax()) {
             return response()->json([
-                'title'        =>    'Thành công',
-                'message'    =>    'Đã kích hoạt thành viên',
+                'title'        =>    trans('cms.success'),
+                'message'    =>    trans('user.enable-user-success'),
             ], 200);
         }
         
@@ -213,12 +207,11 @@ class UserController extends AdminController
 
     public function destroy(Request $request, User $user)
     {
-        // Hành động này không thể áp dụng với bản thân người đang đăng nhập
         if ($user->isSelf()) {
             if ($request->ajax()) {
                 return response()->json([
-                    'title' =>  'Lỗi',
-                    'message'   =>  'Bạn không thể thực hiện thao tác này với chính mình'
+                    'title' =>  trans('cms.error'),
+                    'message'   =>  trans('can-not-apply-yourself'),
                 ], 402);
             }
 
@@ -229,8 +222,8 @@ class UserController extends AdminController
 
         if ($request->ajax()) {
             return response()->json([
-                'title'        =>    'Thành công',
-                'message'    =>    'Đã xóa thành viên',
+                'title'        =>    trans('cms.success'),
+                'message'    =>    trans('user.destroy-user-success'),
             ], 200);
         }
         

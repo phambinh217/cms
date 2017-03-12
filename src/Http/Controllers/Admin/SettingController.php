@@ -1,6 +1,6 @@
 <?php
 
-namespace Phambinh\Cms\Http\Controllers\Admin;
+namespace Packages\Cms\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Validator;
@@ -9,8 +9,6 @@ class SettingController extends AdminController
 {
     public function general()
     {
-        \Metatag::set('title', 'Cài đặt chung');
-
         $this->data['company_name'] = setting('company-name');
         $this->data['company_address'] = setting('company-address');
         $this->data['company_phone'] = setting('company-phone');
@@ -21,7 +19,9 @@ class SettingController extends AdminController
         $this->data['default_thumbnail'] = setting('default-thumbnail', upload_url('no-thumbnail.png'));
         $this->data['default_avatar'] = setting('default-avatar', upload_url('no-avatar.png'));
         $this->data['logo'] = setting('logo', url('logo.png'));
+        $this->data['language'] = setting('language', config('app.locale'));
 
+        \Metatag::set('title', trans('setting.general-setting'));
         return view('Cms::admin.setting.general', $this->data);
     }
 
@@ -38,6 +38,7 @@ class SettingController extends AdminController
             'logo' => '',
             'default_thumbnail' => '',
             'default_avatar' => '',
+            'language' => \Language::rules(),
         ]);
 
         setting()->sync('company-name', $request->input('company_name'));
@@ -51,11 +52,12 @@ class SettingController extends AdminController
         setting()->sync('logo', $request->input('logo'));
         setting()->sync('default-avatar', $request->input('default_avatar'));
         setting()->sync('default-thumbnail', $request->input('default_thumbnail'));
+        setting()->sync('language', $request->input('language'));
 
         if ($request->ajax()) {
             return response()->json([
-                'title' => 'Thành công',
-                'message' => 'Đã lưu cài đặt',
+                'title' => trans('cms.success'),
+                'message' => trans('setting.update-setting-success'),
             ]);
         }
 

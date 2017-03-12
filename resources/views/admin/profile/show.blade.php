@@ -1,15 +1,14 @@
 @extends('Cms::layouts.default', [
     'active_admin_menu' => ['profile', 'profile.info'],
     'breadcrumbs'   =>  [
-        'title' =>  ['Cá nhân', 'Thông tin cá nhân'],
+        'title' =>  [trans('user.profile'), trans('user.profile-info')],
         'url'   =>  [
-            admin_url('profile'),
-            admin_url('profile'),
+            route('admin.profile.show')
         ],
     ],
 ])
 
-@section('page_title', 'Trang cá nhân')
+@section('page_title', trans('user.profile'))
 
 @section('content')
 
@@ -24,18 +23,18 @@
                     <div class="profile-usertitle-job"> {{ $user->role()->first()->name }} </div>
                 </div>
                 <div class="profile-userbuttons">
-                    <button onclick="event.preventDefault();document.getElementById('logout-form').submit();" type="button" class="btn btn-circle red btn-sm">Đăng xuất</button>
+                    <button onclick="event.preventDefault();document.getElementById('logout-form').submit();" type="button" class="btn btn-circle red btn-sm">@lang('user.logout')</button>
                 </div>
                 <div class="profile-usermenu">
                     <ul class="nav">
                         <li>
                             <a href="{{ route('admin.profile.show') }}">
-                                <i class="icon-info"></i> Thông tin cá nhân
+                                <i class="icon-info"></i> @lang('user.profile-info')
                             </a>
                         </li>
                         <li>
                             <a href="{{ route('admin.profile.change-password') }}">
-                                <i class="icon-key"></i> Đổi mật khẩu
+                                <i class="icon-key"></i> @lang('user.change-password')
                             </a>
                         </li>
                     </ul>
@@ -44,7 +43,7 @@
             <div class="portlet light bordered">
                 <div class="portlet-title">
                     <div class="caption">
-                        <span class="caption-subject bold">Về {{ $user->full_name }}</span>
+                        <span class="caption-subject bold">@lang('user.about') {{ $user->full_name }}</span>
                     </div>
                     <div class="tools">
                         <a href="javascript:;" class="collapse"> </a>
@@ -83,86 +82,84 @@
                             <div class="tab-default">
                                 <ul class="nav nav-tabs">
                                     <li class="active">
-                                        <a href="#tab_1_1" data-toggle="tab">Thông tin cá nhân</a>
+                                        <a href="#tab_1_1" data-toggle="tab">@lang('user.profile-info')</a>
                                     </li>
                                     <li>
-                                        <a href="#tab_1_2" data-toggle="tab">Đổi ảnh đại diện</a>
+                                        <a href="#tab_1_2" data-toggle="tab">@lang('user.change-avatar')</a>
                                     </li>
                                     <li>
-                                        <a href="#tab_1_3" data-toggle="tab">API Token</a>
+                                        <a href="#tab_1_3" data-toggle="tab">@lang('user.change-api-token')</a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                         <div class="portlet-body form">
-                            <form method="post" class="form-horizontal form-bordered form-row-stripped ajax-form">
-                                <input type="hidden" name="_method" value="PUT" />
-                                {{ csrf_field() }} 
+                            {!! Form::ajax(['method' => 'PUT', 'class' => 'form-horizontal form-bordered form-row-stripped']) !!}
                                 <div class="form-body">
                                     <div class="tab-content">
                                         <div class="tab-pane active" id="tab_1_1">
                                             <div class="form-group">
-                                                <label class="control-label col-sm-3">Họ và tên đệm</label>
+                                                <label class="control-label col-sm-3">@lang('user.lastname')</label>
                                                 <div class="col-sm-9">
                                                     <input name="user[last_name]" value="{{ $user->last_name }}" type="text" placeholder="" class="form-control" />
                                                 </div>
                                             </div> 
                                             <div class="form-group">
-                                                <label class="control-label col-sm-3">Tên</label>
+                                                <label class="control-label col-sm-3">@lang('user.firstname')</label>
                                                 <div class="col-sm-9">
                                                     <input name="user[first_name]" value="{{ $user->first_name }}" type="text" placeholder="" class="form-control" />
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-sm-3">Số điện thoại</label>
+                                                <label class="control-label col-sm-3">@lang('user.phone-number')</label>
                                                 <div class="col-sm-9">
                                                     <input name="user[phone]" value="{{ $user->phone }}" type="text" placeholder="" class="form-control" />
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-sm-3">Email</label>
+                                                <label class="control-label col-sm-3">@lang('user.email')</label>
                                                 <div class="col-sm-9">
                                                     <input name="user[email]" value="{{ $user->email }}" type="text" placeholder="" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-sm-3 pull-left">Ngày sinh</label>
+                                                <label class="control-label col-sm-3 pull-left">@lang('user.birth')</label>
                                                 <div class="col-sm-7">
-                                                    <input value="{{ changeFormatDate($user->birth, 'Y-m-d', 'd-m-Y') }}" name="user[birth]" type="text" class="form-control" placeholder="Ví dụ: 21-07-1996">
+                                                    <input value="{{ $user->birth->format('d-m-Y') }}" name="user[birth]" type="text" class="form-control" placeholder="Ví dụ: 21-07-1996">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-sm-3">Công việc hiện tại</label>
+                                                <label class="control-label col-sm-3">@lang('user.job')</label>
                                                 <div class="col-sm-9">
                                                     <input name="user[job]" value="{{ $user->job }}" type="text" placeholder="" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-sm-3">Địa chỉ</label>
+                                                <label class="control-label col-sm-3">@lang('user.address')</label>
                                                 <div class="col-sm-9">
                                                     <textarea name="user[address]" class="form-control" rows="3" placeholder="">{{ $user->address }}</textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-sm-3">Giới thiệu</label>
+                                                <label class="control-label col-sm-3">@lang('user.about')</label>
                                                 <div class="col-sm-9">
                                                     <textarea name="user[about]" class="form-control" rows="3" placeholder="">{{ $user->about }}</textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-sm-3">Facebook</label>
+                                                <label class="control-label col-sm-3">@lang('user.facebook')</label>
                                                 <div class="col-sm-9">
                                                     <input name="user[facebook]" value="{{ $user->facebook }}" type="text" placeholder="fb.com/xxx" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-sm-3">Google plus</label>
+                                                <label class="control-label col-sm-3">@lang('user.google-plus')</label>
                                                 <div class="col-sm-9">
                                                     <input name="user[google_plus]" value="{{ $user->google_plus }}" type="text" placeholder="" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label class="control-label col-sm-3">Website Url</label>
+                                                <label class="control-label col-sm-3">@lang('user.website')</label>
                                                 <div class="col-sm-9">
                                                     <input name="user[website]" value="{{ $user->website }}" type="text" placeholder="google.com" class="form-control">
                                                 </div>
@@ -170,31 +167,27 @@
                                         </div>
                                         <div class="tab-pane" id="tab_1_2">
                                             <div class="form-group media-box-group">
-                                                <label class="control-label col-md-3">Tải lên ảnh đại diện</label>
+                                                <label class="control-label col-md-3">@lang('user.upload-avatar')</label>
                                                 <div class="col-sm-9">
-                                                    @include('Cms::components.form-chose-media', [
-                                                        'name'              => 'user[avatar]',
-                                                        'value'             => old('user.avatar', $user->avatar),
-                                                        'url_image_preview' => old('user.avatar', thumbnail_url($user->avatar, ['width' => '100', 'height' => '100']))
-                                                    ])
+                                                    {!! Form::btnMediaBox('user[avatar]', $user->avatar, thumbnail_url($user->avatar, ['width' => '100', 'height' => '100'])) !!}
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="tab-pane" id="tab_1_3">
                                             <div class="form-group">
-                                                <label class="control-label col-sm-3">Api Token</label>
+                                                <label class="control-label col-sm-3">@lang('user.api-token')</label>
                                                 <div class="col-sm-9">
                                                     <div class="input-group">
                                                         <input name="user[api_token]" readonly value="{{ $user->api_token }}" type="password" placeholder="" class="form-control" />
                                                         <span class="input-group-btn">
                                                             <button id="gen-api-token" class="btn btn-success" type="button">
-                                                                <i class="fa fa-undo"></i> Thay đổi
+                                                                <i class="fa fa-undo"></i> @lang('cms.change')
                                                             </button>
                                                         </span>
                                                     </div>
                                                     <label class="mt-checkbox mt-checkbox-outline"> 
                                                         <input type="checkbox" id="view-api-token" />
-                                                        Hiển thị mã
+                                                        @lang('cms.display')
                                                     </label>
                                                 </div>
                                             </div>
@@ -204,13 +197,11 @@
                                 <div class="form-actions util-btn-margin-bottom-5">
                                     <div class="row">
                                         <div class="col-md-offset-3 col-md-9">
-                                            <button type="submit" class="btn btn-primary full-width-xs">
-                                                <i class="fa fa-check"></i> Lưu thay đổi
-                                            </button>
+                                            {!! Form::btnSaveCancel() !!}
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+                            {!! Form::close() !!}
                         </div>
                     </div>
                 </div>
@@ -220,14 +211,7 @@
 </div>
 @endsection
 
-@push('css')
-    <link href="{{ asset_url('admin', 'global/plugins/bootstrap-toastr/toastr.min.css')}}" rel="stylesheet" type="text/css" />
-    <link href="{{ asset_url('admin', 'pages/css/profile.min.css')}}" rel="stylesheet" type="text/css" />
-@endpush
-
 @push('js_footer')
-	<script type="text/javascript" src="{{ asset_url('admin', 'global/plugins/jquery-form/jquery.form.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset_url('admin', 'global/plugins/bootstrap-toastr/toastr.min.js') }}"></script>
     <script type="text/javascript">
         $(function(){
             $('#view-api-token').change(function(){

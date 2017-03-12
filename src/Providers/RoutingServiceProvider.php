@@ -1,6 +1,6 @@
 <?php 
 
-namespace Phambinh\Cms\Providers;
+namespace Packages\Cms\Providers;
 
 use Illuminate\Support\Facades\Route;
 use App\Providers\RouteServiceProvider as ServiceProvider;

@@ -1,8 +1,8 @@
 <?php 
 
-namespace Phambinh\Cms\Services;
+namespace Packages\Cms\Services;
 
-use Phambinh\Cms\Support\Abstracts\HookEvent;
+use Packages\Cms\Support\Abstracts\HookEvent;
 
 class Action extends HookEvent
 {

@@ -6,13 +6,13 @@
  * to use, you have to uncommnet it
  * @author: DummyAuthor
  * @version: DummyVersion
- * @package: PhambinhCMS
+ * @package: PackagesCMS
  */
 
-// Route::group(['module' => 'DummyName', 'namespace' => 'DummyNamespace\Http\Controllers', 'middleware' => ['web'], 'prefix' => 'DummyAlias'], function() {
+// Route::group(['packages' => 'DummyName', 'namespace' => 'DummyNamespace\Http\Controllers', 'middleware' => ['web'], 'prefix' => 'DummyAlias'], function() {
 
 // });
 
-// Route::group(['module' => 'DummyName', 'namespace' => 'DummyNamespace\Http\Controllers\Admin', 'middleware' => ['web'], 'prefix' => 'admin/DummyAlias'], function() {
+// Route::group(['packages' => 'DummyName', 'namespace' => 'DummyNamespace\Http\Controllers\Admin', 'middleware' => ['web'], 'prefix' => 'admin/DummyAlias'], function() {
 
 // });

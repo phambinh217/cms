@@ -1,6 +1,6 @@
 <?php
 
-namespace Phambinh\Cms\Http\Controllers;
+namespace Packages\Cms\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 
@@ -17,10 +17,9 @@ class AppController extends Controller
         \Metatag::set('title', setting('company-name'));
         \Metatag::set('_base_url', url('/'));
 
-        // Gọi action khởi chạy app
-        do_action('app.init');
+        \App::setLocale(setting('language', config('app.locale')));
 
-        // Gọi action đóng app
+        do_action('app.init');
         do_action('app.destroy');
     }
 }
