@@ -1,6 +1,6 @@
 <?php
 
-Route::group(['namespace' => 'Packages\Cms\Http\Controllers\Admin', 'middleware' => ['web'], 'prefix' => 'admin'], function () {
+Route::group(['namespace' => 'Phambinh\Cms\Http\Controllers\Admin', 'middleware' => ['web'], 'prefix' => 'admin'], function () {
     Route::get('/', function () {
         return redirect()->route('admin.dashboard');
     })->name('admin');
@@ -51,15 +51,15 @@ Route::group(['namespace' => 'Packages\Cms\Http\Controllers\Admin', 'middleware'
     Route::put('setting/general', 'SettingController@generalUpdate')->name('admin.setting.general.update')->middleware('can:admin.setting.general');
 });
 
-Route::group(['namespace' => 'Packages\Cms\Http\Controllers\Api', 'middleware' => ['web'], 'prefix' => 'api/v1'], function () {
+Route::group(['namespace' => 'Phambinh\Cms\Http\Controllers\Api', 'middleware' => ['web'], 'prefix' => 'api/v1'], function () {
     Route::resource('user', 'UserController');
     Route::get('gen-api-token', 'UserController@genApiToken')->name('api.v1.user.gen-api-token');
 });
 
 
 Route::get('test/user', function () {
-    $filter = \Packages\Cms\User::getRequestFilter();
-    $users = \Packages\Cms\User::applyFilter($filter)->toSql();
+    $filter = \Phambinh\Cms\User::getRequestFilter();
+    $users = \Phambinh\Cms\User::applyFilter($filter)->toSql();
     dd($users);
     return view('welcome');
 });

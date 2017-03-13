@@ -209,7 +209,7 @@
 					@lang('user.role') <span class="required">*</span>
 				</label>
 				<div class="col-sm-7">
-					{!! Form::select('user[role_id]', Packages\Cms\Role::get()->mapWithKeys(function ($item) {
+					{!! Form::select('user[role_id]', Phambinh\Cms\Role::get()->mapWithKeys(function ($item) {
 						return [$item->id => $item->name];
 					}), isset($user_id) ? $user->role_id : NULL, ['class' => 'form-control width-auto', 'placeholder' => '']) !!}
 				</div>
@@ -220,7 +220,7 @@
 					@lang('user.status') <span class="required">*</span>
 				</label>
 				<div class="col-sm-7">
-					{!! Form::select('user[status]', \Packages\Cms\User::statusable()->mapWithKeys(function ($item) {
+					{!! Form::select('user[status]', \Phambinh\Cms\User::statusable()->mapWithKeys(function ($item) {
 						return [$item['slug'] => $item['name']];
 					})->all(), $user->status_slug, ['class' => 'form-control width-auto', 'placeholder' => '']) !!}
 				</div>

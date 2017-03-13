@@ -2,7 +2,7 @@
 
 namespace DummyNamespace;
 
-use Packages\Cms\Support\Abstracts\Widget;
+use Phambinh\Cms\Support\Abstracts\Widget;
 
 class DummyClass extends Widget
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Packages\Cms\Console\Generators;
+namespace Phambinh\Cms\Console\Generators;
 
-use Packages\Cms\Support\Abstracts\Generator as AbstractGenerator;
+use Phambinh\Cms\Support\Abstracts\Generator as AbstractGenerator;
 
 class MakeCommand extends AbstractGenerator
 {

@@ -1,9 +1,9 @@
 <?php
 
-namespace Packages\Cms;
+namespace Phambinh\Cms;
 
 use Illuminate\Database\Eloquent\Model;
-use Packages\Cms\Support\Traits\Filter;
+use Phambinh\Cms\Support\Traits\Filter;
 
 class Setting extends Model
 {

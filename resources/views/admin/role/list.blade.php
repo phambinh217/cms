@@ -29,16 +29,16 @@
 				{!! Form::icheck(null, null, ['class' => 'check-all']) !!}
 			</th>
 			<th class="text-center hidden-xs">
-				{!! \Packages\Cms\Role::linkSort(trans('role.id'), 'id') !!}
+				{!! \Phambinh\Cms\Role::linkSort(trans('role.id'), 'id') !!}
 			</th>
 			<th>
-				{!! \Packages\Cms\Role::linkSort(trans('role.name'), 'name') !!}
+				{!! \Phambinh\Cms\Role::linkSort(trans('role.name'), 'name') !!}
 			</th>
 			<th class="text-center hidden-xs">
-				{!! \Packages\Cms\Role::linkSort(trans('role.total-user'), 'total_user') !!}
+				{!! \Phambinh\Cms\Role::linkSort(trans('role.total-user'), 'total_user') !!}
 			</th>
 			<th class="hidden-xs">
-				{!! \Packages\Cms\Role::linkSort(trans('role.date-update'), 'updated_at') !!}
+				{!! \Phambinh\Cms\Role::linkSort(trans('role.date-update'), 'updated_at') !!}
 			</th>
 			<th></th>
 		@endslot

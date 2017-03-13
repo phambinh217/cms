@@ -1,9 +1,9 @@
 <?php
 
-namespace Packages\Cms;
+namespace Phambinh\Cms;
 
 use Illuminate\Database\Eloquent\Model;
-use Packages\Cms\Support\Traits\Filter;
+use Phambinh\Cms\Support\Traits\Filter;
 
 class Permission extends Model
 {
@@ -20,6 +20,6 @@ class Permission extends Model
 
     public function role()
     {
-        return $this->beLongsTo('Packages\Cms\Role');
+        return $this->beLongsTo('Phambinh\Cms\Role');
     }
 }

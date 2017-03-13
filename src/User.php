@@ -1,13 +1,13 @@
 <?php
 
-namespace Packages\Cms;
+namespace Phambinh\Cms;
 
 use App\User as AppUser;
 use Carbon\Carbon;
-use Packages\Cms\Support\Traits\Filter;
-use Packages\Cms\Support\Traits\Status;
-use Packages\Cms\Support\Traits\FullName;
-use Packages\Cms\Support\Traits\Avatar;
+use Phambinh\Cms\Support\Traits\Filter;
+use Phambinh\Cms\Support\Traits\Status;
+use Phambinh\Cms\Support\Traits\FullName;
+use Phambinh\Cms\Support\Traits\Avatar;
 
 class User extends AppUser
 {
@@ -80,17 +80,17 @@ class User extends AppUser
 
     public function role()
     {
-        return $this->beLongsTo('Packages\Cms\Role');
+        return $this->beLongsTo('Phambinh\Cms\Role');
     }
 
     public function inbox()
     {
-        return $this->hasMany('Packages\Cms\Mail', 'receiver_id');
+        return $this->hasMany('Phambinh\Cms\Mail', 'receiver_id');
     }
 
     public function outbox()
     {
-        return $this->hasMany('Packages\Cms\Mail', 'sender_id');
+        return $this->hasMany('Phambinh\Cms\Mail', 'sender_id');
     }
 
     public function scopeApplyFilter($query, $args = [])

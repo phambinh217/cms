@@ -1,12 +1,12 @@
 <?php
 
-namespace Packages\Cms\Http\Controllers\Admin;
+namespace Phambinh\Cms\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use Validator;
-use Packages\Cms\User;
-use Packages\Cms\Role;
-use Packages\Cms\Permission;
+use Phambinh\Cms\User;
+use Phambinh\Cms\Role;
+use Phambinh\Cms\Permission;
 
 class RoleController extends AdminController
 {

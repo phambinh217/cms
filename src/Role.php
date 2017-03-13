@@ -1,10 +1,10 @@
 <?php
 
-namespace Packages\Cms;
+namespace Phambinh\Cms;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use Packages\Cms\Support\Traits\Filter;
+use Phambinh\Cms\Support\Traits\Filter;
 
 class Role extends Model
 {
@@ -38,12 +38,12 @@ class Role extends Model
 
     public function users()
     {
-        return $this->hasMany('Packages\Cms\User');
+        return $this->hasMany('Phambinh\Cms\User');
     }
 
     public function permissions()
     {
-        return $this->hasMany('Packages\Cms\Permission');
+        return $this->hasMany('Phambinh\Cms\Permission');
     }
     
     public function scopeApplyFilter($query, $args = [])

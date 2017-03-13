@@ -1,18 +1,21 @@
 <?php
 
-namespace Packages\Cms\Support\Traits;
+namespace Phambinh\Cms\Support\Traits;
 
 trait Slug
 {
-    protected $slugSource = 'title';
-
     public function setSlugAttribute($value)
     {
-        $slug = 'slug';
-        if ($value) {
-            $this->attributes[$slug] = $value;
+        if (property_exists($this, 'slugSource')) {
+            $slug = $this->slugSource;
         } else {
-            $this->attributes[$slug] = str_slug($this->{$this->slugSource});
+            $slug = 'title';
+        }
+
+        if ($value) {
+            $this->attributes['slug'] = $value;
+        } else {
+            $this->attributes['slug'] = str_slug($this->$slug);
         }
     }
 }

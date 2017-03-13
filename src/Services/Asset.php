@@ -1,8 +1,8 @@
 <?php
 
-namespace Packages\Cms\Services;
+namespace Phambinh\Cms\Services;
 
-use Packages\Cms\Support\AssetLocation;
+use Phambinh\Cms\Support\AssetLocation;
 use Illuminate\Support\Collection;
 
 class Asset

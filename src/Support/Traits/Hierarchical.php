@@ -1,6 +1,6 @@
 <?php
 
-namespace Packages\Cms\Support\Traits;
+namespace Phambinh\Cms\Support\Traits;
 
 trait Hierarchical
 {

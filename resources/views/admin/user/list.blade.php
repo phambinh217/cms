@@ -40,7 +40,7 @@
 					<div class="form-group">
 						<label class="control-label col-md-3">@lang('user.role')</label>
 						<div class="col-md-9">
-							{!! Form::select('role_id', Packages\Cms\Role::get()->mapWithKeys(function ($item) {
+							{!! Form::select('role_id', Phambinh\Cms\Role::get()->mapWithKeys(function ($item) {
 								return [$item->id => $item->name];
 							}), isset($filter['role_id']) ? $filter['role_id'] : NULL, ['class' => 'form-control', 'placeholder' => '']) !!}
 						</div>
@@ -50,7 +50,7 @@
 					<div class="form-group">
 						<label class="control-label col-md-3">@lang('user.status')</label>
 						<div class="col-md-9">
-							{!! Form::select('status', \Packages\Cms\User::statusable()->mapWithKeys(function ($item) {
+							{!! Form::select('status', \Phambinh\Cms\User::statusable()->mapWithKeys(function ($item) {
 								return [$item['slug'] => $item['name']];
 							})->all(), isset($filter['status']) ? $filter['status'] : NULL, ['class' => 'form-control', 'placeholder' => '']) !!}
 						</div>
@@ -64,13 +64,13 @@
 				{!! Form::icheck(null, null, ['class' => 'check-all']) !!}
 			</th>
 			<th class="text-center hidden-xs">
-				{!! \Packages\Cms\User::linkSort('ID', 'id') !!}
+				{!! \Phambinh\Cms\User::linkSort('ID', 'id') !!}
 			</th>
 			<th>
-				{!! \Packages\Cms\User::linkSort(trans('user.firstname'), 'first_name') !!}
+				{!! \Phambinh\Cms\User::linkSort(trans('user.firstname'), 'first_name') !!}
 			</th>
 			<th class="hidden-xs">
-				{!! \Packages\Cms\User::linkSort(trans('user.date_update'), 'updated_at') !!}
+				{!! \Phambinh\Cms\User::linkSort(trans('user.date_update'), 'updated_at') !!}
 			</th>
 			<th></th>
 		@endslot

@@ -7,11 +7,11 @@
  * @version: 1.0
  * @package: PackagesCMS
  */
-namespace Packages\Cms\Providers;
+namespace Phambinh\Cms\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
-use Packages\Cms\Validator\HashRule;
+use Phambinh\Cms\Validator\HashRule;
 
 class ModuleServiceProvider extends ServiceProvider
 {
