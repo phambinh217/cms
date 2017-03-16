@@ -33,7 +33,7 @@
     				<td>
     					<div class="media">
 			                <div class="pull-left">
-			                    <img class="" src="{{ $module_item->icon }}" alt="" style="max-width: 70px" />
+			                    
 			                </div>
 
 			                <div class="media-body">
@@ -46,7 +46,7 @@
 				                        	</a>
 			                        	@endif
 			                        </li>
-			                        <li>@lang('module.author'): {{ $module_item->author or trans('cms.empty') }}</li>
+			                        <li>@lang('module.author'): {{ $module_item->authors[0]['name'] or trans('cms.empty') }}</li>
 			                        <li>@lang('module.version'): {{ $module_item->version or trans('cms.empty') }}</li>
 			                    </ul>
 			                </div>

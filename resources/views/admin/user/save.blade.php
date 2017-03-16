@@ -131,7 +131,7 @@
 			<div class="form-group">
 				<label class="control-label col-sm-3 pull-left">@lang('user.birth')</label>
 				<div class="col-sm-7">
-					<input value="{{ isset($user_id) ? changeFormatDate($user->birth, 'Y-m-d', 'd-m-Y') : '' }}" name="user[birth]" type="text" class="form-control" placeholder="Ví dụ: 21-07-1996">
+					<input value="{{ isset($user_id) ? $user->birth->format('d-m-Y') : '' }}" name="user[birth]" type="text" class="form-control" placeholder="Ví dụ: 21-07-1996">
 				</div>
 			</div>
 			<div class="form-group">

@@ -57,7 +57,7 @@
         </div>
     </div>
     <div class="page-footer">
-    <div class="page-footer-inner"> 2016 - {{ date('Y') }} &copy; {{ setting('company-name') }}
+        <div class="page-footer-inner"> 2016 - {{ date('Y') }} &copy; Phambinhcms
             <a href="http://phambinh.net"" target="_blank">Phambinh.net</a>
         </div>
         <div class="scroll-to-top">

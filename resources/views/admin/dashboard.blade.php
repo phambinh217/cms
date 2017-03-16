@@ -12,6 +12,7 @@
 @section('page_sub_title', trans('cms.overview-and-statistic'))
 
 @section('content')
+	
 @endsection
 
 @push('css')

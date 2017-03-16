@@ -20,10 +20,10 @@ class ElfinderController extends AdminController
 
     public function connector()
     {
-        $roots = config('file.roots', []);
+        $roots = config('cms.roots', []);
 
         if (empty($roots)) {
-            $dirs = (array) config('file.upload_path', [public_path('uploads')]);
+            $dirs = (array) config('cms.upload_path', [public_path('storage')]);
 
             if (!is_dir($dirs[0])) {
                 mkdir($dirs[0], 0777, true);

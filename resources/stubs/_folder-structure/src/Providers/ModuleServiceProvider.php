@@ -45,7 +45,7 @@ class ModuleServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        \Module::registerFromJsonFile('DummyAlias', __DIR__ .'/../../module.json');
+        \Module::registerFromComposerJson(__DIR__.'/../..');
         $this->registerAdminMenu();
     }
 

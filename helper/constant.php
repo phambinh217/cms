@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 if (! defined('DF_NORMAL')) {
     define('DF_NORMAL', 'd-m-Y');

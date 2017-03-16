@@ -1,12 +1,5 @@
 <?php
-/**
- * ModuleAlias: setting
- * ModuleName: setting
- * Description: This is the first file run of module. You can assign bootstrap or register module Services
- * @author: noname
- * @version: 1.0
- * @package: PackagesCMS
- */
+
 namespace Phambinh\Cms\Providers;
 
 use Illuminate\Support\ServiceProvider;
@@ -33,7 +26,7 @@ class ModuleServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__.'/../../publishes/resources' => resource_path(),
         ], 'resource');
-        
+
         if (!config('cms.providers')) {
             return;
         }
@@ -79,13 +72,13 @@ class ModuleServiceProvider extends ServiceProvider
             }
         }
 
-        if (config('cms.consoles')) {
-            foreach (config('cms.consoles') as $slug => $class) {
+        if (config('cms.commands')) {
+            foreach (config('cms.commands') as $slug => $class) {
                 $this->commands($class);
             }
         }
         
-        \Module::registerFromJsonFile('cms', __DIR__ .'/../../module.json');
+        \Module::registerFromComposerJson(__DIR__.'/../..');
         
         $this->registerAdminMenu();
         $this->registerWidget();

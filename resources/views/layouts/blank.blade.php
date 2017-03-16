@@ -31,7 +31,7 @@
         <link rel="shortcut icon" href="{{ url('favicon.ico') }}" />
         @stack('blank.css')
     </head>
-    <body class="page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo page-md">
+    <body class="{{ $body_class or 'page-container-bg-solid page-header-fixed page-sidebar-closed-hide-logo page-md' }}">
         @yield('blank.main')
         @stack('blank.html_footer')
         <!--[if lt IE 9]>

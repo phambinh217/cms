@@ -10,10 +10,9 @@ class UserController extends ApiController
 {
     public function index()
     {
-        $User = new User();
-        $filter = $User->getRequestFilter();
-        $res = $User
-            ->distinct()
+        $filter = User::getRequestFilter();
+
+        $res = User::distinct()
             ->applyFilter($filter)
             ->select('users.*')
             ->get();

@@ -10,6 +10,6 @@ trait Avatar
             return $value;
         }
         
-        return setting('default-avatar', url('uploads/no-avatar.png'));
+        return setting('default-avatar', upload_url('no-avatar.png'));
     }
 }

@@ -1,8 +1,6 @@
 {
     "name": "phambinh/cms",
     "description": "Phambinhcms base content manage system for laravel",
-    "homepage": "https://github.com/phambinh217/cms",
-    "license": "MIT",
     "authors": [
         {
             "name": "phambinh217",
@@ -20,5 +18,12 @@
             "Phambinh\\Cms\\": "src/"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "extra": {
+        "phambinhcms-module": {
+            "type": "module",
+            "alias": "cms",
+            "name": "Cms"
+        }
+    }
 }

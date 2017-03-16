@@ -2,16 +2,20 @@
 
 return [
     'dashboard-view-path'       => 'Cms::admin.dashboard',
-    'upload_path'               => public_path('uploads'),
-    'thumb_path'                => public_path('uploads/thumbs'),
+    'upload_path'               => public_path('storage'),
+    'thumb_path'                => public_path('storage/thumbs'),
 
     'providers' => [
         \Ixudra\Curl\CurlServiceProvider::class,
         \Collective\Html\HtmlServiceProvider::class,
         \Intervention\Image\ImageServiceProvider::class,
+        \Phambinh\Cms\Providers\RoutingServiceProvider::class,
+
+        /**
+         * Packages providers
+         */
         \Phambinh\Appearance\Providers\ModuleServiceProvider::class,
         \Phambinh\Appearance\Providers\RoutingServiceProvider::class,
-        \Phambinh\Cms\Providers\RoutingServiceProvider::class,
         \Phambinh\News\Providers\ModuleServiceProvider::class,
         \Phambinh\News\Providers\RoutingServiceProvider::class,
         \Phambinh\Page\Providers\ModuleServiceProvider::class,
@@ -36,28 +40,23 @@ return [
         'AppController'     =>  \Phambinh\Cms\Http\Controllers\AppController::class,
         'ApiController'     =>  \Phambinh\Cms\Http\Controllers\ApiController::class,
         'Language'          =>  \Phambinh\Cms\Support\Facades\Language::class,
-        'Curl'              =>  \Ixudra\Curl\Facades\Curl::class,
-        'Menu'              =>  \Phambinh\Appearance\Support\Facades\Menu::class,
         'Action'            =>  \Phambinh\Cms\Support\Facades\Action::class,
         'Filter'            =>  \Phambinh\Cms\Support\Facades\Filter::class,
         'Metatag'           =>  \Phambinh\Cms\Support\Facades\Metatag::class,
         'Asset'             =>  \Phambinh\Cms\Support\Facades\Asset::class,
+        'Install'           =>  \Phambinh\CmsInstall\Support\Facades\Install::class,
+        'EnvReader'         =>  \Phambinh\CmsInstall\Support\Facades\EnvReader::class,
+        'Curl'              =>  \Ixudra\Curl\Facades\Curl::class,
         'Image'             =>  \Intervention\Image\Facades\Image::class,
+
+        /**
+         * Packages alias
+         */
+        'Menu'              =>  \Phambinh\Appearance\Support\Facades\Menu::class,
         'FbComment'         =>  \Phambinh\FbComment\Support\Facades\Comment::class,
     ],
 
-    'consoles' => [
-        \Phambinh\Cms\Console\Generators\MakeModule::class,
-        \Phambinh\Cms\Console\Generators\MakeProvider::class,
-        \Phambinh\Cms\Console\Generators\MakeController::class,
-        \Phambinh\Cms\Console\Generators\MakeMiddleware::class,
-        \Phambinh\Cms\Console\Generators\MakeRequest::class,
-        \Phambinh\Cms\Console\Generators\MakeModel::class,
-        \Phambinh\Cms\Console\Generators\MakeFacade::class,
-        \Phambinh\Cms\Console\Generators\MakeService::class,
-        \Phambinh\Cms\Console\Generators\MakeSupport::class,
-        \Phambinh\Cms\Console\Generators\MakeMigration::class,
-        \Phambinh\Cms\Console\Generators\MakeCommand::class,
-        \Phambinh\Cms\Console\Generators\MakeWidget::class,
+    'commands' => [
+        \Phambinh\CmsInstall\Console\Commands\CmsInstall::class,
     ],
 ];

@@ -225,11 +225,12 @@
             $('#gen-api-token').click(function(e){
                 e.preventDefault();
                 $.ajax({
-                    url: '{{ route('api.v1.user.gen-api-token') }}',
+                    url: '{{ route('api.user.gen-api-token') }}',
                     type: 'get',
                     dataType: 'json',
                     data: {
                         _token: csrfToken(),
+                        api_token: '{{ \Auth::user()->api_token }}',
                     },
                     success: function (res) {
                         $('input[name="user[api_token]"]').val(res.api_token);

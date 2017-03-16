@@ -16,7 +16,7 @@
 		$(function(){
 			var user = new findUser({
 				el: '.find-user',
-				url: '{{ api_url('v1/user') }}',
+				url: '{{ route('api.user.index') }}',
 				defaultAvatar: '{{ setting('default-avatar') }}',
 				placeholder: '@lang('cms.search')',
 			});

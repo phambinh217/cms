@@ -1,5 +1,5 @@
 @extends('Cms::layouts.default',[
-	'active_admin_menu' 	=> ['module-control', 'module-control.module'],
+	'active_admin_menu' 	=> ['module-control', 'module-control.theme'],
 	'breadcrumbs' 			=> [
 		'title'	=> [trans('module.manage-module'), trans('module.module-theme')],
 		'url'	=> [
@@ -33,7 +33,7 @@
     				<td>
     					<div class="media">
 			                <div class="pull-left">
-			                    <img class="" src="{{ $theme_item->icon }}" alt="" style="max-width: 70px" />
+			                    
 			                </div>
 
 			                <div class="media-body">
@@ -46,7 +46,7 @@
 				                        	</a>
 			                        	@endif
 			                        </li>
-			                        <li>@lang('module.author'): {{ $theme_item->author or trans('cms.empty') }}</li>
+			                        <li>@lang('module.author'): {{ $theme_item->authors[0]['name'] or trans('cms.empty') }}</li>
 			                        <li>@lang('module.version'): {{ $theme_item->version or trans('cms.empty') }}</li>
 			                    </ul>
 			                </div>

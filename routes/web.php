@@ -53,13 +53,4 @@ Route::group(['namespace' => 'Phambinh\Cms\Http\Controllers\Admin', 'middleware'
 
 Route::group(['namespace' => 'Phambinh\Cms\Http\Controllers\Api', 'middleware' => ['web'], 'prefix' => 'api/v1'], function () {
     Route::resource('user', 'UserController');
-    Route::get('gen-api-token', 'UserController@genApiToken')->name('api.v1.user.gen-api-token');
-});
-
-
-Route::get('test/user', function () {
-    $filter = \Phambinh\Cms\User::getRequestFilter();
-    $users = \Phambinh\Cms\User::applyFilter($filter)->toSql();
-    dd($users);
-    return view('welcome');
 });
