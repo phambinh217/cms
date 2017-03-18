@@ -39,12 +39,7 @@
 			                <div class="media-body">
 			                    <ul class="info unstyle-list">
 			                        <li class="name">
-			                        	<a href=""><strong>{{ title_case($theme_item->name) }}</strong></a>
-			                        	@if ($theme_item->checkUpdate())
-				                        	<a href="#" data-alias="{{ $theme_item->alias }}" class="label label-sm label-info update-module"> @lang('module.update')
-				                        		<i class="fa fa-undo"></i>
-				                        	</a>
-			                        	@endif
+			                        	<a href=""><strong>{{ title_case($theme_item->name) }}</strong></a>f
 			                        </li>
 			                        <li>@lang('module.author'): {{ $theme_item->authors[0]['name'] or trans('cms.empty') }}</li>
 			                        <li>@lang('module.version'): {{ $theme_item->version or trans('cms.empty') }}</li>
@@ -52,7 +47,7 @@
 			                </div>
 			            </div>
     				</td>
-    				<td style="min-width: 200px">{{ $theme_item->description }}</td>
+    				<td style="min-width: 200px">{{ $theme_item->description or '' }}</td>
 				</tr>
 			@endforeach
 		@endslot

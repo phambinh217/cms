@@ -40,11 +40,6 @@
 			                    <ul class="info unstyle-list">
 			                        <li class="name">
 			                        	<a href=""><strong>{{ title_case($module_item->name) }}</strong></a>
-			                        	@if ($module_item->checkUpdate())
-				                        	<a href="#" data-alias="{{ $module_item->alias }}" class="label label-sm label-info update-module"> @lang('module.update')
-				                        		<i class="fa fa-undo"></i>
-				                        	</a>
-			                        	@endif
 			                        </li>
 			                        <li>@lang('module.author'): {{ $module_item->authors[0]['name'] or trans('cms.empty') }}</li>
 			                        <li>@lang('module.version'): {{ $module_item->version or trans('cms.empty') }}</li>
@@ -52,7 +47,7 @@
 			                </div>
 			            </div>
     				</td>
-    				<td style="min-width: 200px">{{ $module_item->description }}</td>
+    				<td style="min-width: 200px">{{ $module_item->description or '' }}</td>
 				</tr>
 			@endforeach
 		@endslot
