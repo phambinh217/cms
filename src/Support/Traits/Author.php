@@ -2,18 +2,16 @@
 
 namespace Phambinh\Cms\Support\Traits;
 
+use Phambinh\Cms\User;
+
 trait Author
 {
-    public function setAuthorAttribute($value)
+    public function setAuthorIdAttribute($value)
     {
-        $author = 'author_id';
-
-        if ($value) {
-            $this->attributes[$author] = $value;
+        if (User::where('id', $id)->exists()) {
+            $this->attributes['author_id'] = $value;
         } else {
-            if (\Auth::check()) {
-                $this->attributes[$author] = \Auth::user()->id;
-            }
+            $this->attributes['author_id'] = User::first()->id;
         }
     }
 }

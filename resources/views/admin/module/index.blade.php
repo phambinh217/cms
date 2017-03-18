@@ -47,7 +47,7 @@
 			                </div>
 			            </div>
     				</td>
-    				<td style="min-width: 200px">{{ $module_item->description or '' }}</td>
+    				<td style="min-width: 200px">{{ $module_item->description or trans('cms.empty') }}</td>
 				</tr>
 			@endforeach
 		@endslot

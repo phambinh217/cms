@@ -39,7 +39,7 @@
 			                <div class="media-body">
 			                    <ul class="info unstyle-list">
 			                        <li class="name">
-			                        	<a href=""><strong>{{ title_case($theme_item->name) }}</strong></a>f
+			                        	<a href=""><strong>{{ title_case($theme_item->name) }}</strong></a>
 			                        </li>
 			                        <li>@lang('module.author'): {{ $theme_item->authors[0]['name'] or trans('cms.empty') }}</li>
 			                        <li>@lang('module.version'): {{ $theme_item->version or trans('cms.empty') }}</li>
@@ -47,7 +47,7 @@
 			                </div>
 			            </div>
     				</td>
-    				<td style="min-width: 200px">{{ $theme_item->description or '' }}</td>
+    				<td style="min-width: 200px">{{ $theme_item->description or trans('cms.empty') }}</td>
 				</tr>
 			@endforeach
 		@endslot
