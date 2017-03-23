@@ -77,5 +77,6 @@ return [
         \Phambinh\CmsDev\Console\Commands\MakePolicy::class,
         \Phambinh\CmsDev\Console\Commands\MakeProvider::class,
         \Phambinh\CmsDev\Console\Commands\MakeRequest::class,
+        \Phambinh\CmsDev\Console\Commands\MakeWidget::class,
     ],
 ];
