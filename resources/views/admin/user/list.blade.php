@@ -155,7 +155,7 @@
 	                            		@endcan
 
 	                            		@can('admin.user.destroy')
-	                            			<li><a data-function="destroy" data-method="delete" href="{{ route('admin.user.destroy', ['id' => $user_item->id]) }}"><i class="fa fa-times"></i> @lang('cms.delete')</a></li>
+	                            			<li><a data-function="destroy" data-method="delete" href="{{ route('admin.user.destroy', ['id' => $user_item->id]) }}"><i class="fa fa-times"></i> @lang('cms.destroy')</a></li>
 	                            		@endcan
 	                            	@endif
                             	@endif

@@ -27,7 +27,7 @@
         <link href="{{ asset_url('admin', 'global/css/plugins-md.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset_url('admin', 'layouts/layout4/css/layout.min.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset_url('admin', 'layouts/layout4/css/custom.min.css') }}" rel="stylesheet" type="text/css" />
-        <link href="{{ asset_url('admin', 'layouts/layout4/css/themes/green.css') }}" rel="stylesheet" type="text/css" />
+        <link href="{{ asset_url('admin', 'layouts/layout4/css/themes/green.min.css') }}" rel="stylesheet" type="text/css" />
         <link rel="shortcut icon" href="{{ url('favicon.ico') }}" />
         @stack('blank.css')
     </head>
